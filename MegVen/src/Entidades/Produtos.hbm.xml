@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/08/2015 21:06:41 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Produtos" table="produtos" catalog="megven" optimistic-lock="version">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="Codigo" />
+            <generator class="identity" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="Descricao" length="200" not-null="true" />
+        </property>
+        <property name="marca" type="string">
+            <column name="Marca" length="45" />
+        </property>
+        <set name="produtoestoques" table="produtoestoque" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Produtos_Codigo" not-null="true" />
+            </key>
+            <one-to-many class="Entidades.Produtoestoque" />
+        </set>
+    </class>
+</hibernate-mapping>

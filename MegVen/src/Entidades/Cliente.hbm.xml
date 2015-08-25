@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/08/2015 21:06:41 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Cliente" table="cliente" catalog="megven" optimistic-lock="version">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="Codigo" />
+            <generator class="increment" />
+        </id>
+        <property name="nome" type="string">
+            <column name="Nome" length="45" not-null="true" />
+        </property>
+        <property name="telefone" type="string">
+            <column name="Telefone" length="20" />
+        </property>
+        <property name="ceuluar" type="string">
+            <column name="Ceuluar" length="20" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="100" />
+        </property>
+        <set name="orcamentos" table="orcamento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Cliente_Codigo" not-null="true" />
+            </key>
+            <one-to-many class="Entidades.Orcamento" />
+        </set>
+    </class>
+</hibernate-mapping>

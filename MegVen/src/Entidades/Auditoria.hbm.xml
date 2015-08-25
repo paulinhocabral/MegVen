@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/08/2015 21:06:41 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entidades.Auditoria" table="auditoria" catalog="megven" optimistic-lock="version">
+        <id name="codigo" type="int">
+            <column name="codigo" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="usuario" class="Entidades.Usuario" fetch="select">
+            <column name="Usuario_Codigo" not-null="true" />
+        </many-to-one>
+        <property name="dataHora" type="timestamp">
+            <column name="dataHora" length="19" />
+        </property>
+        <property name="acao" type="string">
+            <column name="acao" length="256" />
+        </property>
+        <property name="valorAnterior" type="string">
+            <column name="valorAnterior" length="256" />
+        </property>
+        <property name="valorPosterior" type="string">
+            <column name="valorPosterior" length="256" />
+        </property>
+    </class>
+</hibernate-mapping>
