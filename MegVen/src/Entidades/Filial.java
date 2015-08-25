@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 24/08/2015 22:08:45 by Hibernate Tools 4.3.1
+// Generated 25/08/2015 19:25:23 by Hibernate Tools 4.3.1
 
 
 
@@ -9,7 +9,7 @@ package Entidades;
 public class Filial  implements java.io.Serializable {
 
 
-     private int codigo;
+     private Integer codigo;
      private Usuario usuario;
      private String nome;
      private String cidade;
@@ -17,18 +17,17 @@ public class Filial  implements java.io.Serializable {
     public Filial() {
     }
 
-    public Filial(int codigo, Usuario usuario, String nome, String cidade) {
-       this.codigo = codigo;
+    public Filial(Usuario usuario, String nome, String cidade) {
        this.usuario = usuario;
        this.nome = nome;
        this.cidade = cidade;
     }
    
-    public int getCodigo() {
+    public Integer getCodigo() {
         return this.codigo;
     }
     
-    public void setCodigo(int codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
     public Usuario getUsuario() {

@@ -16,6 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `auditoria`
+--
+
+DROP TABLE IF EXISTS `auditoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auditoria` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `dataHora` timestamp NULL DEFAULT NULL,
+  `acao` varchar(256) DEFAULT NULL,
+  `valorAnterior` varchar(256) DEFAULT NULL,
+  `valorPosterior` varchar(256) DEFAULT NULL,
+  `Usuario_Codigo` int(11) NOT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_Auditoria_Usuario1_idx` (`Usuario_Codigo`),
+  CONSTRAINT `fk_Auditoria_Usuario1` FOREIGN KEY (`Usuario_Codigo`) REFERENCES `usuario` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auditoria`
+--
+
+LOCK TABLES `auditoria` WRITE;
+/*!40000 ALTER TABLE `auditoria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auditoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cliente`
 --
 
@@ -29,7 +58,7 @@ CREATE TABLE `cliente` (
   `Ceuluar` varchar(20) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +67,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'teste','(23)4234-3222','(24)3234-2222','email'),(2,'teste','(13)1322-2222','(12)3123-2222','email'),(3,'teste','(51)1231-2141','(12)3123-1241','teste'),(4,'rwrwrwe','(12)3131-3131','(12)3131-3123','wwwrwer'),(5,'Fabricio','(12)3131-3112','(13)2123-1313','aehuaiheruaher'),(6,'teste','(23)4234-32  ','(24)3234-2   ','reverefr'),(7,'testando','(23)4234-32  ','(24)3234-2   ','reverefr');
+INSERT INTO `cliente` VALUES (1,'Teste','(11)1111-1111','(11)1111-1111','email');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +79,7 @@ DROP TABLE IF EXISTS `filial`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `filial` (
-  `Codigo` int(11) NOT NULL,
+  `Codigo` int(11) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(45) NOT NULL,
   `Cidade` varchar(45) NOT NULL,
   `Usuario_Codigo` int(11) NOT NULL,
@@ -78,7 +107,7 @@ DROP TABLE IF EXISTS `orcamento`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orcamento` (
   `Codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `DATA` date DEFAULT NULL,
+  `Data` date DEFAULT NULL,
   `Cliente_Codigo` int(11) NOT NULL,
   PRIMARY KEY (`Codigo`),
   KEY `fk_Orcamento_Cliente1_idx` (`Cliente_Codigo`),
@@ -103,14 +132,13 @@ DROP TABLE IF EXISTS `orcamento_produtoestoque`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orcamento_produtoestoque` (
-  `Orcamento_Codigo` int(11) NOT NULL,
   `ProdutoEstoque_Produtos_Codigo` int(11) NOT NULL,
   `ProdutoEstoque_CodigoEstoque` int(11) NOT NULL,
-  PRIMARY KEY (`Orcamento_Codigo`,`ProdutoEstoque_Produtos_Codigo`,`ProdutoEstoque_CodigoEstoque`),
-  KEY `fk_Orcamento_has_ProdutoEstoque_ProdutoEstoque1_idx` (`ProdutoEstoque_Produtos_Codigo`,`ProdutoEstoque_CodigoEstoque`),
-  KEY `fk_Orcamento_has_ProdutoEstoque_Orcamento1_idx` (`Orcamento_Codigo`),
-  CONSTRAINT `fk_Orcamento_has_ProdutoEstoque_Orcamento1` FOREIGN KEY (`Orcamento_Codigo`) REFERENCES `orcamento` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Orcamento_has_ProdutoEstoque_ProdutoEstoque1` FOREIGN KEY (`ProdutoEstoque_Produtos_Codigo`, `ProdutoEstoque_CodigoEstoque`) REFERENCES `produtoestoque` (`Produtos_Codigo`, `CodigoEstoque`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `Orcamento_Codigo` int(11) NOT NULL,
+  KEY `fk_Orcamento_ProdutoEstoque_ProdutoEstoque1_idx` (`ProdutoEstoque_Produtos_Codigo`,`ProdutoEstoque_CodigoEstoque`),
+  KEY `fk_Orcamento_ProdutoEstoque_Orcamento1_idx` (`Orcamento_Codigo`),
+  CONSTRAINT `fk_Orcamento_ProdutoEstoque_ProdutoEstoque1` FOREIGN KEY (`ProdutoEstoque_Produtos_Codigo`, `ProdutoEstoque_CodigoEstoque`) REFERENCES `produtoestoque` (`Produtos_Codigo`, `CodigoEstoque`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Orcamento_ProdutoEstoque_Orcamento1` FOREIGN KEY (`Orcamento_Codigo`) REFERENCES `orcamento` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -162,7 +190,6 @@ DROP TABLE IF EXISTS `produtos`;
 CREATE TABLE `produtos` (
   `Codigo` int(11) NOT NULL AUTO_INCREMENT,
   `Descricao` varchar(200) NOT NULL,
-  `Marca` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -191,7 +218,7 @@ CREATE TABLE `usuario` (
   `Ativo` tinyint(1) NOT NULL,
   `Telefone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`Codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +227,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Teste','ehruqheruwh',1,1,'(13)1312-3131'),(2,'teste','email',3,1,'(12)3131-3123'),(3,'teste 3','werwrwre',2,0,'(12)3131-3123');
+INSERT INTO `usuario` VALUES (1,'teste','email',1,1,'(22)2222-2222');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -213,4 +240,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-24 19:49:42
+-- Dump completed on 2015-08-25 19:27:28

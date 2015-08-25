@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 24/08/2015 22:08:45 by Hibernate Tools 4.3.1
+// Generated 25/08/2015 19:25:23 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -18,7 +18,7 @@ public class Produtoestoque  implements java.io.Serializable {
      private double valorVenda;
      private int qtd;
      private Date dtEntrada;
-     private Set orcamentos = new HashSet(0);
+     private Set orcamentoProdutoestoques = new HashSet(0);
 
     public Produtoestoque() {
     }
@@ -32,14 +32,14 @@ public class Produtoestoque  implements java.io.Serializable {
         this.qtd = qtd;
         this.dtEntrada = dtEntrada;
     }
-    public Produtoestoque(ProdutoestoqueId id, Produtos produtos, double custo, double valorVenda, int qtd, Date dtEntrada, Set orcamentos) {
+    public Produtoestoque(ProdutoestoqueId id, Produtos produtos, double custo, double valorVenda, int qtd, Date dtEntrada, Set orcamentoProdutoestoques) {
        this.id = id;
        this.produtos = produtos;
        this.custo = custo;
        this.valorVenda = valorVenda;
        this.qtd = qtd;
        this.dtEntrada = dtEntrada;
-       this.orcamentos = orcamentos;
+       this.orcamentoProdutoestoques = orcamentoProdutoestoques;
     }
    
     public ProdutoestoqueId getId() {
@@ -84,12 +84,12 @@ public class Produtoestoque  implements java.io.Serializable {
     public void setDtEntrada(Date dtEntrada) {
         this.dtEntrada = dtEntrada;
     }
-    public Set getOrcamentos() {
-        return this.orcamentos;
+    public Set getOrcamentoProdutoestoques() {
+        return this.orcamentoProdutoestoques;
     }
     
-    public void setOrcamentos(Set orcamentos) {
-        this.orcamentos = orcamentos;
+    public void setOrcamentoProdutoestoques(Set orcamentoProdutoestoques) {
+        this.orcamentoProdutoestoques = orcamentoProdutoestoques;
     }
 
 
