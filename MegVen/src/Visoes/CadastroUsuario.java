@@ -25,6 +25,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
      */
     public CadastroUsuario() {
         initComponents();
+        gdUsuarios.getColumnModel().getColumn(6).setMinWidth(0);        
+        gdUsuarios.getColumnModel().getColumn(6).setPreferredWidth(0);
+        gdUsuarios.getColumnModel().getColumn(6).setMaxWidth(0);
     }
     
     private void limpaTable() {
@@ -32,6 +35,16 @@ public class CadastroUsuario extends javax.swing.JFrame {
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
         }
+    }
+    
+    private void carregaUsuario(Usuario usuario) {
+        edCodigo.setText(usuario.getCodigo().toString());
+        edNome.setText(usuario.getNome());
+        edEmail.setText(usuario.getEmail());
+        edAcesso.setSelectedItem(usuario.getNivelAcesso());
+        edAtivo.setSelected(usuario.isAtivo());
+        edTelefone.setText(usuario.getTelefone());
+        edSenha.setText(usuario.getSenha());                       
     }
 
     /**
@@ -70,6 +83,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
         btSalvar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         edTelefone = new javax.swing.JFormattedTextField();
+        edSenha = new javax.swing.JPasswordField();
+        jLabel8 = new javax.swing.JLabel();
 
         label_descConta.setText("Nome");
 
@@ -102,11 +117,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Email", "Nível acesso", "Ativo", "Telefone"
+                "Código", "Nome", "Email", "Nível acesso", "Ativo", "Telefone", "Senha"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -263,6 +278,14 @@ public class CadastroUsuario extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        edSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edSenhaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Senha:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,28 +300,31 @@ public class CadastroUsuario extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(edCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btCancelar))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(edAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(edEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(edNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(edAtivo)
-                                    .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(edAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(edEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(edNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(edAtivo)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(edSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(edTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btCancelar))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -330,13 +356,17 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btCancelar))
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
 
         pack();
@@ -355,7 +385,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
             usuario.setEmail(edEmail.getText());
             usuario.setNivelAcesso(edAcesso.getSelectedIndex()+1);        
             usuario.setAtivo(edAtivo.isSelected());
-            usuario.setTelefone(edTelefone.getText());        
+            usuario.setTelefone(edTelefone.getText());
+            usuario.setSenha(edSenha.getText());
                 
             retorno = usuarioDao.InsertUsuario(usuario);
         } else {
@@ -367,6 +398,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 usuario.setNivelAcesso(edAcesso.getSelectedIndex()+1);        
                 usuario.setAtivo(edAtivo.isSelected());
                 usuario.setTelefone(edTelefone.getText());
+                usuario.setSenha(edSenha.getText());
             
                 retorno = usuarioDao.updateCliente(usuario);
             }            
@@ -374,9 +406,10 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                 
         if (retorno == true) {
             JOptionPane.showMessageDialog(null, "Gravado com sucesso!");
+            carregaUsuario(usuario);
         } else {
             JOptionPane.showMessageDialog(null, "Erro!");
-        }
+        }        
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -420,7 +453,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
             btCarregar.setEnabled(false);
         } else {
-            String tabela[] = new String[]{"", "", "", "", "",""};
+            String tabela[] = new String[]{"", "", "", "", "","",""};
             for (Usuario usuario : list) {
                 tabela[0] = String.valueOf(usuario.getCodigo());
                 tabela[1] = usuario.getNome();
@@ -432,6 +465,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                     tabela[4] = "Não";
                 }
                 tabela[5] = usuario.getTelefone();
+                tabela[6] = usuario.getSenha();
 
                 model.addRow(tabela);
             }
@@ -451,6 +485,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                     edAtivo.setSelected(true);
                 }
                 edTelefone.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 5).toString());
+                edSenha.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(),6).toString());
                 PesquisaUsuario.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecione algum usuário da lista.", "Erro",
@@ -478,6 +513,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 edAtivo.setSelected(true);
             }
             edTelefone.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 5).toString());
+            edSenha.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(),6).toString());
             PesquisaUsuario.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, selecione algum usuário da lista.", "Erro",
@@ -495,6 +531,10 @@ public class CadastroUsuario extends javax.swing.JFrame {
         PesquisaUsuario.setLocation(200, 100);
         PesquisaUsuario.setVisible(true);
     }//GEN-LAST:event_btPesquisaActionPerformed
+
+    private void edSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -545,6 +585,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField edEmail;
     private javax.swing.JTextField edNome;
     private javax.swing.JTextField edNome4;
+    private javax.swing.JPasswordField edSenha;
     private javax.swing.JFormattedTextField edTelefone;
     private javax.swing.JTable gdUsuarios;
     private javax.swing.JLabel jLabel1;
@@ -554,6 +595,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;

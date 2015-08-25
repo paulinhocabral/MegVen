@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 25/08/2015 19:25:24 by Hibernate Tools 4.3.1 -->
+<!-- Generated 25/08/2015 19:46:49 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Entidades.Usuario" table="usuario" catalog="megven" optimistic-lock="version">
         <id name="codigo" type="java.lang.Integer">
@@ -22,6 +22,9 @@
         </property>
         <property name="telefone" type="string">
             <column name="Telefone" length="20" />
+        </property>
+        <property name="senha" type="string">
+            <column name="Senha" length="20" not-null="true" />
         </property>
         <set name="filials" table="filial" inverse="true" lazy="true" fetch="select">
             <key>

@@ -35,28 +35,14 @@ public class CadastroCliente extends javax.swing.JFrame {
         initComponents();
     }
                     
-    private void carregaCliente(Cliente cliente) {                
-        edCodigo.setText(MiscTools.converterInteiroParaString(cliente.getCodigo()));                               
-        edNome.setText(cliente.getNome());        
-        
-        if (cliente.getTelefone() == null) {
-            edTelefone.setText("");
-        }else{
-            edTelefone.setText(cliente.getTelefone());
-        }
-        
-        if (cliente.getCeuluar() == null){
-            edCelular.setText("");
-        } else {
-            edCelular.setText(cliente.getCeuluar());
-        }
-        
-        if (cliente.getEmail() == null){
-            edEmail.setText("");
-        } else {
-            edEmail.setText(cliente.getEmail());
-        }
+    private void carregaCliente (Cliente cliente) {
+        edCodigo.setText(cliente.getCodigo().toString());
+        edNome.setText(cliente.getNome());
+        edTelefone.setText(cliente.getTelefone());
+        edCelular.setText(cliente.getCeuluar());
+        edEmail.setText(cliente.getEmail());                               
     }
+    
     private void limpaTable() {
         DefaultTableModel model = (DefaultTableModel) gdClientes.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
@@ -457,9 +443,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
         if (retorno == true) {
             JOptionPane.showMessageDialog(null, "Gravado com sucesso!");
+            carregaCliente(cliente);
         } else {
             JOptionPane.showMessageDialog(null, "Erro!");
-        }                
+        }            
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed

@@ -5,6 +5,7 @@
  */
 package megven;
 
+import Visoes.Login;
 import Visoes.Menu;
 
 /**
@@ -17,7 +18,7 @@ public class MegVen {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Menu().setVisible(true);
+        new Login().setVisible(true);
     }
     
 }

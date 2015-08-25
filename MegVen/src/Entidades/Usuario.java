@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 25/08/2015 19:25:23 by Hibernate Tools 4.3.1
+// Generated 25/08/2015 19:46:47 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,6 +17,7 @@ public class Usuario  implements java.io.Serializable {
      private int nivelAcesso;
      private boolean ativo;
      private String telefone;
+     private String senha;
      private Set filials = new HashSet(0);
      private Set auditorias = new HashSet(0);
 
@@ -24,18 +25,20 @@ public class Usuario  implements java.io.Serializable {
     }
 
 	
-    public Usuario(String nome, String email, int nivelAcesso, boolean ativo) {
+    public Usuario(String nome, String email, int nivelAcesso, boolean ativo, String senha) {
         this.nome = nome;
         this.email = email;
         this.nivelAcesso = nivelAcesso;
         this.ativo = ativo;
+        this.senha = senha;
     }
-    public Usuario(String nome, String email, int nivelAcesso, boolean ativo, String telefone, Set filials, Set auditorias) {
+    public Usuario(String nome, String email, int nivelAcesso, boolean ativo, String telefone, String senha, Set filials, Set auditorias) {
        this.nome = nome;
        this.email = email;
        this.nivelAcesso = nivelAcesso;
        this.ativo = ativo;
        this.telefone = telefone;
+       this.senha = senha;
        this.filials = filials;
        this.auditorias = auditorias;
     }
@@ -81,6 +84,13 @@ public class Usuario  implements java.io.Serializable {
     
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+    public String getSenha() {
+        return this.senha;
+    }
+    
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
     public Set getFilials() {
         return this.filials;
