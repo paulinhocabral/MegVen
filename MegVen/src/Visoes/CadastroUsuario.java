@@ -7,7 +7,12 @@ package Visoes;
 
 import DAO.UsuarioDao;
 import Entidades.Usuario;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +26,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
     public CadastroUsuario() {
         initComponents();
     }
+    
+    private void limpaTable() {
+        DefaultTableModel model = (DefaultTableModel) gdUsuarios.getModel();
+        for (int i = model.getRowCount() - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,6 +43,14 @@ public class CadastroUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PesquisaUsuario = new javax.swing.JDialog();
+        label_descConta = new javax.swing.JLabel();
+        edNome4 = new javax.swing.JTextField();
+        btPesquisa1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        gdUsuarios = new javax.swing.JTable();
+        btCarregar = new javax.swing.JButton();
+        btCancelar1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         edCodigo = new javax.swing.JTextField();
         btPesquisa = new javax.swing.JButton();
@@ -43,19 +63,139 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         edAtivo = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
-        edTelefone = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        edTelefone = new javax.swing.JFormattedTextField();
+
+        label_descConta.setText("Nome");
+
+        edNome4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                edNome4FocusLost(evt);
+            }
+        });
+        edNome4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edNome4ActionPerformed(evt);
+            }
+        });
+        edNome4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edNome4KeyReleased(evt);
+            }
+        });
+
+        btPesquisa1.setText("Pesquisar");
+        btPesquisa1.setMargin(new java.awt.Insets(2, 1, 2, 1));
+        btPesquisa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisa1ActionPerformed(evt);
+            }
+        });
+
+        gdUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "Email", "Nível acesso", "Ativo", "Telefone"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        gdUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gdUsuariosMouseClicked(evt);
+            }
+        });
+        gdUsuarios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                gdUsuariosKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                gdUsuariosKeyTyped(evt);
+            }
+        });
+        jScrollPane1.setViewportView(gdUsuarios);
+
+        btCarregar.setText("Carregar");
+        btCarregar.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        btCarregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCarregarActionPerformed(evt);
+            }
+        });
+
+        btCancelar1.setText("Cancelar");
+        btCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelar1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PesquisaUsuarioLayout = new javax.swing.GroupLayout(PesquisaUsuario.getContentPane());
+        PesquisaUsuario.getContentPane().setLayout(PesquisaUsuarioLayout);
+        PesquisaUsuarioLayout.setHorizontalGroup(
+            PesquisaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PesquisaUsuarioLayout.createSequentialGroup()
+                .addGroup(PesquisaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PesquisaUsuarioLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PesquisaUsuarioLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(PesquisaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PesquisaUsuarioLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE))
+                            .addGroup(PesquisaUsuarioLayout.createSequentialGroup()
+                                .addComponent(label_descConta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edNome4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btPesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 353, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        PesquisaUsuarioLayout.setVerticalGroup(
+            PesquisaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PesquisaUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PesquisaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_descConta)
+                    .addComponent(edNome4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisa1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(PesquisaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCarregar)
+                    .addComponent(btCancelar1))
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setText("Código:");
 
         btPesquisa.setIcon(new javax.swing.ImageIcon("C:\\Users\\Murilo\\Documents\\NetBeansProjects\\ProjetosPAA\\images.png")); // NOI18N
+        btPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Nome:");
 
@@ -111,6 +251,17 @@ public class CadastroUsuario extends javax.swing.JFrame {
         });
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
+
+        try {
+            edTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,7 +284,6 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                 .addComponent(edCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,7 +294,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(edEmail, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(edNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(edAtivo)))))
+                                    .addComponent(edAtivo)
+                                    .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -176,7 +327,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(edAtivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
@@ -197,23 +348,153 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         Usuario usuario = new Usuario();
-        
-        //usuario.setCodigo(Integer.parseInt(edCodigo.getText()));
-        usuario.setNome(edNome.getText());
-        usuario.setEmail(edEmail.getText());
-        usuario.setNivelAcesso(edAcesso.getSelectedIndex()+1);        
-        usuario.setAtivo(edAtivo.isSelected());
-        usuario.setTelefone(edTelefone.getText());        
-        
-        
-        boolean retorno = new UsuarioDao().InsertUsuario(usuario);
-        
+        UsuarioDao usuarioDao = new UsuarioDao();
+        boolean retorno = false;
+        if (edCodigo.getText().equals("")){
+            usuario.setNome(edNome.getText());
+            usuario.setEmail(edEmail.getText());
+            usuario.setNivelAcesso(edAcesso.getSelectedIndex()+1);        
+            usuario.setAtivo(edAtivo.isSelected());
+            usuario.setTelefone(edTelefone.getText());        
+                
+            retorno = usuarioDao.InsertUsuario(usuario);
+        } else {
+            boolean existe = usuarioDao.existeNoBanco(Integer.parseInt(edCodigo.getText()));
+            if (existe) {
+                usuario.setCodigo(Integer.parseInt(edCodigo.getText()));
+                usuario.setNome(edNome.getText());
+                usuario.setEmail(edEmail.getText());
+                usuario.setNivelAcesso(edAcesso.getSelectedIndex()+1);        
+                usuario.setAtivo(edAtivo.isSelected());
+                usuario.setTelefone(edTelefone.getText());
+            
+                retorno = usuarioDao.updateCliente(usuario);
+            }            
+        }
+                                
         if (retorno == true) {
             JOptionPane.showMessageDialog(null, "Gravado com sucesso!");
         } else {
             JOptionPane.showMessageDialog(null, "Erro!");
         }
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void edNome4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edNome4FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edNome4FocusLost
+
+    private void edNome4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edNome4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edNome4ActionPerformed
+
+    private void edNome4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edNome4KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edNome4KeyReleased
+
+    private void btPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisa1ActionPerformed
+        limpaTable();
+        DefaultTableModel model = (DefaultTableModel) gdUsuarios.getModel();
+        UsuarioDao usuarioDao = new UsuarioDao();
+        List<Usuario> list = new ArrayList();
+
+        if (edNome.getText().equals("")) {
+            try {
+                list = usuarioDao.encontrarTudo();
+            } catch (Exception ex) {
+                Logger.getLogger(PesquisaUsuario.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                list = usuarioDao.pesquisaUsuario(edNome.getText());
+            } catch (Exception ex) {
+                Logger.getLogger(PesquisaUsuario.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (list.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Usuário não localizado.", "Erro",
+                JOptionPane.ERROR_MESSAGE);
+            btCarregar.setEnabled(false);
+        } else {
+            String tabela[] = new String[]{"", "", "", "", "",""};
+            for (Usuario usuario : list) {
+                tabela[0] = String.valueOf(usuario.getCodigo());
+                tabela[1] = usuario.getNome();
+                tabela[2] = usuario.getEmail();
+                tabela[3] = String.valueOf(usuario.getNivelAcesso());
+                if (usuario.isAtivo()) {
+                    tabela[4] = "Sim";
+                } else {
+                    tabela[4] = "Não";
+                }
+                tabela[5] = usuario.getTelefone();
+
+                model.addRow(tabela);
+            }
+            btCarregar.setEnabled(true);
+            gdUsuarios.setVisible(true);
+        }
+    }//GEN-LAST:event_btPesquisa1ActionPerformed
+
+    private void gdUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdUsuariosMouseClicked
+        if (evt.getClickCount() == 2) {                    
+            if (gdUsuarios.getSelectedRow() > -1) {
+                edCodigo.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 0).toString());
+                edNome.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 1).toString());
+                edEmail.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 2).toString());
+                edAcesso.setSelectedItem(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 3));
+                if (gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 4).toString() == "Sim") {
+                    edAtivo.setSelected(true);
+                }
+                edTelefone.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 5).toString());
+                PesquisaUsuario.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione algum usuário da lista.", "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_gdUsuariosMouseClicked
+
+    private void gdUsuariosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdUsuariosKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gdUsuariosKeyReleased
+
+    private void gdUsuariosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdUsuariosKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gdUsuariosKeyTyped
+
+    private void btCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCarregarActionPerformed
+        //DefaultTableModel model = (DefaultTableModel) gdClientes.getModel();
+        if (gdUsuarios.getSelectedRow() > -1) {
+            edCodigo.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 0).toString());
+            edNome.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 1).toString());
+            edEmail.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 2).toString());
+            edAcesso.setSelectedItem(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 3));
+            if (gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 4).toString() == "Sim") {
+                edAtivo.setSelected(true);
+            }
+            edTelefone.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 5).toString());
+            PesquisaUsuario.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione algum usuário da lista.", "Erro",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btCarregarActionPerformed
+
+    private void btCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar1ActionPerformed
+        PesquisaUsuario.setVisible(false);
+    }//GEN-LAST:event_btCancelar1ActionPerformed
+
+    private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
+        PesquisaUsuario.setSize(600, 450);
+        PesquisaUsuario.setModal(true);
+        PesquisaUsuario.setLocation(200, 100);
+        PesquisaUsuario.setVisible(true);
+    }//GEN-LAST:event_btPesquisaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,15 +532,21 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog PesquisaUsuario;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btCancelar1;
+    private javax.swing.JButton btCarregar;
     private javax.swing.JButton btPesquisa;
+    private javax.swing.JButton btPesquisa1;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox edAcesso;
     private javax.swing.JCheckBox edAtivo;
     private javax.swing.JTextField edCodigo;
     private javax.swing.JTextField edEmail;
     private javax.swing.JTextField edNome;
-    private javax.swing.JTextField edTelefone;
+    private javax.swing.JTextField edNome4;
+    private javax.swing.JFormattedTextField edTelefone;
+    private javax.swing.JTable gdUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -268,7 +555,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JLabel label_descConta;
     // End of variables declaration//GEN-END:variables
 }

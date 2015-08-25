@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 24/08/2015 21:06:40 by Hibernate Tools 4.3.1
+// Generated 24/08/2015 22:08:45 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.Date;
 public class Auditoria  implements java.io.Serializable {
 
 
-     private int codigo;
+     private Integer codigo;
      private Usuario usuario;
      private Date dataHora;
      private String acao;
@@ -21,12 +21,10 @@ public class Auditoria  implements java.io.Serializable {
     }
 
 	
-    public Auditoria(int codigo, Usuario usuario) {
-        this.codigo = codigo;
+    public Auditoria(Usuario usuario) {
         this.usuario = usuario;
     }
-    public Auditoria(int codigo, Usuario usuario, Date dataHora, String acao, String valorAnterior, String valorPosterior) {
-       this.codigo = codigo;
+    public Auditoria(Usuario usuario, Date dataHora, String acao, String valorAnterior, String valorPosterior) {
        this.usuario = usuario;
        this.dataHora = dataHora;
        this.acao = acao;
@@ -34,11 +32,11 @@ public class Auditoria  implements java.io.Serializable {
        this.valorPosterior = valorPosterior;
     }
    
-    public int getCodigo() {
+    public Integer getCodigo() {
         return this.codigo;
     }
     
-    public void setCodigo(int codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
     public Usuario getUsuario() {

@@ -10,8 +10,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
-import Visoes.CadastroCliente;
-import Visoes.CadastroUsuario;
 
 /**
  *

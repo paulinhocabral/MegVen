@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsultaCliente extends javax.swing.JFrame {
 
-    Cliente cliente = new Cliente();
+    Cliente cliente;
     
     /**
      * Creates new form ConsultaCliente
@@ -36,6 +36,15 @@ public class ConsultaCliente extends javax.swing.JFrame {
             model.removeRow(i);
         }
     }
+    
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
+          
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,22 +144,24 @@ public class ConsultaCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(label_descConta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edNome, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 411, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label_descConta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edNome, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 411, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -186,7 +197,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_edNomeKeyReleased
 
     private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
-        limpaTable();
+        limpaTable();        
         DefaultTableModel model = (DefaultTableModel) gdClientes.getModel();
         ClienteDao clienteDao = new ClienteDao();
         List<Cliente> list = new ArrayList();
@@ -198,11 +209,15 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            
+            try {
+                list = clienteDao.pesquisaCliente(edNome.getText());
+            } catch (Exception ex) {
+                Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if (list.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nome não localizada.", "Erro",
+            JOptionPane.showMessageDialog(this, "Cliente não localizado.", "Erro",
                     JOptionPane.ERROR_MESSAGE);
             btCarregar.setEnabled(false);
         } else {
@@ -235,7 +250,18 @@ public class ConsultaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_gdClientesKeyTyped
 
     private void btCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCarregarActionPerformed
-        
+        //DefaultTableModel model = (DefaultTableModel) gdClientes.getModel();
+        if (gdClientes.getSelectedRow() > -1) {
+            cliente.setCodigo(Integer.parseInt(gdClientes.getValueAt(gdClientes.getSelectedRow(), 0).toString()));
+            cliente.setNome(gdClientes.getValueAt(gdClientes.getSelectedRow(), 1).toString());                        
+            cliente.setTelefone(gdClientes.getValueAt(gdClientes.getSelectedRow(), 2).toString());
+            cliente.setCeuluar(gdClientes.getValueAt(gdClientes.getSelectedRow(), 3).toString());
+            cliente.setEmail(gdClientes.getValueAt(gdClientes.getSelectedRow(), 4).toString());
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione algum cliente da lista.", "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btCarregarActionPerformed
 
