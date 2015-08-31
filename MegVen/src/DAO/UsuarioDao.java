@@ -128,4 +128,22 @@ public class UsuarioDao {
             return listaUsuario;
         }
     }
+    
+    public List<Usuario> pesquisaPorCodigo(int cod){
+        //boolean existe = false;
+        List<Usuario> listaUsuario = new ArrayList();
+        List resultado = null;
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+
+        org.hibernate.Query q = sessao.createQuery("from Usuario where codigo = " + cod);                
+        resultado = q.list();        
+        
+        for (Object o : resultado) {
+            Usuario usuario = (Usuario) o;
+            listaUsuario.add(usuario);
+        }                        
+        
+        return listaUsuario;
+    }
 }

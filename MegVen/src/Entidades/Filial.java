@@ -10,14 +10,23 @@ public class Filial  implements java.io.Serializable {
 
 
      private Integer codigo;
-     private Usuario usuario;
+     private int usuario;
      private String nome;
      private String cidade;
+     private String nomeUsuario;
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
 
     public Filial() {
     }
 
-    public Filial(Usuario usuario, String nome, String cidade) {
+    public Filial(int usuario, String nome, String cidade) {
        this.usuario = usuario;
        this.nome = nome;
        this.cidade = cidade;
@@ -30,11 +39,11 @@ public class Filial  implements java.io.Serializable {
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
-    public Usuario getUsuario() {
+    public int getUsuario() {
         return this.usuario;
     }
     
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(int usuario) {
         this.usuario = usuario;
     }
     public String getNome() {
