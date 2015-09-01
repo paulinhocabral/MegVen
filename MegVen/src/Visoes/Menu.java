@@ -6,10 +6,12 @@
 package Visoes;
 
 import Entidades.Cliente;
+import Entidades.Secao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,8 +26,16 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu() {                       
+        //JOptionPane.showMessageDialog(null, Secao.getInstance().getNome());
         initComponents();
+        if (Secao.getInstance().getNivelAcesso() == 1){
+            //MenuUsuario.setEnabled(true);
+            MenuFiliais.setEnabled(true);
+        } else {            
+            //MenuUsuario.setEnabled(false);
+            MenuFiliais.setEnabled(false);
+        }
     }
 
     /**
@@ -39,60 +49,175 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu1 = new javax.swing.JMenu();
         jPopupMenu1 = new javax.swing.JPopupMenu();
+        Auditoria = new javax.swing.JDialog();
+        edPesquisa = new javax.swing.JTextField();
+        btPesquisa1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        gdClientes = new javax.swing.JTable();
+        label_descConta = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        MenuCliente = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        MenuClientes = new javax.swing.JMenuItem();
+        MenuUsuario = new javax.swing.JMenuItem();
+        MenuProdutos = new javax.swing.JMenuItem();
+        MenuFiliais = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
+
+        edPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                edPesquisaFocusLost(evt);
+            }
+        });
+        edPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edPesquisaActionPerformed(evt);
+            }
+        });
+        edPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edPesquisaKeyReleased(evt);
+            }
+        });
+
+        btPesquisa1.setText("Pesquisar");
+        btPesquisa1.setMargin(new java.awt.Insets(2, 1, 2, 1));
+        btPesquisa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisa1ActionPerformed(evt);
+            }
+        });
+
+        gdClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Data/Hora", "Ação", "Valor anterior", "Valor posterior", "Usuário"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        gdClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gdClientesMouseClicked(evt);
+            }
+        });
+        gdClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                gdClientesKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                gdClientesKeyTyped(evt);
+            }
+        });
+        jScrollPane1.setViewportView(gdClientes);
+        if (gdClientes.getColumnModel().getColumnCount() > 0) {
+            gdClientes.getColumnModel().getColumn(0).setPreferredWidth(30);
+        }
+
+        label_descConta.setText("Pesquisa:");
+
+        javax.swing.GroupLayout AuditoriaLayout = new javax.swing.GroupLayout(Auditoria.getContentPane());
+        Auditoria.getContentPane().setLayout(AuditoriaLayout);
+        AuditoriaLayout.setHorizontalGroup(
+            AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AuditoriaLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(label_descConta, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btPesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(355, Short.MAX_VALUE))
+            .addGroup(AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AuditoriaLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        AuditoriaLayout.setVerticalGroup(
+            AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AuditoriaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_descConta)
+                    .addComponent(edPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisa1))
+                .addContainerGap(289, Short.MAX_VALUE))
+            .addGroup(AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AuditoriaLayout.createSequentialGroup()
+                    .addGap(40, 40, 40)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu2.setText("Cadastros");
 
-        MenuCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
-        MenuCliente.setText("Manutenção de clientes");
-        MenuCliente.addActionListener(new java.awt.event.ActionListener() {
+        MenuClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
+        MenuClientes.setText("Manutenção de clientes");
+        MenuClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuClienteActionPerformed(evt);
+                MenuClientesActionPerformed(evt);
             }
         });
-        jMenu2.add(MenuCliente);
+        jMenu2.add(MenuClientes);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK));
-        jMenuItem2.setText("Manutenção de usuário");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        MenuUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK));
+        MenuUsuario.setText("Manutenção de usuário");
+        MenuUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                MenuUsuarioActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(MenuUsuario);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
-        jMenuItem3.setText("Manutenção de produtos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        MenuProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
+        MenuProdutos.setText("Manutenção de produtos");
+        MenuProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                MenuProdutosActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(MenuProdutos);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK));
-        jMenuItem1.setText("Manutenção de filiais");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        MenuFiliais.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK));
+        MenuFiliais.setText("Manutenção de filiais");
+        MenuFiliais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                MenuFiliaisActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(MenuFiliais);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Orçamentos");
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Configurações");
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem4.setText("Auditoria");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -110,7 +235,7 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuClienteActionPerformed
+    private void MenuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuClientesActionPerformed
         if (CadastroCliente == null) {
             CadastroCliente = new CadastroCliente();
             CadastroCliente.setVisible(true);
@@ -118,10 +243,10 @@ public class Menu extends javax.swing.JFrame {
         } else {
             CadastroCliente.setVisible(true);
             CadastroCliente.setLocationRelativeTo(null);
-        }
-    }//GEN-LAST:event_MenuClienteActionPerformed
+        }                
+    }//GEN-LAST:event_MenuClientesActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void MenuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuUsuarioActionPerformed
         if (CadastroUsuario == null){
             CadastroUsuario = new CadastroUsuario();            
             CadastroUsuario.setVisible(true);
@@ -130,9 +255,9 @@ public class Menu extends javax.swing.JFrame {
             CadastroUsuario.setVisible(true);
             CadastroUsuario.setLocationRelativeTo(null);
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_MenuUsuarioActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void MenuFiliaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuFiliaisActionPerformed
         if (CadastroFilial == null){
             CadastroFilial = new CadastroFilial();            
             CadastroFilial.setVisible(true);
@@ -141,11 +266,42 @@ public class Menu extends javax.swing.JFrame {
             CadastroFilial.setVisible(true);
             CadastroFilial.setLocationRelativeTo(null);
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_MenuFiliaisActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void MenuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuProdutosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_MenuProdutosActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void edPesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edPesquisaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edPesquisaFocusLost
+
+    private void edPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edPesquisaActionPerformed
+
+    private void edPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edPesquisaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edPesquisaKeyReleased
+
+    private void btPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisa1ActionPerformed
+    }//GEN-LAST:event_btPesquisa1ActionPerformed
+
+    private void gdClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdClientesMouseClicked
+        
+    }//GEN-LAST:event_gdClientesMouseClicked
+
+    private void gdClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdClientesKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gdClientesKeyReleased
+
+    private void gdClientesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdClientesKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gdClientesKeyTyped
 
     /**
      * @param args the command line arguments
@@ -183,14 +339,22 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem MenuCliente;
+    private javax.swing.JDialog Auditoria;
+    private javax.swing.JMenuItem MenuClientes;
+    private javax.swing.JMenuItem MenuFiliais;
+    private javax.swing.JMenuItem MenuProdutos;
+    private javax.swing.JMenuItem MenuUsuario;
+    private javax.swing.JButton btPesquisa1;
+    private javax.swing.JTextField edPesquisa;
+    private javax.swing.JTable gdClientes;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel label_descConta;
     // End of variables declaration//GEN-END:variables
 }

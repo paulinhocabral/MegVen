@@ -6,7 +6,11 @@
 package Visoes;
 
 import DAO.UsuarioDao;
+import Entidades.Secao;
+import Entidades.Usuario;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -17,8 +21,11 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    public static final Logger log = Logger.getLogger(Login.class.getName());
+    
     public Login() {
         initComponents();
+        PropertyConfigurator.configure("src\\log4J.propeties");        
     }
 
     /**
@@ -133,11 +140,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_edSenhaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        boolean logado = false;
+/*        boolean logado = false;
         UsuarioDao usuarioDao = new UsuarioDao();
         if (!edUsuario.getText().equals("")) {
             logado = usuarioDao.existeNoBanco(Integer.parseInt(edUsuario.getText()));
             if (logado) {
+                
+                
                 new Menu().setVisible(true);
                  this.setVisible(false);
             } else {
@@ -145,7 +154,11 @@ public class Login extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, preencha o usuário e a senha!");
-        }
+        } */
+                                
+        Secao.getInstance();        
+        Secao.getInstance().Login(Integer.parseInt(edUsuario.getText()), edSenha.getText());
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

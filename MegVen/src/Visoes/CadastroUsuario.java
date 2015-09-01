@@ -6,6 +6,7 @@
 package Visoes;
 
 import DAO.UsuarioDao;
+import Entidades.Secao;
 import Entidades.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,14 @@ public class CadastroUsuario extends javax.swing.JFrame {
      */
     public CadastroUsuario() {
         initComponents();
+        if (Secao.getInstance().getNivelAcesso() != 1) {
+            edNome.setEnabled(false);
+            edEmail.setEnabled(false);
+            edAcesso.setEnabled(false);
+            edAtivo.setEnabled(false);
+            edTelefone.setEnabled(false);            
+        }
+        
         gdUsuarios.getColumnModel().getColumn(6).setMinWidth(0);        
         gdUsuarios.getColumnModel().getColumn(6).setPreferredWidth(0);
         gdUsuarios.getColumnModel().getColumn(6).setMaxWidth(0);

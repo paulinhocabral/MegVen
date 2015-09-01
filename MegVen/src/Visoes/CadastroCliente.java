@@ -429,6 +429,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             boolean existe = clienteDao.existeNoBanco(Integer.parseInt(edCodigo.getText()));
             if (existe){
                 cliente.setCodigo(Integer.parseInt(edCodigo.getText()));
+                Login.log.info("Código cliente: " + edCodigo.getText());
                 cliente.setNome(edNome.getText());
                 cliente.setTelefone(edTelefone.getText());
                 cliente.setCeuluar(edCelular.getText());
