@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Entidades.Secao;
 import Entidades.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
+import Visoes.Login;
 
 /**
  *
@@ -27,6 +29,8 @@ public class UsuarioDao {
 
             sessao.save(usuario);
             t.commit();
+            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " inseriu o usuário: " + usuario.getCodigo() + "," + usuario.getNome()
+                           + "," + usuario.getEmail()+ "," + usuario.getNivelAcesso()+ "," +usuario.isAtivo()+ "," +usuario.getTelefone());
             
             return true;
 
@@ -72,6 +76,8 @@ public class UsuarioDao {
             Transaction t = sessao.beginTransaction();
             sessao.update(usuario);
             t.commit();
+            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " atualizou o usuário: " + usuario.getCodigo() + "," + usuario.getNome()
+                           + "," + usuario.getEmail()+ "," + usuario.getNivelAcesso()+ "," +usuario.isAtivo()+ "," +usuario.getTelefone());
             
             return true;
             

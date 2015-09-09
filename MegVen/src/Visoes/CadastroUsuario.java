@@ -485,6 +485,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void gdUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdUsuariosMouseClicked
         if (evt.getClickCount() == 2) {                    
+            String ativo = "";
+            if (edAtivo.isSelected()){
+                ativo = "Sim";
+            } else {
+                ativo = "Não";
+            }
+            
             if (gdUsuarios.getSelectedRow() > -1) {
                 edCodigo.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 0).toString());
                 edNome.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 1).toString());
@@ -495,6 +502,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 }
                 edTelefone.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 5).toString());
                 edSenha.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(),6).toString());
+                Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " carregou os campos: " + edCodigo.getText() + "," +edNome.getText()
+                          + "," + edEmail.getText()+ "," +edAcesso.getSelectedItem()+ "," + ativo + "," + edTelefone.getText());
                 PesquisaUsuario.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecione algum usuário da lista.", "Erro",
@@ -513,6 +522,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void btCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCarregarActionPerformed
         //DefaultTableModel model = (DefaultTableModel) gdClientes.getModel();
+        String ativo = "";
+        if (edAtivo.isSelected()){
+            ativo = "Sim";
+        } else {
+            ativo = "Não";
+        }
+        
         if (gdUsuarios.getSelectedRow() > -1) {
             edCodigo.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 0).toString());
             edNome.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 1).toString());
@@ -523,6 +539,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
             }
             edTelefone.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(), 5).toString());
             edSenha.setText(gdUsuarios.getValueAt(gdUsuarios.getSelectedRow(),6).toString());
+            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " carregou os campos: " + edCodigo.getText() + "," +edNome.getText()
+                          + "," + edEmail.getText()+ "," +edAcesso.getSelectedItem()+ "," + ativo + "," + edTelefone.getText());                    
             PesquisaUsuario.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, selecione algum usuário da lista.", "Erro",

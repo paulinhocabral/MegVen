@@ -8,6 +8,7 @@ package Visoes;
 import Controle.MiscTools;
 import DAO.ClienteDao;
 import Entidades.Cliente;
+import Entidades.Secao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,6 +31,7 @@ public class CadastroCliente extends javax.swing.JFrame {
      */
     
     //Cliente cliente;
+    public static final Logger log = Logger.getLogger(Login.class.getName());
     
     public CadastroCliente() {
         initComponents();
@@ -423,19 +425,19 @@ public class CadastroCliente extends javax.swing.JFrame {
             cliente.setCeuluar(edCelular.getText());
             cliente.setEmail(edEmail.getText());
         
-            retorno = clienteDao.InsertCliente(cliente);
-                    
-        } else {
+            retorno = clienteDao.InsertCliente(cliente);                    
+        } else {            
             boolean existe = clienteDao.existeNoBanco(Integer.parseInt(edCodigo.getText()));
             if (existe){
                 cliente.setCodigo(Integer.parseInt(edCodigo.getText()));
-                Login.log.info("Código cliente: " + edCodigo.getText());
+                //Login.log.info("Código cliente: " + edCodigo.getText());
                 cliente.setNome(edNome.getText());
                 cliente.setTelefone(edTelefone.getText());
                 cliente.setCeuluar(edCelular.getText());
                 cliente.setEmail(edEmail.getText());
                 
-                retorno = clienteDao.updateCliente(cliente);                                
+                retorno = clienteDao.updateCliente(cliente);                
+
             }                
         }
         if (retorno == true) {
@@ -531,6 +533,8 @@ public class CadastroCliente extends javax.swing.JFrame {
                 edTelefone.setText(gdClientes.getValueAt(gdClientes.getSelectedRow(), 2).toString());
                 edCelular.setText(gdClientes.getValueAt(gdClientes.getSelectedRow(), 3).toString());
                 edEmail.setText(gdClientes.getValueAt(gdClientes.getSelectedRow(), 4).toString());
+                Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " carregou os campos : "  + edCodigo.getText() + "," + edNome.getText() + "," + edTelefone.getText()+ "," +
+                           edCelular.getText()+ "," + edEmail.getText());
                 PesquisaCliente.setVisible(false);
             }
         }
@@ -552,6 +556,8 @@ public class CadastroCliente extends javax.swing.JFrame {
             edTelefone.setText(gdClientes.getValueAt(gdClientes.getSelectedRow(), 2).toString());
             edCelular.setText(gdClientes.getValueAt(gdClientes.getSelectedRow(), 3).toString());
             edEmail.setText(gdClientes.getValueAt(gdClientes.getSelectedRow(), 4).toString());
+            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + "carregou os campos : "  + edCodigo.getText() + "," + edNome.getText() + "," + edTelefone.getText()+ "," +
+                           edCelular.getText()+ "," + edEmail.getText());
             PesquisaCliente.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, selecione algum cliente da lista.", "Erro",
@@ -596,6 +602,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 
             } catch (Exception ex) {
                 Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
             if (cliente == null) {
                 limpaTela();

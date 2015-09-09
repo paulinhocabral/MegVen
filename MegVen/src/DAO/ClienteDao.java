@@ -6,12 +6,14 @@
 package DAO;
 
 import Entidades.Cliente;
+import Entidades.Secao;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
+import Visoes.Login;
 
 /**
  *
@@ -27,6 +29,8 @@ public class ClienteDao {
 
             sessao.save(cliente);
             t.commit();
+            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " inseriu o cliente: " + cliente.getCodigo() + "," + cliente.getNome()+ "," + cliente.getTelefone() + "," +
+                           cliente.getCeuluar()+ "," +cliente.getEmail());
             
             return true;
 
@@ -45,7 +49,8 @@ public class ClienteDao {
             Transaction t = sessao.beginTransaction();
             sessao.update(cliente);
             t.commit();
-            
+            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " fez update do cliente: " + cliente.getCodigo()+ "," + cliente.getNome()+ "," + cliente.getTelefone() + "," +
+                           cliente.getCeuluar()+ "," + cliente.getEmail());
             return true;
             
         } catch (HibernateException he) {

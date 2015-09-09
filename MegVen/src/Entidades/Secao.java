@@ -28,7 +28,7 @@ public class Secao {
         return instance;
     }
     
-    public void Login(int usuario, String senha){
+    public void Logando(int usuario, String senha){
         boolean logado = false;
         UsuarioDao usuarioDao = new UsuarioDao();
         List<Usuario> listaUsuario = new ArrayList();        
@@ -41,7 +41,7 @@ public class Secao {
                 this.nivelAcesso = usu.getNivelAcesso();
                 this.nome        = usu.getNome();                               
             }                
-                new Menu().setVisible(true);
+                new Menu().setVisible(true);                
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha invalido!");
             }

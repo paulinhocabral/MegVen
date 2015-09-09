@@ -22,3 +22,5 @@ INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManag
 INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
 INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
 INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 carregou os campos: 1,teste,email,1,Não,(22)2222-2222
+INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 atualizou o usuário: 1,teste,email,2,true,(22)2222-2222
