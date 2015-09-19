@@ -7,6 +7,8 @@ package DAO;
 
 import Entidades.Auditoria;
 import Util.HibernateUtil;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,10 +25,12 @@ public class AuditoriaDao {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
 
-            sessao.save(auditoria);
-            t.commit();
+            //sessao.save(auditoria);            
+            //t.
+            sessao.createQuery("CALL InsAuditoria(" + auditoria.getAcao() + "," + auditoria.getValorAnterior() + "," + 
+                                auditoria.getValorPosterior() + "," + auditoria.getUsuario() +")");            
             
-            return true;
+            return true;                 
 
         } catch (HibernateException he) {
             he.printStackTrace(); 
@@ -34,5 +38,32 @@ public class AuditoriaDao {
         } finally {
             sessao.close();
         }
+    }
+    
+    public List<Auditoria> encontrarTudo(){
+        //Cliente cliente = new Cliente();
+        List<Auditoria> listaAuditoria = new ArrayList();
+        
+        List resultado = null;
+
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            org.hibernate.Query q = sessao.createQuery("FROM Auditoria");
+            resultado = q.list();
+
+            for (Object o : resultado) {
+                Auditoria auditoria = (Auditoria) o;
+                listaAuditoria.add(auditoria);
+            }
+            
+            return listaAuditoria;
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            return listaAuditoria;
+        }
+        
     }
 }

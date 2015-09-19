@@ -37,6 +37,9 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Auditoria = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        gdClientes = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         edUsuario = new javax.swing.JFormattedTextField();
@@ -44,6 +47,58 @@ public class Login extends javax.swing.JFrame {
         edSenha = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+
+        gdClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Sequencial", "Data e hora", "Ação", "Valor anterior", "Valor posterior"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        gdClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gdClientesMouseClicked(evt);
+            }
+        });
+        gdClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                gdClientesKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                gdClientesKeyTyped(evt);
+            }
+        });
+        jScrollPane1.setViewportView(gdClientes);
+
+        javax.swing.GroupLayout AuditoriaLayout = new javax.swing.GroupLayout(Auditoria.getContentPane());
+        Auditoria.getContentPane().setLayout(AuditoriaLayout);
+        AuditoriaLayout.setHorizontalGroup(
+            AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 668, Short.MAX_VALUE)
+            .addGroup(AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AuditoriaLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        AuditoriaLayout.setVerticalGroup(
+            AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AuditoriaLayout.createSequentialGroup()
+                    .addGap(14, 14, 14)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(14, Short.MAX_VALUE)))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,6 +220,18 @@ public class Login extends javax.swing.JFrame {
          this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void gdClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdClientesMouseClicked
+        
+    }//GEN-LAST:event_gdClientesMouseClicked
+
+    private void gdClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdClientesKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gdClientesKeyReleased
+
+    private void gdClientesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdClientesKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gdClientesKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -201,12 +268,15 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Auditoria;
     private javax.swing.JPasswordField edSenha;
     private javax.swing.JFormattedTextField edUsuario;
+    private javax.swing.JTable gdClientes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

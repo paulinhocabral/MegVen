@@ -318,6 +318,7 @@ public class CadastroFilial extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Manutenção de filiais");
 
         jPanel1.setMinimumSize(new java.awt.Dimension(380, 260));
 

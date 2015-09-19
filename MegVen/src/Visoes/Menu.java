@@ -5,13 +5,20 @@
  */
 package Visoes;
 
+import DAO.AuditoriaDao;
+import Entidades.Auditoria;
 import Entidades.Cliente;
 import Entidades.Secao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,6 +44,13 @@ public class Menu extends javax.swing.JFrame {
             MenuFiliais.setEnabled(false);
         }
     }
+    
+    private void limpaTable() {
+        DefaultTableModel model = (DefaultTableModel) gdAuditoria.getModel();
+        for (int i = model.getRowCount() - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,11 +64,9 @@ public class Menu extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         Auditoria = new javax.swing.JDialog();
-        edPesquisa = new javax.swing.JTextField();
-        btPesquisa1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        gdClientes = new javax.swing.JTable();
-        label_descConta = new javax.swing.JLabel();
+        gdAuditoria = new javax.swing.JTable();
+        jDialog1 = new javax.swing.JDialog();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         MenuClientes = new javax.swing.JMenuItem();
@@ -67,36 +79,12 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu1.setText("jMenu1");
 
-        edPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                edPesquisaFocusLost(evt);
-            }
-        });
-        edPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edPesquisaActionPerformed(evt);
-            }
-        });
-        edPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edPesquisaKeyReleased(evt);
-            }
-        });
-
-        btPesquisa1.setText("Pesquisar");
-        btPesquisa1.setMargin(new java.awt.Insets(2, 1, 2, 1));
-        btPesquisa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPesquisa1ActionPerformed(evt);
-            }
-        });
-
-        gdClientes.setModel(new javax.swing.table.DefaultTableModel(
+        gdAuditoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Data/Hora", "Ação", "Valor anterior", "Valor posterior", "Usuário"
+                "Sequencial", "Data/Hora", "Ação", "Valor anterior", "Valor posterior", "Usuário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -107,58 +95,50 @@ public class Menu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        gdClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        gdAuditoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                gdClientesMouseClicked(evt);
+                gdAuditoriaMouseClicked(evt);
             }
         });
-        gdClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+        gdAuditoria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                gdClientesKeyReleased(evt);
+                gdAuditoriaKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                gdClientesKeyTyped(evt);
+                gdAuditoriaKeyTyped(evt);
             }
         });
-        jScrollPane1.setViewportView(gdClientes);
-        if (gdClientes.getColumnModel().getColumnCount() > 0) {
-            gdClientes.getColumnModel().getColumn(0).setPreferredWidth(30);
+        jScrollPane1.setViewportView(gdAuditoria);
+        if (gdAuditoria.getColumnModel().getColumnCount() > 0) {
+            gdAuditoria.getColumnModel().getColumn(0).setPreferredWidth(30);
         }
-
-        label_descConta.setText("Pesquisa:");
 
         javax.swing.GroupLayout AuditoriaLayout = new javax.swing.GroupLayout(Auditoria.getContentPane());
         Auditoria.getContentPane().setLayout(AuditoriaLayout);
         AuditoriaLayout.setHorizontalGroup(
             AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AuditoriaLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(label_descConta, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btPesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(355, Short.MAX_VALUE))
-            .addGroup(AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(AuditoriaLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+                .addContainerGap())
         );
         AuditoriaLayout.setVerticalGroup(
             AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AuditoriaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_descConta)
-                    .addComponent(edPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesquisa1))
-                .addContainerGap(289, Short.MAX_VALUE))
-            .addGroup(AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(AuditoriaLayout.createSequentialGroup()
-                    .addGap(40, 40, 40)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -273,35 +253,43 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuProdutosActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        limpaTable();
+        DefaultTableModel model = (DefaultTableModel) gdAuditoria.getModel();
+        AuditoriaDao auditoriaDao = new AuditoriaDao();
+        List<Auditoria> list = new ArrayList();
+        try {
+            list = auditoriaDao.encontrarTudo();
+        } catch (Exception ex) {
+            Logger.getLogger(Auditoria.getName()).log(Level.SEVERE, null, ex);
+        }
+        String tabela[] = new String[]{"", "", "", "", "",""};
+        for (Auditoria auditoria : list) {
+            tabela[0] = String.valueOf(auditoria.getCodigo());
+            tabela[1] = auditoria.getDataHora().toString();
+            tabela[2] = auditoria.getAcao();
+            tabela[3] = auditoria.getValorAnterior();
+            tabela[4] = auditoria.getValorPosterior();
+            tabela[5] = String.valueOf(auditoria.getUsuario());
+
+            model.addRow(tabela);
+        }
+        Auditoria.setSize(600, 450);
+        Auditoria.setModal(true);
+        Auditoria.setLocation(200, 100);
+        Auditoria.setVisible(true);                
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void edPesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edPesquisaFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edPesquisaFocusLost
-
-    private void edPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edPesquisaActionPerformed
-
-    private void edPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edPesquisaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edPesquisaKeyReleased
-
-    private void btPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisa1ActionPerformed
-    }//GEN-LAST:event_btPesquisa1ActionPerformed
-
-    private void gdClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdClientesMouseClicked
+    private void gdAuditoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdAuditoriaMouseClicked
         
-    }//GEN-LAST:event_gdClientesMouseClicked
+    }//GEN-LAST:event_gdAuditoriaMouseClicked
 
-    private void gdClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdClientesKeyReleased
+    private void gdAuditoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdAuditoriaKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_gdClientesKeyReleased
+    }//GEN-LAST:event_gdAuditoriaKeyReleased
 
-    private void gdClientesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdClientesKeyTyped
+    private void gdAuditoriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdAuditoriaKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_gdClientesKeyTyped
+    }//GEN-LAST:event_gdAuditoriaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -344,9 +332,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuFiliais;
     private javax.swing.JMenuItem MenuProdutos;
     private javax.swing.JMenuItem MenuUsuario;
-    private javax.swing.JButton btPesquisa1;
-    private javax.swing.JTextField edPesquisa;
-    private javax.swing.JTable gdClientes;
+    private javax.swing.JTable gdAuditoria;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -355,6 +342,5 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel label_descConta;
     // End of variables declaration//GEN-END:variables
 }

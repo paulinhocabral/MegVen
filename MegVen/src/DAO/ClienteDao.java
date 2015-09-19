@@ -5,8 +5,10 @@
  */
 package DAO;
 
+import Entidades.Auditoria;
 import Entidades.Cliente;
 import Entidades.Secao;
+import Entidades.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -21,6 +23,12 @@ import Visoes.Login;
  */
 public class ClienteDao {
     
+    AuditoriaDao auditoriaDao = new AuditoriaDao();
+    Auditoria auditoria = new Auditoria();
+    int usuario = Secao.getInstance().getUsuario();
+    UsuarioDao usuarioDao = new UsuarioDao();
+    Usuario usu = new Usuario();
+        
     public Boolean InsertCliente(Cliente cliente){
         Session sessao = null;
         try {
@@ -29,8 +37,14 @@ public class ClienteDao {
 
             sessao.save(cliente);
             t.commit();
-            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " inseriu o cliente: " + cliente.getCodigo() + "," + cliente.getNome()+ "," + cliente.getTelefone() + "," +
-                           cliente.getCeuluar()+ "," +cliente.getEmail());
+            Login.log.info("Usuário: " + usuario + " inseriu o cliente: " + cliente.getCodigo() + "," + cliente.getNome()+ "," + cliente.getTelefone() + "," +
+                           cliente.getCeuluar()+ "," +cliente.getEmail());                       
+            
+            //auditoria.setAcao("Insert cliente");
+            //auditoria.setValorAnterior("1");
+            //auditoria.setValorPosterior("2");
+            //auditoria.setUsuario(usuario); 
+            //auditoriaDao.InsertAuditoria(auditoria);
             
             return true;
 

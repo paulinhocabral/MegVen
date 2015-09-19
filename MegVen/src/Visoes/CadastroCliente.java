@@ -96,6 +96,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         edTelefone = new javax.swing.JFormattedTextField();
         edCelular = new javax.swing.JFormattedTextField();
 
+        PesquisaCliente.setTitle("Consulta cliente");
+
         label_descConta.setText("Nome");
 
         edNome1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -212,8 +214,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Manutenção de clientes");
 
         jPanel1.setMinimumSize(new java.awt.Dimension(380, 260));
+        jPanel1.setName("Manutenção de clientes"); // NOI18N
 
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -441,7 +445,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }                
         }
         if (retorno == true) {
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Gravado com sucesso!");            
             carregaCliente(cliente);
         } else {
             JOptionPane.showMessageDialog(null, "Erro!");

@@ -95,6 +95,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
         edSenha = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
 
+        PesquisaUsuario.setTitle("Consulta usuários");
+
         label_descConta.setText("Nome");
 
         edNome4.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -211,6 +213,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Manutenção de usuário");
 
         jLabel2.setText("Código:");
 

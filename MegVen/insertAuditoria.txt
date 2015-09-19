@@ -1,0 +1,15 @@
+Função para inserção na tabela de auditoria.
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS InsAuditoria$$
+CREATE PROCEDURE InsAuditoria (ac VARCHAR(256), Anterior VARCHAR(256), Posterior VARCHAR(256), usu INTEGER)
+	BEGIN			
+		DECLARE DT TIMESTAMP;
+		SET DT = CONCAT(CURDATE(),' ',CURTIME());
+		INSERT INTO AUDITORIA (dataHora,acao, valorAnterior, valorPosterior, usuario_Codigo) 
+		VALUES(dt, ac, Anterior, Posterior, usu);
+	END $$
+DELIMITER ;
+
+
+CALL InsAuditoria('teste','1','2',1);
