@@ -33,18 +33,12 @@ public class ClienteDao {
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-
+            Transaction t = sessao.beginTransaction();           
+            
             sessao.save(cliente);
             t.commit();
             Login.log.info("Usuário: " + usuario + " inseriu o cliente: " + cliente.getCodigo() + "," + cliente.getNome()+ "," + cliente.getTelefone() + "," +
-                           cliente.getCeuluar()+ "," +cliente.getEmail());                       
-            
-            //auditoria.setAcao("Insert cliente");
-            //auditoria.setValorAnterior("1");
-            //auditoria.setValorPosterior("2");
-            //auditoria.setUsuario(usuario); 
-            //auditoriaDao.InsertAuditoria(auditoria);
+                           cliente.getCeuluar()+ "," +cliente.getEmail());                                                           
             
             return true;
 
@@ -58,11 +52,39 @@ public class ClienteDao {
     
     public Boolean updateCliente(Cliente cliente){
         Session sessao = null;
-        try {
+        List<Cliente> listvelho = new ArrayList();
+        List<Cliente> listnovo = new ArrayList();
+        
+        Usuario usu = new Usuario();
+        try {           
+            listvelho  = procuraPorCodigo(cliente.getCodigo());            
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
             sessao.update(cliente);
             t.commit();
+                                    
+            listnovo = procuraPorCodigo(cliente.getCodigo());
+            for (int i = 0; i < listnovo.size(); i++) {                
+                if (listnovo.get(i).getNome() != listvelho.get(i).getNome()) {
+                    auditoria.setValorAnterior("Campo nome: " + listvelho.get(i).getNome());
+                    auditoria.setValorPosterior("Campo nome: " + listnovo.get(i).getNome());
+                } else if (listnovo.get(i).getTelefone() != listvelho.get(i).getTelefone()) { 
+                    auditoria.setValorAnterior("Campo telefone: " + listvelho.get(i).getTelefone());
+                    auditoria.setValorPosterior("Campo telefone: " + listnovo.get(i).getTelefone());
+                } else if (listnovo.get(i).getCeuluar()!= listvelho.get(i).getCeuluar()) {
+                    auditoria.setValorAnterior("Campo celular: " + listvelho.get(i).getCeuluar());
+                    auditoria.setValorPosterior("Campo celular: " + listnovo.get(i).getCeuluar());
+                } else if (listnovo.get(i).getEmail()!= listvelho.get(i).getEmail()) {
+                    auditoria.setValorAnterior("Campo email: " + listvelho.get(i).getEmail());
+                    auditoria.setValorPosterior("Campo email: " + listnovo.get(i).getEmail());
+                }                                        
+            }
+            
+            auditoria.setAcao("Update cliente");            
+            usu.setCodigo(usuario);
+            auditoria.setUsuario(usu); 
+            auditoriaDao.InsertAuditoria(auditoria);
+            
             Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " fez update do cliente: " + cliente.getCodigo()+ "," + cliente.getNome()+ "," + cliente.getTelefone() + "," +
                            cliente.getCeuluar()+ "," + cliente.getEmail());
             return true;

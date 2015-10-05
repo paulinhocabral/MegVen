@@ -5,29 +5,32 @@
  */
 package DAO;
 
-import Entidades.Filial;
+import Entidades.Produtos;
+import Entidades.Secao;
+import Util.HibernateUtil;
+import Visoes.Login;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import Util.HibernateUtil;
 
 /**
  *
  * @author Murilo
  */
-public class FilialDao {
+public class ProdutoDao {
     
-    public Boolean InsertFilial(Filial filial){
+    int usuario = Secao.getInstance().getUsuario();
+    
+    public Boolean InsertProdutos(Produtos produto){
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
-
-            sessao.save(filial);
+            Transaction t = sessao.beginTransaction();            
+            sessao.save(produto);
             t.commit();
-            
+            Login.log.info("Usuário: " + usuario + " inseriu o cliente: " + produto.getCodigo() + "," + produto.getDescricao()+ "," + produto.getMarca());                                                         
             return true;
 
         } catch (HibernateException he) {
@@ -38,14 +41,14 @@ public class FilialDao {
         }
     }
     
-    public Boolean updateFilial(Filial filial){
+    public Boolean updateProdutos(Produtos produto){
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-            sessao.update(filial);
+            sessao.update(produto);
             t.commit();
-            
+            Login.log.info("Usuário: " + usuario + " fez o update do cliente: " + produto.getCodigo() + "," + produto.getDescricao()+ "," + produto.getMarca());
             return true;
             
         } catch (HibernateException he) {
@@ -56,8 +59,8 @@ public class FilialDao {
         }
     }
     
-    public List<Filial> procuraPorCodigo(int cod){
-        List<Filial> listaFilial = new ArrayList();
+    public List<Produtos> procuraPorCodigo(int cod){
+        List<Produtos> listaProduto = new ArrayList();
         
         List resultado = null;
 
@@ -65,25 +68,25 @@ public class FilialDao {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            org.hibernate.Query q = sessao.createQuery("from Filial where codigo = " + cod);
+            org.hibernate.Query q = sessao.createQuery("from Produtos where codigo = " + cod);
             resultado = q.list();
 
             for (Object o : resultado) {
-                Filial filial = (Filial) o;
-                listaFilial.add(filial);
+                Produtos produtos = (Produtos) o;
+                listaProduto.add(produtos);
             }
             
-            return listaFilial;
+            return listaProduto;
 
         } catch (HibernateException he) {
             he.printStackTrace();
-            return listaFilial;
+            return listaProduto;
         }
     }
     
-    public List<Filial> encontrarTudo(){
+    public List<Produtos> encontrarTudo(){
         //Cliente cliente = new Cliente();
-        List<Filial> listaFilial = new ArrayList();
+        List<Produtos> listaProdutos = new ArrayList();
         
         List resultado = null;
 
@@ -91,69 +94,65 @@ public class FilialDao {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            org.hibernate.Query q = sessao.createQuery("from Filial ");
-            //org.hibernate.Query q = sessao.createSQLQuery("SELECT FILIAL.CODIGO,FILIAL.NOME,FILIAL.CIDADE,FILIAL.USUARIO_CODIGO,USUARIO.NOME " +
-                                                          //"FROM FILIAL LEFT OUTER JOIN USUARIO ON USUARIO.CODIGO = FILIAL.USUARIO_CODIGO");
+            org.hibernate.Query q = sessao.createQuery("FROM Produtos");
             resultado = q.list();
 
             for (Object o : resultado) {
-                Filial filial = (Filial) o;
-                System.out.println(filial.getUsuario().getNome());
-                listaFilial.add(filial);
+                Produtos produtos = (Produtos) o;
+                listaProdutos.add(produtos);
             }
             
-            return listaFilial;
+            return listaProdutos;
 
         } catch (HibernateException he) {
             he.printStackTrace();
-            return listaFilial;
-        }
-        
+            return listaProdutos;
+        }        
     }
     
     public Boolean existeNoBanco(int cod){
         boolean existe = false;
-        List<Filial> listaFilial = new ArrayList();
+        List<Produtos> listaProdutos = new ArrayList();
         List resultado = null;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
 
-        org.hibernate.Query q = sessao.createQuery("from Filial where codigo = " + cod);                
+        org.hibernate.Query q = sessao.createQuery("from Produtos where codigo = " + cod);                
         resultado = q.list();        
         
         for (Object o : resultado) {
-                Filial filial = (Filial) o;
-                listaFilial.add(filial);
+                Produtos produtos = (Produtos) o;
+                listaProdutos.add(produtos);
             }                
         
-        if (listaFilial.size() > 0){
+        if (listaProdutos.size() > 0){
             existe = true;
         } else {
             existe = false;
         }
         return existe;
     }
-            
-    public List<Filial> pesquisaFilial(String nome){
-        List<Filial> listaFilial = new ArrayList();
+    
+    public List<Produtos> pesquisaProdutos(String nome){
+        List<Produtos> listaProdutos = new ArrayList();
         List resultado = null;
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
             
-            org.hibernate.Query q = sessao.createQuery("from Filial where nome like '" + nome + "%'");
+            org.hibernate.Query q = sessao.createQuery("from Produtos where Marca like '" + nome + "%'");
             resultado = q.list();
 
             for (Object o : resultado) {
-                Filial filial = (Filial) o;
-                listaFilial.add(filial);
+                Produtos produtos = (Produtos) o;
+                listaProdutos.add(produtos);
             }
             
-            return listaFilial;
+            return listaProdutos;
 
         } catch (HibernateException he) {
             he.printStackTrace();
-            return listaFilial;
+            return listaProdutos;
         }
     }
 }

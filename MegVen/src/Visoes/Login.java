@@ -213,6 +213,7 @@ public class Login extends javax.swing.JFrame {
                                 
         Secao.getInstance();        
         Secao.getInstance().Logando(Integer.parseInt(edUsuario.getText()), edSenha.getText());        
+        this.setVisible(false);
         
     }//GEN-LAST:event_jButton2ActionPerformed
 

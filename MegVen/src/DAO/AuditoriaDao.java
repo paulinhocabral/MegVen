@@ -7,36 +7,42 @@ package DAO;
 
 import Entidades.Auditoria;
 import Util.HibernateUtil;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
+
 
 /**
  *
  * @author Murilo
  */
-public class AuditoriaDao {
+public class AuditoriaDao {       
     
-    public Boolean InsertAuditoria(Auditoria auditoria){
-        Session sessao = null;
+    public void InsertAuditoria(Auditoria auditoria){
         try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction t = sessao.beginTransaction();
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
 
-            //sessao.save(auditoria);            
-            //t.
-            sessao.createQuery("CALL InsAuditoria(" + auditoria.getAcao() + "," + auditoria.getValorAnterior() + "," + 
-                                auditoria.getValorPosterior() + "," + auditoria.getUsuario() +")");            
-            
-            return true;                 
+            sessao.doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    CallableStatement call = connection.prepareCall("{ call InsAuditoria(?,?,?,?) }");
+                    call.setString(1, auditoria.getAcao()); 
+                    call.setString(2, auditoria.getValorAnterior());
+                    call.setString(3, auditoria.getValorPosterior());
+                    call.setInt(4, auditoria.getUsuario().getCodigo());
+                    call.execute();
+                }
+            });
 
-        } catch (HibernateException he) {
-            he.printStackTrace(); 
-            return false;
-        } finally {
-            sessao.close();
+            sessao.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("erro da função: " + e);
         }
     }
     

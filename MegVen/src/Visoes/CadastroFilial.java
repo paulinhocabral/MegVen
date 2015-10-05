@@ -27,21 +27,24 @@ public class CadastroFilial extends javax.swing.JFrame {
      */
     public CadastroFilial() {
         initComponents();
+        gdFilial.getColumnModel().getColumn(4).setMinWidth(0);        
+        gdFilial.getColumnModel().getColumn(4).setPreferredWidth(0);
+        gdFilial.getColumnModel().getColumn(4).setMaxWidth(0);
     }
-    
+
     private void limpaTable() {
         DefaultTableModel model = (DefaultTableModel) gdFilial.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
         }
     }
-    
-    private void carregaFilial (Filial filial) {
+
+    private void carregaFilial(Filial filial) {
         edCodigo.setText(filial.getCodigo().toString());
         edNome.setText(filial.getNome());
         edCidade.setText(filial.getCidade());
-        edCodigoUsuario.setText(filial.getCodigo().toString());
-        edNomeUsuario.setText(filial.getNomeUsuario());                               
+        edCodigoUsuario.setText(filial.getUsuario().getCodigo().toString());
+        edNomeUsuario.setText(filial.getUsuario().getNome());
     }
 
     /**
@@ -117,11 +120,11 @@ public class CadastroFilial extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Cidade", "Usuário"
+                "Código", "Nome", "Cidade", "Usuário", "Código"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -296,8 +299,10 @@ public class CadastroFilial extends javax.swing.JFrame {
                         .addComponent(edNome2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btPesquisaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 41, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
+                        .addGap(0, 93, Short.MAX_VALUE))
+                    .addGroup(PesquisaUsuarioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PesquisaUsuarioLayout.setVerticalGroup(
@@ -308,9 +313,9 @@ public class CadastroFilial extends javax.swing.JFrame {
                     .addComponent(label_descConta1)
                     .addComponent(edNome2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btPesquisaUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(PesquisaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCarregar1)
                     .addComponent(btCancelar1))
@@ -376,7 +381,7 @@ public class CadastroFilial extends javax.swing.JFrame {
 
         jLabel4.setText("Cidade:");
 
-        jLabel5.setText("Usuário:");
+        jLabel5.setText("Responsável:");
 
         edCodigo.setName("edCodigo"); // NOI18N
         edCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -526,30 +531,30 @@ public class CadastroFilial extends javax.swing.JFrame {
         Usuario usuario = new Usuario();
         FilialDao filialDao = new FilialDao();
         boolean retorno = false;
-        if (edCodigo.getText().equals("")) {
-            //filial.setCodigo(Integer.parseInt(edCodigo.getText()));
+        if (edCodigo.getText().equals("")) {            
             filial.setNome(edNome.getText());
-            filial.setCidade(edCidade.getText());
-            filial.setUsuario(Integer.parseInt(edCodigoUsuario.getText()));
-            //filial.setUsuario((Usuario) new UsuarioDao().pesquisaPorCodigo(Integer.parseInt(edCodigoUsuario.getText())));
+            filial.setCidade(edCidade.getText());            
+            usuario.setCodigo(Integer.parseInt(edCodigoUsuario.getText()));
+            usuario.setNome(edNomeUsuario.getText());
+            filial.setUsuario(usuario);
             filial.setNomeUsuario(edNomeUsuario.getText());
 
             retorno = filialDao.InsertFilial(filial);
-
         } else {
             boolean existe = filialDao.existeNoBanco(Integer.parseInt(edCodigo.getText()));
-            if (existe){
+            if (existe) {
                 filial.setCodigo(Integer.parseInt(edCodigo.getText()));
                 filial.setNome(edNome.getText());
                 filial.setCidade(edCidade.getText());
-                //filial.setUsuario((Usuario) new UsuarioDao().pesquisaPorCodigo(Integer.parseInt(edCodigoUsuario.getText())));
-                filial.setUsuario(Integer.parseInt(edCodigoUsuario.getText()));
+                usuario.setCodigo(Integer.parseInt(edCodigoUsuario.getText()));
+                usuario.setNome(edNomeUsuario.getText());
+                filial.setUsuario(usuario);                                
                 retorno = filialDao.updateFilial(filial);
             }
         }
         if (retorno == true) {
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso!");
-            carregaFilial(filial);
+            JOptionPane.showMessageDialog(null, "Gravado com sucesso!");                        
+            carregaFilial(filial);            
         } else {
             JOptionPane.showMessageDialog(null, "Erro!");
         }
@@ -564,29 +569,29 @@ public class CadastroFilial extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void edCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edCodigoFocusLost
-/*        ClienteDao clienteDao = new ClienteDao();
-        List<Cliente> list = new ArrayList();
-        if (edCodigo.equals("")) {
-            limpaTela();
-        } else {
+        /*        ClienteDao clienteDao = new ClienteDao();
+         List<Cliente> list = new ArrayList();
+         if (edCodigo.equals("")) {
+         limpaTela();
+         } else {
 
-            Cliente cliente = new Cliente();
-            try {
-                //                list = clienteDao.procuraPorCodigo(Integer.parseInt(edCodigo.getText()));
-                //for (Cliente cliente : list) {
-                    //                    edCodigo.setText(cliente.getCodigo().toString());
+         Cliente cliente = new Cliente();
+         try {
+         //                list = clienteDao.procuraPorCodigo(Integer.parseInt(edCodigo.getText()));
+         //for (Cliente cliente : list) {
+         //                    edCodigo.setText(cliente.getCodigo().toString());
 
-                    //                }
+         //                }
 
-            } catch (Exception ex) {
-                Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (cliente == null) {
-                limpaTela();
-            } else {
-                //carregaPaci(paciente);
-            }
-        }*/
+         } catch (Exception ex) {
+         Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         if (cliente == null) {
+         limpaTela();
+         } else {
+         //carregaPaci(paciente);
+         }
+         }*/
     }//GEN-LAST:event_edCodigoFocusLost
 
     private void edCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edCodigoActionPerformed
@@ -655,16 +660,17 @@ public class CadastroFilial extends javax.swing.JFrame {
 
         if (list.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Filial não localizada.", "Erro",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
             btCarregar.setEnabled(false);
         } else {
-            String tabela[] = new String[]{"", "","",""};
+            String tabela[] = new String[]{"", "", "", "",""};
             for (Filial filial : list) {
                 tabela[0] = String.valueOf(filial.getCodigo());
                 tabela[1] = filial.getNome();
                 tabela[2] = filial.getCidade();
-                tabela[3] = filial.getNomeUsuario();
-                
+                tabela[3] = filial.getUsuario().getNome();
+                tabela[4] = String.valueOf(filial.getUsuario().getCodigo());                
+
                 model.addRow(tabela);
             }
             btCarregar.setEnabled(true);
@@ -677,8 +683,9 @@ public class CadastroFilial extends javax.swing.JFrame {
             if (gdFilial.getSelectedRow() > -1) {
                 edCodigo.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 0).toString());
                 edNome.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 1).toString());
-                edCidade.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 2).toString());                
+                edCidade.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 2).toString());
                 edNomeUsuario.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 3).toString());
+                edCodigoUsuario.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(),4).toString());
                 PesquisaFilial.setVisible(false);
             }
         }
@@ -697,12 +704,13 @@ public class CadastroFilial extends javax.swing.JFrame {
         if (gdFilial.getSelectedRow() > -1) {
             edCodigo.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 0).toString());
             edNome.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 1).toString());
-            edCidade.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 2).toString());                
+            edCidade.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 2).toString());
             edNomeUsuario.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(), 3).toString());
+            edCodigoUsuario.setText(gdFilial.getValueAt(gdFilial.getSelectedRow(),4).toString());
             PesquisaFilial.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, selecione alguma filial da lista.", "Erro",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCarregarActionPerformed
 
@@ -711,6 +719,9 @@ public class CadastroFilial extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btPesquisa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisa2ActionPerformed
+        PesquisaUsuario.setSize(400, 400);
+        PesquisaUsuario.setModal(true);
+        PesquisaUsuario.setLocation(200, 100);
         PesquisaUsuario.setVisible(true);
     }//GEN-LAST:event_btPesquisa2ActionPerformed
 
@@ -732,7 +743,7 @@ public class CadastroFilial extends javax.swing.JFrame {
         UsuarioDao usuarioDao = new UsuarioDao();
         List<Usuario> list = new ArrayList();
 
-        if (edNome.getText().equals("")) {
+        if (edNome2.getText().equals("")) {
             try {
                 list = usuarioDao.encontrarTudo();
             } catch (Exception ex) {
@@ -740,7 +751,7 @@ public class CadastroFilial extends javax.swing.JFrame {
             }
         } else {
             try {
-                list = usuarioDao.pesquisaUsuario(edNome.getText());
+                list = usuarioDao.pesquisaUsuario(edNome2.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaUsuario.getName()).log(Level.SEVERE, null, ex);
             }
@@ -748,14 +759,14 @@ public class CadastroFilial extends javax.swing.JFrame {
 
         if (list.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Usuário não localizado.", "Erro",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
             btCarregar.setEnabled(false);
         } else {
             String tabela[] = new String[]{"", ""};
             for (Usuario usuario : list) {
                 tabela[0] = String.valueOf(usuario.getCodigo());
                 tabela[1] = usuario.getNome();
-                
+
                 model.addRow(tabela);
             }
             btCarregar.setEnabled(true);
@@ -767,7 +778,7 @@ public class CadastroFilial extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             if (gdUsuario.getSelectedRow() > -1) {
                 edCodigoUsuario.setText(gdUsuario.getValueAt(gdUsuario.getSelectedRow(), 0).toString());
-                edNomeUsuario.setText(gdUsuario.getValueAt(gdUsuario.getSelectedRow(), 1).toString());                
+                edNomeUsuario.setText(gdUsuario.getValueAt(gdUsuario.getSelectedRow(), 1).toString());
                 PesquisaUsuario.setVisible(false);
             }
         }
@@ -785,11 +796,11 @@ public class CadastroFilial extends javax.swing.JFrame {
         //DefaultTableModel model = (DefaultTableModel) gdClientes.getModel();
         if (gdUsuario.getSelectedRow() > -1) {
             edCodigoUsuario.setText(gdUsuario.getValueAt(gdUsuario.getSelectedRow(), 0).toString());
-            edNomeUsuario.setText(gdUsuario.getValueAt(gdUsuario.getSelectedRow(), 1).toString());            
+            edNomeUsuario.setText(gdUsuario.getValueAt(gdUsuario.getSelectedRow(), 1).toString());
             PesquisaUsuario.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, selecione algum usuário da lista.", "Erro",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCarregar1ActionPerformed
 

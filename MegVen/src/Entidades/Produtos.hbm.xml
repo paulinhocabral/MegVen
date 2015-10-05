@@ -11,6 +11,9 @@
         <property name="descricao" type="string">
             <column name="Descricao" length="200" not-null="true" />
         </property>
+        <property name="marca" type="string">
+            <column name="Marca" length="100" not-null="true" />
+        </property>
         <set name="produtoestoques" table="produtoestoque" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="Produtos_Codigo" not-null="true" />

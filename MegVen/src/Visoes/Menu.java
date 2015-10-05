@@ -29,6 +29,8 @@ public class Menu extends javax.swing.JFrame {
     CadastroCliente CadastroCliente;
     CadastroUsuario CadastroUsuario;
     CadastroFilial CadastroFilial;
+    CadastroProduto CadastroProdutos;
+    CadastroProdEst CadastroPe;
     
     /**
      * Creates new form Menu
@@ -73,6 +75,7 @@ public class Menu extends javax.swing.JFrame {
         MenuUsuario = new javax.swing.JMenuItem();
         MenuProdutos = new javax.swing.JMenuItem();
         MenuFiliais = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -181,6 +184,15 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(MenuFiliais);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem1.setText("Manutenção de produtos do estoque");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Orçamentos");
@@ -249,7 +261,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuFiliaisActionPerformed
 
     private void MenuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuProdutosActionPerformed
-        // TODO add your handling code here:
+        if (CadastroProdutos == null){
+            CadastroProdutos = new CadastroProduto();            
+            CadastroProdutos.setVisible(true);
+            CadastroProdutos.setLocationRelativeTo(null);
+        } else {
+            CadastroProdutos.setVisible(true);
+            CadastroProdutos.setLocationRelativeTo(null);
+        }
     }//GEN-LAST:event_MenuProdutosActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -290,6 +309,17 @@ public class Menu extends javax.swing.JFrame {
     private void gdAuditoriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdAuditoriaKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_gdAuditoriaKeyTyped
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        if (CadastroPe == null){
+            CadastroPe = new CadastroProdEst();            
+            CadastroPe.setVisible(true);
+            CadastroPe.setLocationRelativeTo(null);
+        } else {
+            CadastroPe.setVisible(true);
+            CadastroPe.setLocationRelativeTo(null);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,6 +369,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;

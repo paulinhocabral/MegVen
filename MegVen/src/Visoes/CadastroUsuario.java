@@ -412,7 +412,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 usuario.setTelefone(edTelefone.getText());
                 usuario.setSenha(edSenha.getText());
             
-                retorno = usuarioDao.updateCliente(usuario);
+                retorno = usuarioDao.updateUsuario(usuario);
             }            
         }
                                 

@@ -15,5 +15,6 @@
     <mapping resource="Entidades/Produtoestoque.hbm.xml"/>
     <mapping resource="Entidades/Produtos.hbm.xml"/>
     <mapping resource="Entidades/Orcamento.hbm.xml"/>
+    
   </session-factory>
 </hibernate-configuration>

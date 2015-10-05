@@ -24,4 +24,6 @@
             <column name="valorPosterior" length="256" />
         </property>
     </class>
+    
+    
 </hibernate-mapping>

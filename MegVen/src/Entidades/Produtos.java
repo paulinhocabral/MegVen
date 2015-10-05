@@ -13,6 +13,15 @@ public class Produtos  implements java.io.Serializable {
 
      private Integer codigo;
      private String descricao;
+     private String marca;
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
      private Set produtoestoques = new HashSet(0);
 
     public Produtos() {
@@ -22,10 +31,13 @@ public class Produtos  implements java.io.Serializable {
     public Produtos(String descricao) {
         this.descricao = descricao;
     }
-    public Produtos(String descricao, Set produtoestoques) {
-       this.descricao = descricao;
-       this.produtoestoques = produtoestoques;
+
+    public Produtos(Integer codigo, String descricao, String marca) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.marca = marca;
     }
+    
    
     public Integer getCodigo() {
         return this.codigo;
