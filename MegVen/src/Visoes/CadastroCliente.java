@@ -5,7 +5,6 @@
  */
 package Visoes;
 
-import Controle.MiscTools;
 import DAO.ClienteDao;
 import Entidades.Cliente;
 import Entidades.Secao;

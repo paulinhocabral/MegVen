@@ -1,8 +1,7 @@
 package Entidades;
-// Generated 25/08/2015 19:46:47 by Hibernate Tools 4.3.1
+// Generated 12/10/2015 12:43:43 by Hibernate Tools 4.3.1
 
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ public class Orcamento  implements java.io.Serializable {
 
      private Integer codigo;
      private Cliente cliente;
-     private Date data;
+     private String data;
      private Set orcamentoProdutoestoques = new HashSet(0);
 
     public Orcamento() {
@@ -24,7 +23,7 @@ public class Orcamento  implements java.io.Serializable {
     public Orcamento(Cliente cliente) {
         this.cliente = cliente;
     }
-    public Orcamento(Cliente cliente, Date data, Set orcamentoProdutoestoques) {
+    public Orcamento(Cliente cliente, String data, Set orcamentoProdutoestoques) {
        this.cliente = cliente;
        this.data = data;
        this.orcamentoProdutoestoques = orcamentoProdutoestoques;
@@ -44,11 +43,11 @@ public class Orcamento  implements java.io.Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    public Date getData() {
+    public String getData() {
         return this.data;
     }
     
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
     public Set getOrcamentoProdutoestoques() {

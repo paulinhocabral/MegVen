@@ -5,8 +5,10 @@
  */
 package DAO;
 
+import Entidades.Auditoria;
 import Entidades.Produtos;
 import Entidades.Secao;
+import Entidades.Usuario;
 import Util.HibernateUtil;
 import Visoes.Login;
 import java.util.ArrayList;
@@ -42,12 +44,36 @@ public class ProdutoDao {
     }
     
     public Boolean updateProdutos(Produtos produto){
+        Auditoria auditoria = new Auditoria();
+        AuditoriaDao auditoriaDao = new AuditoriaDao();
+        Usuario usu = new Usuario();
+        List<Produtos> listvelho = new ArrayList();
+        List<Produtos> listnovo = new ArrayList();
         Session sessao = null;
         try {
+            listvelho  = procuraPorCodigo(produto.getCodigo());
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
             sessao.update(produto);
             t.commit();
+            listnovo = procuraPorCodigo(produto.getCodigo());
+            
+            for (int i = 0; i < listnovo.size(); i++) {
+                if (listnovo.get(i).getDescricao()!= listvelho.get(i).getDescricao()) {
+                    auditoria.setValorAnterior("Campo descricao: " + listvelho.get(i).getDescricao());
+                    auditoria.setValorPosterior("Campo descricao: " + listnovo.get(i).getDescricao());
+                }
+                if (listnovo.get(i).getMarca()!= listvelho.get(i).getMarca()) {
+                    auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo marca: " + listvelho.get(i).getMarca());
+                    auditoria.setValorPosterior(auditoria.getValorPosterior() + " Campo marca: " + listnovo.get(i).getMarca());
+                }                 
+            }
+            
+            auditoria.setAcao("Update produtos: " + produto.getCodigo());            
+            usu.setCodigo(usuario);
+            auditoria.setUsuario(usu); 
+            auditoriaDao.InsertAuditoria(auditoria);
+            
             Login.log.info("Usuário: " + usuario + " fez o update do cliente: " + produto.getCodigo() + "," + produto.getDescricao()+ "," + produto.getMarca());
             return true;
             

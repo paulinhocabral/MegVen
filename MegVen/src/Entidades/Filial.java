@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 25/08/2015 19:46:47 by Hibernate Tools 4.3.1
+// Generated 12/10/2015 12:43:43 by Hibernate Tools 4.3.1
 
 
 
@@ -12,16 +12,7 @@ public class Filial  implements java.io.Serializable {
      private Integer codigo;
      private Usuario usuario;
      private String nome;
-     private String cidade;
-     private String nomeUsuario;
-
-    public String getNomeUsuario() {
-        return nomeUsuario;
-    }
-
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
-    }
+     private String cidade;     
 
     public Filial() {
     }

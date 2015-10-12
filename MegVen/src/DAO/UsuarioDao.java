@@ -89,26 +89,26 @@ public class UsuarioDao {
                 if (listnovo.get(i).getNome() != listvelho.get(i).getNome()) {
                     auditoria.setValorAnterior("Campo nome: " + listvelho.get(i).getNome());
                     auditoria.setValorPosterior("Campo nome: " + listnovo.get(i).getNome());
-                } else
+                }
                 if (listnovo.get(i).getEmail() != listvelho.get(i).getEmail()) {
                     auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo email: " + listvelho.get(i).getEmail());
                     auditoria.setValorPosterior(auditoria.getValorPosterior() + " Campo email: " + listnovo.get(i).getEmail());
-                } else
+                } 
                 if (listnovo.get(i).getNivelAcesso() != listvelho.get(i).getNivelAcesso()) {
                     auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo nivelAcesso: " + listvelho.get(i).getNivelAcesso());
                     auditoria.setValorPosterior(auditoria.getValorPosterior() + " Campo nivelAcesso: " + listnovo.get(i).getNivelAcesso());
-                } else 
+                }  
                 if (listnovo.get(i).isAtivo() != listvelho.get(i).isAtivo()) {
                     auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo ativo: " + listvelho.get(i).isAtivo());
                     auditoria.setValorPosterior(auditoria.getValorPosterior() + " Campo ativo: " + listnovo.get(i).isAtivo());
-                } else
+                } 
                 if (listnovo.get(i).getTelefone() != listvelho.get(i).getTelefone()) {
                     auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo telefone: " + listvelho.get(i).getTelefone());
                     auditoria.setValorPosterior(auditoria.getValorPosterior() + " Campo telefone: " + listnovo.get(i).getTelefone());
                 }
             }
             
-            auditoria.setAcao("Update usuario");            
+            auditoria.setAcao("Update usuario: "+ usuario.getCodigo());            
             usu.setCodigo(us);
             auditoria.setUsuario(usu); 
             auditoriaDao.InsertAuditoria(auditoria);

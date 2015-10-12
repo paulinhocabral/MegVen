@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 25/08/2015 19:46:47 by Hibernate Tools 4.3.1
+// Generated 12/10/2015 12:43:43 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,30 +14,21 @@ public class Produtos  implements java.io.Serializable {
      private Integer codigo;
      private String descricao;
      private String marca;
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
      private Set produtoestoques = new HashSet(0);
 
     public Produtos() {
     }
 
 	
-    public Produtos(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Produtos(Integer codigo, String descricao, String marca) {
-        this.codigo = codigo;
+    public Produtos(String descricao, String marca) {
         this.descricao = descricao;
         this.marca = marca;
     }
-    
+    public Produtos(String descricao, String marca, Set produtoestoques) {
+       this.descricao = descricao;
+       this.marca = marca;
+       this.produtoestoques = produtoestoques;
+    }
    
     public Integer getCodigo() {
         return this.codigo;
@@ -52,6 +43,13 @@ public class Produtos  implements java.io.Serializable {
     
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    public String getMarca() {
+        return this.marca;
+    }
+    
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
     public Set getProdutoestoques() {
         return this.produtoestoques;

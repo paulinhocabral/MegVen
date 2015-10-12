@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 25/08/2015 19:46:49 by Hibernate Tools 4.3.1 -->
+<!-- Generated 12/10/2015 12:43:44 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Entidades.Produtoestoque" table="produtoestoque" catalog="megven" optimistic-lock="version">
         <composite-id name="id" class="Entidades.ProdutoestoqueId">
@@ -24,7 +24,7 @@
         <property name="qtd" type="int">
             <column name="Qtd" not-null="true" />
         </property>
-        <property name="dtEntrada" type="date">
+        <property name="dtEntrada" type="string">
             <column name="DtEntrada" length="10" not-null="true" />
         </property>
         <set name="orcamentoProdutoestoques" table="orcamento_produtoestoque" inverse="true" lazy="true" fetch="select">

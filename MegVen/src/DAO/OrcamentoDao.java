@@ -6,30 +6,32 @@
 package DAO;
 
 import Entidades.Auditoria;
-import Entidades.Filial;
+import Entidades.Cliente;
+import Entidades.Orcamento;
 import Entidades.Secao;
 import Entidades.Usuario;
+import Util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import Util.HibernateUtil;
 
 /**
  *
  * @author Murilo
  */
-public class FilialDao {
+public class OrcamentoDao {
+    
     int us = Secao.getInstance().getUsuario();
     
-    public Boolean InsertFilial(Filial filial){
+    public Boolean InsertOrcamento(Orcamento orcamento){
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
 
-            sessao.save(filial);
+            sessao.save(orcamento);
             t.commit();
             
             return true;
@@ -42,36 +44,32 @@ public class FilialDao {
         }
     }
     
-    public Boolean updateFilial(Filial filial){
+    public Boolean updateOrcamento(Orcamento orcamento){
         Auditoria auditoria = new Auditoria();
         AuditoriaDao auditoriaDao = new AuditoriaDao();
-        Usuario usu = new Usuario();
-        List<Filial> listvelho = new ArrayList();
-        List<Filial> listnovo = new ArrayList();
+        Usuario usu = new Usuario();        
+        List<Orcamento> listvelho = new ArrayList();
+        List<Orcamento> listnovo = new ArrayList();
         Session sessao = null;
         try {
-            listvelho  = procuraPorCodigo(filial.getCodigo());
+            listvelho  = procuraPorCodigo(orcamento.getCodigo());
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-            sessao.update(filial);
+            sessao.update(orcamento);
             t.commit();
-            listnovo = procuraPorCodigo(filial.getCodigo());
+            listnovo = procuraPorCodigo(orcamento.getCodigo());
             for (int i = 0; i < listnovo.size(); i++) {
-                if (listnovo.get(i).getNome() != listvelho.get(i).getNome()) {
-                    auditoria.setValorAnterior("Campo nome: " + listvelho.get(i).getNome());
-                    auditoria.setValorPosterior("Campo nome: " + listnovo.get(i).getNome());
+                if (listnovo.get(i).getData() != listvelho.get(i).getData()) {
+                    auditoria.setValorAnterior("Campo data: " + listvelho.get(i).getData());
+                    auditoria.setValorPosterior("Campo data: " + listnovo.get(i).getData());
                 }
-                if (listnovo.get(i).getCidade()!= listvelho.get(i).getCidade()) {
-                    auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo cidade: " + listvelho.get(i).getCidade());
-                    auditoria.setValorPosterior(auditoria.getValorPosterior() + " Campo cidade " + listnovo.get(i).getCidade());
-                } 
-                if (listnovo.get(i).getUsuario().getCodigo() != listvelho.get(i).getUsuario().getCodigo()) {
-                    auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo usuario: " + listvelho.get(i).getUsuario().getCodigo());
-                    auditoria.setValorPosterior(auditoria.getValorPosterior() + " Campo usuario: " + listnovo.get(i).getUsuario().getCodigo());
-                }  
+                if (listnovo.get(i).getCliente().getCodigo() != listvelho.get(i).getCliente().getCodigo()) {
+                    auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo cliente: " + listvelho.get(i).getCliente().getCodigo());
+                    auditoria.setValorPosterior(auditoria.getValorPosterior() + " Campo cliente " + listnovo.get(i).getCliente().getCodigo());
+                }                  
             }    
                             
-            auditoria.setAcao("Update filial: " + filial.getCodigo());            
+            auditoria.setAcao("Update orcamento: " + orcamento.getCodigo());            
             usu.setCodigo(us);
             auditoria.setUsuario(usu); 
             auditoriaDao.InsertAuditoria(auditoria);
@@ -86,8 +84,8 @@ public class FilialDao {
         }
     }
     
-    public List<Filial> procuraPorCodigo(int cod){
-        List<Filial> listaFilial = new ArrayList();
+    public List<Orcamento> procuraPorCodigo(int cod){
+        List<Orcamento> listaOrcamento = new ArrayList();
         
         List resultado = null;
 
@@ -95,25 +93,25 @@ public class FilialDao {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            org.hibernate.Query q = sessao.createQuery("from Filial where codigo = " + cod);
+            org.hibernate.Query q = sessao.createQuery("from Orcamento where codigo = " + cod);
             resultado = q.list();
 
             for (Object o : resultado) {
-                Filial filial = (Filial) o;
-                listaFilial.add(filial);
+                Orcamento orcamento = (Orcamento) o;
+                listaOrcamento.add(orcamento);
             }
             
-            return listaFilial;
+            return listaOrcamento;
 
         } catch (HibernateException he) {
             he.printStackTrace();
-            return listaFilial;
+            return listaOrcamento;
         }
     }
     
-    public List<Filial> encontrarTudo(){
+    public List<Orcamento> encontrarTudo(){
         //Cliente cliente = new Cliente();
-        List<Filial> listaFilial = new ArrayList();
+        List<Orcamento> listaOrcamento = new ArrayList();
         
         List resultado = null;
 
@@ -121,69 +119,64 @@ public class FilialDao {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            org.hibernate.Query q = sessao.createQuery("from Filial ");
-            //org.hibernate.Query q = sessao.createSQLQuery("SELECT FILIAL.CODIGO,FILIAL.NOME,FILIAL.CIDADE,FILIAL.USUARIO_CODIGO,USUARIO.NOME " +
-                                                          //"FROM FILIAL LEFT OUTER JOIN USUARIO ON USUARIO.CODIGO = FILIAL.USUARIO_CODIGO");
+            org.hibernate.Query q = sessao.createQuery("from Orcamento ");            
             resultado = q.list();
 
             for (Object o : resultado) {
-                Filial filial = (Filial) o;
-                //System.out.println(filial.getUsuario().getNome());
-                listaFilial.add(filial);
+                Orcamento orcamento = (Orcamento) o;                
+                listaOrcamento.add(orcamento);
             }
             
-            return listaFilial;
+            return listaOrcamento;
 
         } catch (HibernateException he) {
             he.printStackTrace();
-            return listaFilial;
-        }
-        
+            return listaOrcamento;
+        }        
     }
-    
     public Boolean existeNoBanco(int cod){
         boolean existe = false;
-        List<Filial> listaFilial = new ArrayList();
+        List<Orcamento> listaOrcamento = new ArrayList();
         List resultado = null;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
 
-        org.hibernate.Query q = sessao.createQuery("from Filial where codigo = " + cod);                
+        org.hibernate.Query q = sessao.createQuery("from Orcamento where codigo = " + cod);                
         resultado = q.list();        
         
         for (Object o : resultado) {
-                Filial filial = (Filial) o;
-                listaFilial.add(filial);
+                Orcamento orcamento = (Orcamento) o;
+                listaOrcamento.add(orcamento);
             }                
         
-        if (listaFilial.size() > 0){
+        if (listaOrcamento.size() > 0){
             existe = true;
         } else {
             existe = false;
         }
         return existe;
     }
-            
-    public List<Filial> pesquisaFilial(String nome){
-        List<Filial> listaFilial = new ArrayList();
+    
+    public List<Orcamento> pesquisaOrcamento(String data){
+        List<Orcamento> listaOrcamento = new ArrayList();
         List resultado = null;
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
             
-            org.hibernate.Query q = sessao.createQuery("from Filial where nome like '" + nome + "%'");
+            org.hibernate.Query q = sessao.createQuery("from Orcamento where nome like '" + data + "%'");
             resultado = q.list();
 
             for (Object o : resultado) {
-                Filial filial = (Filial) o;
-                listaFilial.add(filial);
+                Orcamento orcamento = (Orcamento) o;
+                listaOrcamento.add(orcamento);
             }
             
-            return listaFilial;
+            return listaOrcamento;
 
         } catch (HibernateException he) {
             he.printStackTrace();
-            return listaFilial;
+            return listaOrcamento;
         }
     }
 }

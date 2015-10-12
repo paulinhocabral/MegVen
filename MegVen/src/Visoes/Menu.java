@@ -31,6 +31,7 @@ public class Menu extends javax.swing.JFrame {
     CadastroFilial CadastroFilial;
     CadastroProduto CadastroProdutos;
     CadastroProdEst CadastroPe;
+    CadastroOrcamento CadastroOrcamento;
     
     /**
      * Creates new form Menu
@@ -77,6 +78,7 @@ public class Menu extends javax.swing.JFrame {
         MenuFiliais = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
 
@@ -87,7 +89,7 @@ public class Menu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Sequencial", "Data/Hora", "Ação", "Valor anterior", "Valor posterior", "Usuário"
+                "Seq", "Data/Hora", "Ação", "Valor anterior", "Valor posterior", "Usuário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -121,16 +123,16 @@ public class Menu extends javax.swing.JFrame {
         AuditoriaLayout.setHorizontalGroup(
             AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AuditoriaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
         AuditoriaLayout.setVerticalGroup(
             AuditoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AuditoriaLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
@@ -196,6 +198,16 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Orçamentos");
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Orçamento");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Configurações");
@@ -277,18 +289,28 @@ public class Menu extends javax.swing.JFrame {
         AuditoriaDao auditoriaDao = new AuditoriaDao();
         List<Auditoria> list = new ArrayList();
         try {
-            list = auditoriaDao.encontrarTudo();
+            list = auditoriaDao.pesqView();
         } catch (Exception ex) {
             Logger.getLogger(Auditoria.getName()).log(Level.SEVERE, null, ex);
+            
         }
-        String tabela[] = new String[]{"", "", "", "", "",""};
+        String tabela[] = new String[]{"", "", "", "", "",""};        
+        
+        //for (int i = 0; i < list.size(); i++) {
+                    
         for (Auditoria auditoria : list) {
             tabela[0] = String.valueOf(auditoria.getCodigo());
+            //tabela[0] = String.valueOf(list.get(i).getCodigo());            
             tabela[1] = auditoria.getDataHora().toString();
+            //tabela[1] = list.get(i).getDataHora().toString();
             tabela[2] = auditoria.getAcao();
+            //tabela[2] = list.get(i).getAcao();
             tabela[3] = auditoria.getValorAnterior();
+            //tabela[3] = list.get(i).getValorAnterior();
             tabela[4] = auditoria.getValorPosterior();
+            //tabela[4] = list.get(i).getValorPosterior();
             tabela[5] = String.valueOf(auditoria.getUsuario());
+            //tabela[5] = String.valueOf(list.get(i).getUsuario().getCodigo());
 
             model.addRow(tabela);
         }
@@ -320,6 +342,17 @@ public class Menu extends javax.swing.JFrame {
             CadastroPe.setLocationRelativeTo(null);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        if (CadastroOrcamento == null){
+            CadastroOrcamento = new CadastroOrcamento();            
+            CadastroOrcamento.setVisible(true);
+            CadastroOrcamento.setLocationRelativeTo(null);
+        } else {
+            CadastroOrcamento.setVisible(true);
+            CadastroOrcamento.setLocationRelativeTo(null);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -370,6 +403,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;

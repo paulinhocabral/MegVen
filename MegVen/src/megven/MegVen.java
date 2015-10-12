@@ -5,8 +5,12 @@
  */
 package megven;
 
+import DAO.AuditoriaDao;
+import Entidades.Auditoria;
 import Visoes.Login;
-import Visoes.Menu;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,8 +21,8 @@ public class MegVen {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) {       
         new Login().setVisible(true);
     }
-    
+
 }

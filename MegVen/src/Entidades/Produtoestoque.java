@@ -1,8 +1,7 @@
 package Entidades;
-// Generated 25/08/2015 19:46:47 by Hibernate Tools 4.3.1
+// Generated 12/10/2015 12:43:43 by Hibernate Tools 4.3.1
 
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,14 +16,14 @@ public class Produtoestoque  implements java.io.Serializable {
      private double custo;
      private double valorVenda;
      private int qtd;
-     private Date dtEntrada;
+     private String dtEntrada;
      private Set orcamentoProdutoestoques = new HashSet(0);
 
     public Produtoestoque() {
     }
 
 	
-    public Produtoestoque(ProdutoestoqueId id, Produtos produtos, double custo, double valorVenda, int qtd, Date dtEntrada) {
+    public Produtoestoque(ProdutoestoqueId id, Produtos produtos, double custo, double valorVenda, int qtd, String dtEntrada) {
         this.id = id;
         this.produtos = produtos;
         this.custo = custo;
@@ -32,7 +31,7 @@ public class Produtoestoque  implements java.io.Serializable {
         this.qtd = qtd;
         this.dtEntrada = dtEntrada;
     }
-    public Produtoestoque(ProdutoestoqueId id, Produtos produtos, double custo, double valorVenda, int qtd, Date dtEntrada, Set orcamentoProdutoestoques) {
+    public Produtoestoque(ProdutoestoqueId id, Produtos produtos, double custo, double valorVenda, int qtd, String dtEntrada, Set orcamentoProdutoestoques) {
        this.id = id;
        this.produtos = produtos;
        this.custo = custo;
@@ -77,11 +76,11 @@ public class Produtoestoque  implements java.io.Serializable {
     public void setQtd(int qtd) {
         this.qtd = qtd;
     }
-    public Date getDtEntrada() {
+    public String getDtEntrada() {
         return this.dtEntrada;
     }
     
-    public void setDtEntrada(Date dtEntrada) {
+    public void setDtEntrada(String dtEntrada) {
         this.dtEntrada = dtEntrada;
     }
     public Set getOrcamentoProdutoestoques() {

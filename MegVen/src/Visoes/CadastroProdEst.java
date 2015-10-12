@@ -12,6 +12,8 @@ import DAO.ProdutoDao;
 import Entidades.Produtoestoque;
 import Entidades.ProdutoestoqueId;
 import Entidades.Produtos;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,12 +42,19 @@ public class CadastroProdEst extends javax.swing.JFrame {
         }
     }
     
+    private void limpaTablePE() {
+        DefaultTableModel model = (DefaultTableModel) gdPe.getModel();
+        for (int i = model.getRowCount() - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
+    
     private void carregaPE (Produtoestoque pe) {
         //edCodigo.setText(pe.getCodigo().toString());
         edCusto.setText(String.valueOf(pe.getCusto()));
         edvalVen.setText(String.valueOf(pe.getValorVenda()));
         edQtd.setText(String.valueOf(pe.getQtd()));
-        edDt.setText(Formatacao.ajustaDataDMA(pe.getDtEntrada().toString()));        
+        edDt.setText(pe.getDtEntrada().toString());
     }
 
     /**
@@ -65,9 +74,17 @@ public class CadastroProdEst extends javax.swing.JFrame {
         gdProdutos = new javax.swing.JTable();
         btCarregar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        PesqPE = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        gdPe = new javax.swing.JTable();
+        label_descConta1 = new javax.swing.JLabel();
+        edProd = new javax.swing.JTextField();
+        btPesqP = new javax.swing.JButton();
+        btCarregarPro = new javax.swing.JButton();
+        btCancelarPE = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btSalvar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btNovo = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -78,10 +95,12 @@ public class CadastroProdEst extends javax.swing.JFrame {
         edDescPro = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         edCodigo = new javax.swing.JTextField();
-        edQtd = new javax.swing.JTextField();
         edDt = new javax.swing.JFormattedTextField();
-        edCusto = new javax.swing.JTextField();
-        edvalVen = new javax.swing.JTextField();
+        edCusto = new javax.swing.JFormattedTextField();
+        edvalVen = new javax.swing.JFormattedTextField();
+        edQtd = new javax.swing.JFormattedTextField();
+        btPesquProEst = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
 
         label_descConta.setText("Marca");
 
@@ -196,7 +215,139 @@ public class CadastroProdEst extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        gdPe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Produto", "Descricao", "Cod. estoque", "Custo", "Valor de venda", "Qtd", "Dt entrada", "Marca"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        gdPe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gdPeMouseClicked(evt);
+            }
+        });
+        gdPe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                gdPeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                gdPeKeyTyped(evt);
+            }
+        });
+        jScrollPane2.setViewportView(gdPe);
+        if (gdPe.getColumnModel().getColumnCount() > 0) {
+            gdPe.getColumnModel().getColumn(0).setResizable(false);
+            gdPe.getColumnModel().getColumn(0).setPreferredWidth(50);
+            gdPe.getColumnModel().getColumn(1).setResizable(false);
+            gdPe.getColumnModel().getColumn(1).setPreferredWidth(100);
+            gdPe.getColumnModel().getColumn(2).setResizable(false);
+            gdPe.getColumnModel().getColumn(2).setPreferredWidth(50);
+            gdPe.getColumnModel().getColumn(3).setResizable(false);
+            gdPe.getColumnModel().getColumn(3).setPreferredWidth(40);
+            gdPe.getColumnModel().getColumn(4).setResizable(false);
+            gdPe.getColumnModel().getColumn(4).setPreferredWidth(70);
+            gdPe.getColumnModel().getColumn(5).setResizable(false);
+            gdPe.getColumnModel().getColumn(5).setPreferredWidth(30);
+            gdPe.getColumnModel().getColumn(6).setResizable(false);
+            gdPe.getColumnModel().getColumn(6).setPreferredWidth(60);
+            gdPe.getColumnModel().getColumn(7).setResizable(false);
+            gdPe.getColumnModel().getColumn(7).setPreferredWidth(50);
+        }
+
+        label_descConta1.setText("Produto:");
+
+        edProd.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                edProdFocusLost(evt);
+            }
+        });
+        edProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edProdActionPerformed(evt);
+            }
+        });
+        edProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edProdKeyReleased(evt);
+            }
+        });
+
+        btPesqP.setText("Pesquisar");
+        btPesqP.setMargin(new java.awt.Insets(2, 1, 2, 1));
+        btPesqP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesqPActionPerformed(evt);
+            }
+        });
+
+        btCarregarPro.setText("Carregar");
+        btCarregarPro.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        btCarregarPro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCarregarProActionPerformed(evt);
+            }
+        });
+
+        btCancelarPE.setText("Cancelar");
+        btCancelarPE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarPEActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PesqPELayout = new javax.swing.GroupLayout(PesqPE.getContentPane());
+        PesqPE.getContentPane().setLayout(PesqPELayout);
+        PesqPELayout.setHorizontalGroup(
+            PesqPELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PesqPELayout.createSequentialGroup()
+                .addGroup(PesqPELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PesqPELayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btCarregarPro, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCancelarPE, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PesqPELayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PesqPELayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(label_descConta1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edProd, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btPesqP, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        PesqPELayout.setVerticalGroup(
+            PesqPELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PesqPELayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PesqPELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_descConta1)
+                    .addComponent(edProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesqP))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(PesqPELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCarregarPro)
+                    .addComponent(btCancelarPE))
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Manutenção de produtos do estoque");
 
         jPanel1.setMinimumSize(new java.awt.Dimension(380, 260));
         jPanel1.setName("Manutenção de clientes"); // NOI18N
@@ -208,10 +359,10 @@ public class CadastroProdEst extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Sair");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btNovoActionPerformed(evt);
             }
         });
 
@@ -225,6 +376,7 @@ public class CadastroProdEst extends javax.swing.JFrame {
 
         jLabel6.setText("Data entrada:");
 
+        edProduto.setEditable(false);
         edProduto.setName("edProduto"); // NOI18N
         edProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -262,6 +414,7 @@ public class CadastroProdEst extends javax.swing.JFrame {
             }
         });
 
+        edDescPro.setEditable(false);
         edDescPro.setName("edCodigo"); // NOI18N
         edDescPro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -324,95 +477,25 @@ public class CadastroProdEst extends javax.swing.JFrame {
             }
         });
 
-        edQtd.setName("edProduto"); // NOI18N
-        edQtd.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                edQtdFocusLost(evt);
-            }
-        });
-        edQtd.addActionListener(new java.awt.event.ActionListener() {
+        edDt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
+
+        edCusto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        edvalVen.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        edQtd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        btPesquProEst.setIcon(new javax.swing.ImageIcon("C:\\Users\\Murilo\\Documents\\NetBeansProjects\\ProjetosPAA\\images.png")); // NOI18N
+        btPesquProEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edQtdActionPerformed(evt);
-            }
-        });
-        edQtd.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                edQtdPropertyChange(evt);
-            }
-        });
-        edQtd.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edQtdKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                edQtdKeyTyped(evt);
-            }
-        });
-        edQtd.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                edQtdVetoableChange(evt);
+                btPesquProEstActionPerformed(evt);
             }
         });
 
-        edDt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-
-        edCusto.setName("edProduto"); // NOI18N
-        edCusto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                edCustoFocusLost(evt);
-            }
-        });
-        edCusto.addActionListener(new java.awt.event.ActionListener() {
+        btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edCustoActionPerformed(evt);
-            }
-        });
-        edCusto.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                edCustoPropertyChange(evt);
-            }
-        });
-        edCusto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edCustoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                edCustoKeyTyped(evt);
-            }
-        });
-        edCusto.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                edCustoVetoableChange(evt);
-            }
-        });
-
-        edvalVen.setName("edProduto"); // NOI18N
-        edvalVen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                edvalVenFocusLost(evt);
-            }
-        });
-        edvalVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edvalVenActionPerformed(evt);
-            }
-        });
-        edvalVen.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                edvalVenPropertyChange(evt);
-            }
-        });
-        edvalVen.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edvalVenKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                edvalVenKeyTyped(evt);
-            }
-        });
-        edvalVen.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                edvalVenVetoableChange(evt);
+                btSairActionPerformed(evt);
             }
         });
 
@@ -421,42 +504,51 @@ public class CadastroProdEst extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(74, 74, 74)
+                                    .addComponent(jLabel3))
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edDescPro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(edCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btPesquProEst, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(edDescPro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(edQtd, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(edvalVen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(edDt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(edCusto, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(edQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edDt, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(edCusto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                        .addComponent(edvalVen, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(164, Short.MAX_VALUE)
-                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,34 +558,37 @@ public class CadastroProdEst extends javax.swing.JFrame {
                     .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
                             .addComponent(edProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edDescPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(edDescPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btPesquProEst, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(edCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(edCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(edCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(edvalVen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(edQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(edDt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(edCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edvalVen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edDt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
-                    .addComponent(jButton2))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(btNovo)
+                    .addComponent(btSair))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -509,7 +604,7 @@ public class CadastroProdEst extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -517,23 +612,24 @@ public class CadastroProdEst extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        Produtoestoque pe = new Produtoestoque();
-        //Produtos prod = new Produtos();
+        Produtoestoque pe = new Produtoestoque();        
         ProdutoestoqueId peid = new ProdutoestoqueId();
         PEDao peDao = new PEDao();
-        boolean retorno = false;
+        boolean retorno = false;        
         boolean existe = peDao.existeNoBanco(Integer.parseInt(edProduto.getText()), Integer.parseInt(edCodigo.getText()));
         peid.setProdutosCodigo(Integer.parseInt(edProduto.getText()));
         peid.setCodigoEstoque(Integer.parseInt(edCodigo.getText()));
         pe.setId(peid);
-        pe.setCusto(Double.parseDouble(edCusto.getText()));
-        pe.setValorVenda(Double.parseDouble(edvalVen.getText()));
+        pe.setCusto(Double.parseDouble(edCusto.getText().replace(',', '.')));
+        pe.setValorVenda(Double.parseDouble(edvalVen.getText().replace(',', '.')));
         pe.setQtd(Integer.parseInt(edQtd.getText()));
-        pe.setDtEntrada(MiscTools.converteStringParaDate(edDt.getText()));
+                
+        pe.setDtEntrada(edDt.getText());        
+        
         if (existe) {
-            retorno = peDao.InsertPE(pe);
-        } else {
             retorno = peDao.updatePE(pe);
+        } else {
+            retorno = peDao.InsertPE(pe);
         }                
         if (retorno == true) {
             JOptionPane.showMessageDialog(null, "Gravado com sucesso!");
@@ -543,9 +639,15 @@ public class CadastroProdEst extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        PEDao pedao = new PEDao();
+        if (edProduto.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Carregue o código do produto.");
+        } else {
+            int novo = pedao.novo(Integer.parseInt(edProduto.getText()));
+            edCodigo.setText(Integer.toString(novo));
+        }
+    }//GEN-LAST:event_btNovoActionPerformed
 
     private void edProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edProdutoFocusLost
         
@@ -572,11 +674,6 @@ public class CadastroProdEst extends javax.swing.JFrame {
     }//GEN-LAST:event_edProdutoVetoableChange
 
     private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
-        //        ConsultaCliente pesqCli = new ConsultaCliente();
-        //        Cliente cliente = new Cliente();
-        //        pesqCli.setCliente(cliente);
-        //        pesqCli.setVisible(true);
-        //        carregaCliente(cliente);
         PesquisaProdutos.setSize(600, 450);
         PesquisaProdutos.setModal(true);
         PesquisaProdutos.setLocation(200, 100);
@@ -630,30 +727,6 @@ public class CadastroProdEst extends javax.swing.JFrame {
     private void edCodigoVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_edCodigoVetoableChange
         // TODO add your handling code here:
     }//GEN-LAST:event_edCodigoVetoableChange
-
-    private void edQtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edQtdFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edQtdFocusLost
-
-    private void edQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edQtdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edQtdActionPerformed
-
-    private void edQtdPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edQtdPropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edQtdPropertyChange
-
-    private void edQtdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edQtdKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edQtdKeyReleased
-
-    private void edQtdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edQtdKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edQtdKeyTyped
-
-    private void edQtdVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_edQtdVetoableChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edQtdVetoableChange
 
     private void edDescPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edDescPFocusLost
         // TODO add your handling code here:
@@ -738,53 +811,86 @@ public class CadastroProdEst extends javax.swing.JFrame {
         PesquisaProdutos.setVisible(false);
     }//GEN-LAST:event_btCancelarActionPerformed
 
-    private void edCustoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edCustoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edCustoFocusLost
+    private void btPesquProEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquProEstActionPerformed
+        PesqPE.setSize(600, 450);
+        PesqPE.setModal(true);
+        PesqPE.setLocation(200, 100);
+        PesquisaProdutos.setVisible(true);
+    }//GEN-LAST:event_btPesquProEstActionPerformed
 
-    private void edCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edCustoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edCustoActionPerformed
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btSairActionPerformed
 
-    private void edCustoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edCustoPropertyChange
+    private void gdPeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdPeMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_edCustoPropertyChange
+    }//GEN-LAST:event_gdPeMouseClicked
 
-    private void edCustoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edCustoKeyReleased
+    private void gdPeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdPeKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_edCustoKeyReleased
+    }//GEN-LAST:event_gdPeKeyReleased
 
-    private void edCustoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edCustoKeyTyped
+    private void gdPeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdPeKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_edCustoKeyTyped
+    }//GEN-LAST:event_gdPeKeyTyped
 
-    private void edCustoVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_edCustoVetoableChange
+    private void edProdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edProdFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_edCustoVetoableChange
+    }//GEN-LAST:event_edProdFocusLost
 
-    private void edvalVenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edvalVenFocusLost
+    private void edProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edProdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_edvalVenFocusLost
+    }//GEN-LAST:event_edProdActionPerformed
 
-    private void edvalVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edvalVenActionPerformed
+    private void edProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edProdKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_edvalVenActionPerformed
+    }//GEN-LAST:event_edProdKeyReleased
 
-    private void edvalVenPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edvalVenPropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edvalVenPropertyChange
+    private void btPesqPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesqPActionPerformed
+        limpaTablePE();
+        DefaultTableModel model = (DefaultTableModel) gdPe.getModel();
+        ProdutoDao produtoDao = new ProdutoDao();
+        PEDao peDao = new PEDao();
+        List<Produtoestoque> list = new ArrayList();
 
-    private void edvalVenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edvalVenKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edvalVenKeyReleased
+        if (edProd.getText().equals("")) {
+            try {
+                list = peDao.encontrarTudo();
+            } catch (Exception ex) {
+                Logger.getLogger(PesqPE.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                list = peDao.pesqDesc(edProd.getText());
+            } catch (Exception ex) {
+                Logger.getLogger(PesqPE.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
-    private void edvalVenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edvalVenKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edvalVenKeyTyped
+        if (list.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Produto não localizado.", "Erro",
+                JOptionPane.ERROR_MESSAGE);
+            btCarregar.setEnabled(false);
+        } else {
+            String tabela[] = new String[]{"", "", ""};
+            for (Produtoestoque pe : list) {
+                //tabela[0] = String.valueOf(produto.getCodigo());
+                //tabela[1] = produto.getDescricao();
+                //tabela[2] = produto.getMarca();
+                model.addRow(tabela);
+            }
+            btCarregarPro.setEnabled(true);
+            btCancelarPE.setVisible(true);
+        }
+    }//GEN-LAST:event_btPesqPActionPerformed
 
-    private void edvalVenVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_edvalVenVetoableChange
+    private void btCarregarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCarregarProActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_edvalVenVetoableChange
+    }//GEN-LAST:event_btCarregarProActionPerformed
+
+    private void btCancelarPEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarPEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCancelarPEActionPerformed
 
     /**
      * @param args the command line arguments
@@ -822,22 +928,30 @@ public class CadastroProdEst extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog PesqPE;
     private javax.swing.JDialog PesquisaProdutos;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btCancelarPE;
     private javax.swing.JButton btCarregar;
+    private javax.swing.JButton btCarregarPro;
+    private javax.swing.JButton btNovo;
+    private javax.swing.JButton btPesqP;
+    private javax.swing.JButton btPesquProEst;
     private javax.swing.JButton btPesquisa;
     private javax.swing.JButton btPesquisa1;
+    private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
     private javax.swing.JTextField edCodigo;
-    private javax.swing.JTextField edCusto;
+    private javax.swing.JFormattedTextField edCusto;
     private javax.swing.JTextField edDescP;
     private javax.swing.JTextField edDescPro;
     private javax.swing.JFormattedTextField edDt;
+    private javax.swing.JTextField edProd;
     private javax.swing.JTextField edProduto;
-    private javax.swing.JTextField edQtd;
-    private javax.swing.JTextField edvalVen;
+    private javax.swing.JFormattedTextField edQtd;
+    private javax.swing.JFormattedTextField edvalVen;
+    private javax.swing.JTable gdPe;
     private javax.swing.JTable gdProdutos;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -846,6 +960,8 @@ public class CadastroProdEst extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_descConta;
+    private javax.swing.JLabel label_descConta1;
     // End of variables declaration//GEN-END:variables
 }

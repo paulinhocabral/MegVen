@@ -68,19 +68,22 @@ public class ClienteDao {
                 if (listnovo.get(i).getNome() != listvelho.get(i).getNome()) {
                     auditoria.setValorAnterior("Campo nome: " + listvelho.get(i).getNome());
                     auditoria.setValorPosterior("Campo nome: " + listnovo.get(i).getNome());
-                } else if (listnovo.get(i).getTelefone() != listvelho.get(i).getTelefone()) { 
-                    auditoria.setValorAnterior("Campo telefone: " + listvelho.get(i).getTelefone());
-                    auditoria.setValorPosterior("Campo telefone: " + listnovo.get(i).getTelefone());
-                } else if (listnovo.get(i).getCeuluar()!= listvelho.get(i).getCeuluar()) {
-                    auditoria.setValorAnterior("Campo celular: " + listvelho.get(i).getCeuluar());
-                    auditoria.setValorPosterior("Campo celular: " + listnovo.get(i).getCeuluar());
-                } else if (listnovo.get(i).getEmail()!= listvelho.get(i).getEmail()) {
-                    auditoria.setValorAnterior("Campo email: " + listvelho.get(i).getEmail());
-                    auditoria.setValorPosterior("Campo email: " + listnovo.get(i).getEmail());
+                }  
+                if (listnovo.get(i).getTelefone() != listvelho.get(i).getTelefone()) { 
+                    auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo telefone: " + listvelho.get(i).getTelefone());
+                    auditoria.setValorPosterior(auditoria.getValorPosterior()+ " Campo telefone: " + listnovo.get(i).getTelefone());
+                } 
+                if (listnovo.get(i).getCeuluar()!= listvelho.get(i).getCeuluar()) {
+                    auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo celular: " + listvelho.get(i).getCeuluar());
+                    auditoria.setValorPosterior(auditoria.getValorAnterior() +" Campo celular: " + listnovo.get(i).getCeuluar());
+                } 
+                if (listnovo.get(i).getEmail()!= listvelho.get(i).getEmail()) {
+                    auditoria.setValorAnterior(auditoria.getValorAnterior() + " Campo email: " + listvelho.get(i).getEmail());
+                    auditoria.setValorPosterior(auditoria.getValorAnterior() + " Campo email: " + listnovo.get(i).getEmail());
                 }                                        
             }
             
-            auditoria.setAcao("Update cliente");            
+            auditoria.setAcao("Update cliente: " + cliente.getCodigo());            
             usu.setCodigo(usuario);
             auditoria.setUsuario(usu); 
             auditoriaDao.InsertAuditoria(auditoria);

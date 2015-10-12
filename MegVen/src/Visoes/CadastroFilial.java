@@ -537,7 +537,7 @@ public class CadastroFilial extends javax.swing.JFrame {
             usuario.setCodigo(Integer.parseInt(edCodigoUsuario.getText()));
             usuario.setNome(edNomeUsuario.getText());
             filial.setUsuario(usuario);
-            filial.setNomeUsuario(edNomeUsuario.getText());
+            //filial.setNomeUsuario(edNomeUsuario.getText());
 
             retorno = filialDao.InsertFilial(filial);
         } else {

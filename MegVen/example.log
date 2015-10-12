@@ -1,3 +1,4 @@
+INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000040: Configuration resource: /hibernate.cfg.xml
 WARN AWT-EventQueue-0 org.hibernate.internal.util.xml.DTDEntityResolver - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
 INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Filial.hbm.xml
 INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Cliente.hbm.xml
@@ -9,15 +10,13 @@ INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappi
 INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Orcamento.hbm.xml
 INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000041: Configured SessionFactory: null
 WARN AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/MegVen]
+INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/megven?zeroDateTimeBehavior]
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root, password=****}
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
 INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
 INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
 INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 carregou os campos : 1,Teste22,(11)1111-1111,(11)1111-1111,email
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 fez update do cliente: 1,Teste22,(11)1111-1111,(11)1111-1111,email22
 INFO AWT-EventQueue-0 org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
 INFO AWT-EventQueue-0 org.hibernate.Version - HHH000412: Hibernate Core {4.3.1.Final}
 INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
@@ -35,15 +34,13 @@ INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappi
 INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Orcamento.hbm.xml
 INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000041: Configured SessionFactory: null
 WARN AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/MegVen]
+INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/megven?zeroDateTimeBehavior]
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root, password=****}
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
 INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
 INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
 INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 carregou os campos : 2,teste222213333,(11)1111-1111,(11)1111-1111,email
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 fez update do cliente: 2,teste,(11)1111-1111,(11)1111-1111,email
 INFO AWT-EventQueue-0 org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
 INFO AWT-EventQueue-0 org.hibernate.Version - HHH000412: Hibernate Core {4.3.1.Final}
 INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
@@ -61,140 +58,10 @@ INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappi
 INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Orcamento.hbm.xml
 INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000041: Configured SessionFactory: null
 WARN AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/MegVen]
+INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/megven?zeroDateTimeBehavior]
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root, password=****}
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
 INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
 INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
 INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
 INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 carregou os campos : 1,Teste22,(11)1111-1111,(11)1111-1111,email22
-INFO AWT-EventQueue-0 org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
-INFO AWT-EventQueue-0 org.hibernate.Version - HHH000412: Hibernate Core {4.3.1.Final}
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000043: Configuring from resource: /hibernate.cfg.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000040: Configuration resource: /hibernate.cfg.xml
-WARN AWT-EventQueue-0 org.hibernate.internal.util.xml.DTDEntityResolver - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Filial.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Cliente.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Auditoria.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Usuario.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/OrcamentoProdutoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtos.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Orcamento.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000041: Configured SessionFactory: null
-WARN AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/MegVen]
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root, password=****}
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
-INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
-INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 carregou os campos : 10,Teste1011,(11)1111-1111,(11)1111-1111,email2
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 fez update do cliente: 10,Teste,(11)1111-1111,(11)1111-1111,email2
-INFO AWT-EventQueue-0 org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
-INFO AWT-EventQueue-0 org.hibernate.Version - HHH000412: Hibernate Core {4.3.1.Final}
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000043: Configuring from resource: /hibernate.cfg.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000040: Configuration resource: /hibernate.cfg.xml
-WARN AWT-EventQueue-0 org.hibernate.internal.util.xml.DTDEntityResolver - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Filial.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Cliente.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Auditoria.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Usuario.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/OrcamentoProdutoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtos.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Orcamento.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000041: Configured SessionFactory: null
-WARN AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/MegVen]
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root, password=****}
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
-INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
-INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 1 carregou os campos: 1,teste,email,2,Não,(22)2222-2222
-INFO AWT-EventQueue-0 org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
-INFO AWT-EventQueue-0 org.hibernate.Version - HHH000412: Hibernate Core {4.3.1.Final}
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000043: Configuring from resource: /hibernate.cfg.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000040: Configuration resource: /hibernate.cfg.xml
-WARN AWT-EventQueue-0 org.hibernate.internal.util.xml.DTDEntityResolver - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Filial.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Cliente.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Auditoria.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Usuario.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/OrcamentoProdutoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtos.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Orcamento.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000041: Configured SessionFactory: null
-WARN AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/MegVen]
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root, password=****}
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
-INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
-INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 3 carregou os campos: 1,teste,email,2,Não,(22)2222-2222
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 3 atualizou o usuário: 1,teste,emailusu,2,true,(22)2222-2222
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 3 atualizou o usuário: 1,teste,email,2,true,(22)2222-2222
-INFO AWT-EventQueue-0 org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
-INFO AWT-EventQueue-0 org.hibernate.Version - HHH000412: Hibernate Core {4.3.1.Final}
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000043: Configuring from resource: /hibernate.cfg.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000040: Configuration resource: /hibernate.cfg.xml
-WARN AWT-EventQueue-0 org.hibernate.internal.util.xml.DTDEntityResolver - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Filial.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Cliente.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Auditoria.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Usuario.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/OrcamentoProdutoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtos.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Orcamento.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000041: Configured SessionFactory: null
-WARN AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/MegVen]
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root, password=****}
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
-INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
-INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 3 carregou os campos: 1,teste,email,2,Não,(22)2222-2222
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 3 atualizou o usuário: 1,teste,emailusu,2,true,(22)2222-2222
-INFO AWT-EventQueue-0 org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
-INFO AWT-EventQueue-0 org.hibernate.Version - HHH000412: Hibernate Core {4.3.1.Final}
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
-INFO AWT-EventQueue-0 org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000043: Configuring from resource: /hibernate.cfg.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000040: Configuration resource: /hibernate.cfg.xml
-WARN AWT-EventQueue-0 org.hibernate.internal.util.xml.DTDEntityResolver - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Filial.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Cliente.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Auditoria.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Usuario.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/OrcamentoProdutoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtoestoque.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Produtos.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000221: Reading mappings from resource: Entidades/Orcamento.hbm.xml
-INFO AWT-EventQueue-0 org.hibernate.cfg.Configuration - HHH000041: Configured SessionFactory: null
-WARN AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000402: Using Hibernate built-in connection pool (not for production use!)
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/MegVen]
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000046: Connection properties: {user=root, password=****}
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000006: Autocommit mode: false
-INFO AWT-EventQueue-0 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
-INFO AWT-EventQueue-0 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-INFO AWT-EventQueue-0 org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions)
-INFO AWT-EventQueue-0 org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
-INFO AWT-EventQueue-0 Visoes.Login - Usuário: 3 carregou os campos: 1,teste,emailusu,2,Não,(22)2222-2222

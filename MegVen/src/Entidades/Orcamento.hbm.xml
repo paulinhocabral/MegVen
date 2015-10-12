@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 25/08/2015 19:46:49 by Hibernate Tools 4.3.1 -->
+<!-- Generated 12/10/2015 12:43:44 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Entidades.Orcamento" table="orcamento" catalog="megven" optimistic-lock="version">
         <id name="codigo" type="java.lang.Integer">
@@ -11,7 +11,7 @@
         <many-to-one name="cliente" class="Entidades.Cliente" fetch="select">
             <column name="Cliente_Codigo" not-null="true" />
         </many-to-one>
-        <property name="data" type="date">
+        <property name="data" type="string">
             <column name="Data" length="10" />
         </property>
         <set name="orcamentoProdutoestoques" table="orcamento_produtoestoque" inverse="true" lazy="true" fetch="select">
