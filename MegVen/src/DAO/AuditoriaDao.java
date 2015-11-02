@@ -6,6 +6,8 @@
 package DAO;
 
 import Entidades.Auditoria;
+import Entidades.ConsAuditoria;
+import Entidades.Usuario;
 import Util.HibernateUtil;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
@@ -79,24 +82,22 @@ public class AuditoriaDao {
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
-
-            List<Auditoria> resultado = sessao.createSQLQuery("select * from ConsAuditoria").list();
-
-            for (Object o : resultado) {
-                if (o instanceof Auditoria) {
-                    System.out.println("é uma instância");
-                }
-                Auditoria auditoria = (Auditoria) o;
-                listaAuditoria.add(auditoria);
-            }
+            
+            SQLQuery q = sessao.createSQLQuery("Select * from ConsAuditoria");
+            q.addEntity(Auditoria.class);
+            List<Auditoria> resultado = q.list();
+            for (Auditoria a : resultado) {
+               Auditoria auditoria = (Auditoria) a;
+               listaAuditoria.add(auditoria);
+            }            
             sessao.getTransaction().commit();
-            return listaAuditoria;
+            return listaAuditoria;            
 
         } catch (Exception e) {
             System.out.println("erro ao chamar view: " + e);
             return null;
         }
-    }
+    }         
 
     public List findAll() throws Exception {
         List objects = null;

@@ -19,6 +19,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Controle.Conexao;
+import Entidades.ConsAuditoria;
+import Entidades.Usuario;
+import java.util.Iterator;
+import org.hibernate.Query;
 
 /**
  *
@@ -81,8 +86,12 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
+
+        Auditoria.setTitle("Auditoria");
 
         gdAuditoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,6 +232,18 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        jMenu5.setText("Chat");
+
+        jMenuItem3.setText("Chat");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu5);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -286,51 +307,31 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         limpaTable();
         DefaultTableModel model = (DefaultTableModel) gdAuditoria.getModel();
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
         AuditoriaDao auditoriaDao = new AuditoriaDao();
-        List<Auditoria> list = new ArrayList();
+        List<Auditoria> list = new ArrayList<Auditoria>();
         try {
-            list = auditoriaDao.pesqView();
-        } catch (Exception ex) {
-            Logger.getLogger(Auditoria.getName()).log(Level.SEVERE, null, ex);
+            list = auditoriaDao.pesqView();                        
+            } catch (Exception ex) {
+                Logger.getLogger(Auditoria.getName()).log(Level.SEVERE, null, ex);
             
-        }
-        String tabela[] = new String[]{"", "", "", "", "",""};        
-        
-        //for (int i = 0; i < list.size(); i++) {
-                    
-        for (Auditoria auditoria : list) {
-            tabela[0] = String.valueOf(auditoria.getCodigo());
-            //tabela[0] = String.valueOf(list.get(i).getCodigo());            
-            tabela[1] = auditoria.getDataHora().toString();
-            //tabela[1] = list.get(i).getDataHora().toString();
-            tabela[2] = auditoria.getAcao();
-            //tabela[2] = list.get(i).getAcao();
-            tabela[3] = auditoria.getValorAnterior();
-            //tabela[3] = list.get(i).getValorAnterior();
-            tabela[4] = auditoria.getValorPosterior();
-            //tabela[4] = list.get(i).getValorPosterior();
-            tabela[5] = String.valueOf(auditoria.getUsuario());
-            //tabela[5] = String.valueOf(list.get(i).getUsuario().getCodigo());
-
-            model.addRow(tabela);
+            }
+        String tabela[] = new String[]{"", "", "", "", "",""};                             
+                
+        for (Auditoria auditoria : list) {                        
+            tabela[0] = auditoria.getCodigo().toString();            
+            tabela[1] = auditoria.getDataHora().toString();            
+            tabela[2] = auditoria.getAcao();            
+            tabela[3] = auditoria.getValorAnterior();            
+            tabela[4] = auditoria.getValorPosterior();            
+            tabela[5] = auditoria.getUsuario().getCodigo().toString();            
+            model.addRow(tabela);         
         }
         Auditoria.setSize(600, 450);
         Auditoria.setModal(true);
         Auditoria.setLocation(200, 100);
         Auditoria.setVisible(true);                
     }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void gdAuditoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdAuditoriaMouseClicked
-        
-    }//GEN-LAST:event_gdAuditoriaMouseClicked
-
-    private void gdAuditoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdAuditoriaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gdAuditoriaKeyReleased
-
-    private void gdAuditoriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdAuditoriaKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gdAuditoriaKeyTyped
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         if (CadastroPe == null){
@@ -353,6 +354,29 @@ public class Menu extends javax.swing.JFrame {
             CadastroOrcamento.setLocationRelativeTo(null);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        String ip = JOptionPane.showInputDialog("Informe o IP", "192.168.0.");
+        int porta = Integer.parseInt(JOptionPane.showInputDialog("Informe a Porta", "5000"));
+
+        Conexao c = new Conexao(ip, porta);
+
+        JChat j = new JChat(c);
+        j.setLocationRelativeTo(null);
+        j.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void gdAuditoriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdAuditoriaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gdAuditoriaKeyTyped
+
+    private void gdAuditoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdAuditoriaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gdAuditoriaKeyReleased
+
+    private void gdAuditoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdAuditoriaMouseClicked
+
+    }//GEN-LAST:event_gdAuditoriaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -401,9 +425,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;

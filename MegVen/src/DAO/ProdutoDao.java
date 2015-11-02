@@ -14,6 +14,7 @@ import Visoes.Login;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -40,6 +41,28 @@ public class ProdutoDao {
             return false;
         } finally {
             sessao.close();
+        }
+    }
+    
+    public List<Produtos> pesqView() {
+        List<Produtos> listaProdutos = new ArrayList();
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            
+            SQLQuery q = sessao.createSQLQuery("Select * from PESQPROD");
+            q.addEntity(Produtos.class);
+            List<Produtos> resultado = q.list();
+            for (Produtos a : resultado) {
+               Produtos produtos = (Produtos) a;
+               listaProdutos.add(produtos);
+            }            
+            sessao.getTransaction().commit();
+            return listaProdutos;            
+
+        } catch (Exception e) {
+            System.out.println("erro ao chamar view: " + e);
+            return null;
         }
     }
     

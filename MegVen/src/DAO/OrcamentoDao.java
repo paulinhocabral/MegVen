@@ -14,6 +14,7 @@ import Util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -41,6 +42,28 @@ public class OrcamentoDao {
             return false;
         } finally {
             sessao.close();
+        }
+    }
+    
+    public List<Orcamento> pesqView() {
+        List<Orcamento> listaOrcamento = new ArrayList();
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            
+            SQLQuery q = sessao.createSQLQuery("Select * from PESQORCAMENTO");
+            q.addEntity(Orcamento.class);
+            List<Orcamento> resultado = q.list();
+            for (Orcamento a : resultado) {
+               Orcamento orcamento = (Orcamento) a;
+               listaOrcamento.add(orcamento);
+            }            
+            sessao.getTransaction().commit();
+            return listaOrcamento;            
+
+        } catch (Exception e) {
+            System.out.println("erro ao chamar view: " + e);
+            return null;
         }
     }
     

@@ -15,6 +15,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
+import org.hibernate.SQLQuery;
 
 /**
  *
@@ -39,6 +40,28 @@ public class FilialDao {
             return false;
         } finally {
             sessao.close();
+        }
+    }
+    
+    public List<Filial> pesqView() {
+        List<Filial> listaFilial = new ArrayList();
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            
+            SQLQuery q = sessao.createSQLQuery("Select * from PESQFILIAL");
+            q.addEntity(Filial.class);
+            List<Filial> resultado = q.list();
+            for (Filial a : resultado) {
+               Filial filial = (Filial) a;
+               listaFilial.add(filial);
+            }            
+            sessao.getTransaction().commit();
+            return listaFilial;            
+
+        } catch (Exception e) {
+            System.out.println("erro ao chamar view: " + e);
+            return null;
         }
     }
     

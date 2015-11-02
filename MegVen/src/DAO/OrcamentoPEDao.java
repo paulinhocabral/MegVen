@@ -13,6 +13,7 @@ import Util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -22,9 +23,9 @@ import org.hibernate.Transaction;
  */
 public class OrcamentoPEDao {
 
-    int us = Secao.getInstance().getUsuario();
+    int usu = Secao.getInstance().getUsuario();
     
-    public Boolean InsertFilial(OrcamentoProdutoestoque orcProdEst){
+    public Boolean InsertOrcPe(OrcamentoProdutoestoque orcProdEst){
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -43,7 +44,35 @@ public class OrcamentoPEDao {
         }
     }
     
-    public Boolean updateFilial(OrcamentoProdutoestoque OrcProdESt){
+    public List<OrcamentoProdutoestoque> pesqOrcPE(int cod) {
+        List<OrcamentoProdutoestoque> listaOPE = new ArrayList();
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            
+            SQLQuery q = sessao.createSQLQuery("SELECT OPE.PRODUTOESTOQUE_PRODUTOS_CODIGO, OPE.PRODUTOESTOQUE_CODIGOESTOQUE,PRODUTOS.DESCRICAO,OPE.ORCAMENTO_CODIGO " + 
+                                               "FROM ORCAMENTO_PRODUTOESTOQUE OPE " +
+                                               "LEFT OUTER JOIN PRODUTOS ON PRODUTOS.CODIGO = OPE.PRODUTOESTOQUE_PRODUTOS_CODIGO " +
+                                               "WHERE OPE.ORCAMENTO_CODIGO = " + cod);
+            
+            q.addEntity(OrcamentoProdutoestoque.class);
+            
+            List<OrcamentoProdutoestoque> resultado = q.list();
+            
+            for (OrcamentoProdutoestoque a : resultado) {
+               OrcamentoProdutoestoque orcpe = (OrcamentoProdutoestoque) a;
+               listaOPE.add(orcpe);
+            }            
+            sessao.getTransaction().commit();
+            return listaOPE;            
+
+        } catch (Exception e) {
+            System.out.println("erro ao chamar consulta: " + e);
+            return null;
+        }
+    }
+    
+    public Boolean updateOrcPe(OrcamentoProdutoestoque OrcProdESt){
         Auditoria auditoria = new Auditoria();
         AuditoriaDao auditoriaDao = new AuditoriaDao();
         Usuario usu = new Usuario();

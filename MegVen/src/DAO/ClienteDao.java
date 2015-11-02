@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
 import Visoes.Login;
+import org.hibernate.SQLQuery;
 
 /**
  *
@@ -97,6 +98,28 @@ public class ClienteDao {
             return false;
         } finally {
             sessao.close();
+        }
+    }
+    
+    public List<Cliente> pesqView() {
+        List<Cliente> listaCli = new ArrayList();
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            
+            SQLQuery q = sessao.createSQLQuery("Select * from PESQCLI");
+            q.addEntity(Cliente.class);
+            List<Cliente> resultado = q.list();
+            for (Cliente a : resultado) {
+               Cliente cliente = (Cliente) a;
+               listaCli.add(cliente);
+            }            
+            sessao.getTransaction().commit();
+            return listaCli;            
+
+        } catch (Exception e) {
+            System.out.println("erro ao chamar view: " + e);
+            return null;
         }
     }
     

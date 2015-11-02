@@ -16,7 +16,7 @@ public class Produtoestoque  implements java.io.Serializable {
      private double custo;
      private double valorVenda;
      private int qtd;
-     private String dtEntrada;
+     private String dtEntrada;     
      private Set orcamentoProdutoestoques = new HashSet(0);
 
     public Produtoestoque() {

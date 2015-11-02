@@ -6,6 +6,7 @@
 package DAO;
 
 import Entidades.Auditoria;
+import Entidades.PesqProdOrc;
 import Entidades.Produtoestoque;
 import Entidades.Secao;
 import Entidades.Usuario;
@@ -13,6 +14,7 @@ import Util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -43,7 +45,7 @@ public class PEDao {
         } finally {
             sessao.close();
         }
-    }
+    }        
     
     public Boolean updatePE(Produtoestoque pe){
         List<Produtoestoque> listvelho = new ArrayList();
@@ -144,26 +146,45 @@ public class PEDao {
         }        
     }
     
+    public List<Produtoestoque> pesqView() {
+        List<Produtoestoque> listaPE = new ArrayList();
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            
+            SQLQuery q = sessao.createSQLQuery("Select * from PESQPE");
+            q.addEntity(Produtoestoque.class);
+            List<Produtoestoque> resultado = q.list();
+            for (Produtoestoque a : resultado) {
+               Produtoestoque pe = (Produtoestoque) a;
+               listaPE.add(pe);
+            }            
+            sessao.getTransaction().commit();
+            return listaPE;            
+
+        } catch (Exception e) {
+            System.out.println("erro ao chamar view: " + e);
+            return null;
+        }
+    }
+    
     public List<Produtoestoque> pesqDesc(String desc){
         List<Produtoestoque> listaPe = new ArrayList();
-        List resultado = null;
+        //List resultado = null;
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
 
-            org.hibernate.Query q = sessao.createSQLQuery(
+            SQLQuery q = sessao.createSQLQuery(
                     "SELECT PE.PRODUTOS_CODIGO, PRODUTOS.DESCRICAO, PE.CODIGOESTOQUE, PE.CUSTO, PE.VALORVENDA, PE.QTD, PE.DTENTRADA, PRODUTOS.MARCA " +
                     "FROM PRODUTOESTOQUE PE " +
                     "LEFT OUTER JOIN PRODUTOS ON PRODUTOS.CODIGO = PE.PRODUTOS_CODIGO " +
                     "WHERE PRODUTOS.DESCRICAO LIKE '%" + desc + "%' " +
                     "ORDER BY PE.CODIGOESTOQUE");
-            resultado = q.list();
+            q.addEntity(Produtoestoque.class);
+            List<Produtoestoque> resultado = q.list();
             
-
-            for (Object o : resultado) {
-            //    if (o instanceof Auditoria) {
-            //        System.out.println("é uma instância");
-            //    }
+            for (Object o : resultado) {           
                 Produtoestoque pe = (Produtoestoque) o;
                 listaPe.add(pe);
             }
@@ -173,7 +194,7 @@ public class PEDao {
         } catch (Exception e) {
             System.out.println("erro ao chamar view: " + e);            
         }        
-        return resultado;
+        return listaPe;
     }
     
     public Boolean existeNoBanco(int prod, int cod){
@@ -194,6 +215,25 @@ public class PEDao {
             existe = false;
         }
         return existe;
+    }
+    
+    public List<PesqProdOrc> pesqPeOrc(){
+        boolean existe = false;
+        List<PesqProdOrc> listaPE = new ArrayList();
+        List resultado = null;
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+
+        org.hibernate.Query q = sessao.createSQLQuery("SELECT PE.PRODUTOS_CODIGO,PE.CODIGOESTOQUE,PRODUTOS.DESCRICAO,PRODUTOS.MARCA " + 
+                                "FROM PRODUTOESTOQUE PE " +
+                                "LEFT OUTER JOIN PRODUTOS ON PRODUTOS.CODIGO = PE.PRODUTOS_CODIGO");                
+        resultado = q.list();
+        for (Object o : resultado) {
+                PesqProdOrc pe = (PesqProdOrc) o;
+                listaPE.add(pe);
+            }
+        
+        return listaPE;       
     }
     
     public List<Produtoestoque> pesquisaPe(String marca){

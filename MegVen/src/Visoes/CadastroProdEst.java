@@ -220,7 +220,7 @@ public class CadastroProdEst extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Descricao", "Cod. estoque", "Custo", "Valor de venda", "Qtd", "Dt entrada", "Marca"
+                "Produto", "Cod. estoque", "Descricao", "Custo", "Valor de venda", "Qtd", "Dt entrada", "Marca"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -249,9 +249,9 @@ public class CadastroProdEst extends javax.swing.JFrame {
             gdPe.getColumnModel().getColumn(0).setResizable(false);
             gdPe.getColumnModel().getColumn(0).setPreferredWidth(50);
             gdPe.getColumnModel().getColumn(1).setResizable(false);
-            gdPe.getColumnModel().getColumn(1).setPreferredWidth(100);
+            gdPe.getColumnModel().getColumn(1).setPreferredWidth(50);
             gdPe.getColumnModel().getColumn(2).setResizable(false);
-            gdPe.getColumnModel().getColumn(2).setPreferredWidth(50);
+            gdPe.getColumnModel().getColumn(2).setPreferredWidth(100);
             gdPe.getColumnModel().getColumn(3).setResizable(false);
             gdPe.getColumnModel().getColumn(3).setPreferredWidth(40);
             gdPe.getColumnModel().getColumn(4).setResizable(false);
@@ -647,6 +647,11 @@ public class CadastroProdEst extends javax.swing.JFrame {
             int novo = pedao.novo(Integer.parseInt(edProduto.getText()));
             edCodigo.setText(Integer.toString(novo));
         }
+        edCusto.setText("");
+        edvalVen.setText("");
+        edQtd.setText("");
+        edDt.setText("");
+        edCusto.grabFocus();
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void edProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edProdutoFocusLost
@@ -815,7 +820,7 @@ public class CadastroProdEst extends javax.swing.JFrame {
         PesqPE.setSize(600, 450);
         PesqPE.setModal(true);
         PesqPE.setLocation(200, 100);
-        PesquisaProdutos.setVisible(true);
+        PesqPE.setVisible(true);
     }//GEN-LAST:event_btPesquProEstActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
@@ -823,7 +828,21 @@ public class CadastroProdEst extends javax.swing.JFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void gdPeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdPeMouseClicked
-        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            if (gdPe.getSelectedRow() > -1) {
+                edProduto.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 0).toString());
+                edCodigo.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 1).toString());
+                edDescPro.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 2).toString());                        
+                edCusto.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 3).toString());
+                edvalVen.setText(gdPe.getValueAt(gdPe.getSelectedRow(),4).toString());
+                edQtd.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 5).toString());
+                edDt.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 6).toString());
+                PesqPE.setVisible(false);
+            } else {
+               JOptionPane.showMessageDialog(this, "Por favor, selecione algum produtos da lista.", "Erro",
+               JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_gdPeMouseClicked
 
     private void gdPeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdPeKeyReleased
@@ -855,7 +874,7 @@ public class CadastroProdEst extends javax.swing.JFrame {
 
         if (edProd.getText().equals("")) {
             try {
-                list = peDao.encontrarTudo();
+                list = peDao.pesqView();
             } catch (Exception ex) {
                 Logger.getLogger(PesqPE.getName()).log(Level.SEVERE, null, ex);
             }
@@ -872,11 +891,16 @@ public class CadastroProdEst extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
             btCarregar.setEnabled(false);
         } else {
-            String tabela[] = new String[]{"", "", ""};
-            for (Produtoestoque pe : list) {
-                //tabela[0] = String.valueOf(produto.getCodigo());
-                //tabela[1] = produto.getDescricao();
-                //tabela[2] = produto.getMarca();
+            String tabela[] = new String[]{"","","","","","","",""};
+            for (Produtoestoque pe : list) {                                                      
+                tabela[0] = String.valueOf(pe.getProdutos().getCodigo());
+                tabela[1] = String.valueOf(pe.getId().getCodigoEstoque());
+                tabela[2] = pe.getProdutos().getDescricao();
+                tabela[3] = String.valueOf(pe.getCusto());
+                tabela[4] = String.valueOf(pe.getValorVenda());
+                tabela[5] = String.valueOf(pe.getQtd());
+                tabela[6] = pe.getDtEntrada();                                
+                tabela[7] = pe.getProdutos().getMarca();
                 model.addRow(tabela);
             }
             btCarregarPro.setEnabled(true);
@@ -885,11 +909,23 @@ public class CadastroProdEst extends javax.swing.JFrame {
     }//GEN-LAST:event_btPesqPActionPerformed
 
     private void btCarregarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCarregarProActionPerformed
-        // TODO add your handling code here:
+        if (gdPe.getSelectedRow() > -1) {
+            edProduto.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 0).toString());
+            edCodigo.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 1).toString());
+            edDescPro.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 2).toString());                        
+            edCusto.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 3).toString());
+            edvalVen.setText(gdPe.getValueAt(gdPe.getSelectedRow(),4).toString());
+            edQtd.setText(gdPe.getValueAt(gdPe.getSelectedRow(), 5).toString());
+            edDt.setText(Formatacao.ajustaDataDMA(gdPe.getValueAt(gdPe.getSelectedRow(), 6).toString()));
+            PesqPE.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione algum produtos da lista.", "Erro",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btCarregarProActionPerformed
 
     private void btCancelarPEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarPEActionPerformed
-        // TODO add your handling code here:
+        PesqPE.setVisible(false);
     }//GEN-LAST:event_btCancelarPEActionPerformed
 
     /**
