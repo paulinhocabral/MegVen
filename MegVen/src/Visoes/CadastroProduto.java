@@ -344,12 +344,14 @@ public class CadastroProduto extends javax.swing.JFrame {
                 list = produtoDao.pesqView();
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaProdutos.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar produto(CadastroProduto): " + ex);
             }
         } else {
             try {
                 list = produtoDao.pesquisaProdutos(edDescP.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaProdutos.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar produto(CadastroProduto): " + ex);
             }
         }
 

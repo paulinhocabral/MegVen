@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 12/10/2015 12:43:43 by Hibernate Tools 4.3.1
+// Generated 04/11/2015 21:22:04 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -16,7 +16,7 @@ public class Produtoestoque  implements java.io.Serializable {
      private double custo;
      private double valorVenda;
      private int qtd;
-     private String dtEntrada;     
+     private String dtEntrada;
      private Set orcamentoProdutoestoques = new HashSet(0);
 
     public Produtoestoque() {

@@ -32,7 +32,7 @@ CREATE TABLE `auditoria` (
   PRIMARY KEY (`codigo`),
   KEY `fk_Auditoria_Usuario1_idx` (`Usuario_Codigo`),
   CONSTRAINT `fk_Auditoria_Usuario1` FOREIGN KEY (`Usuario_Codigo`) REFERENCES `usuario` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `auditoria` (
 
 LOCK TABLES `auditoria` WRITE;
 /*!40000 ALTER TABLE `auditoria` DISABLE KEYS */;
-INSERT INTO `auditoria` VALUES (8,'2015-10-05 23:36:08','Update usuario','Campo nome: teste','Campo nome: teste',3),(9,'2015-10-05 23:36:42','Update usuario','Campo nome: teste','Campo nome: teste',3),(10,'2015-10-05 23:38:50','Update usuario','Campo nome: teste','Campo nome: teste',3),(11,'2015-10-05 23:50:52','Update cliente','Campo nome: Teste','Campo nome: Teste22',3),(12,'2015-10-05 23:53:28','Update cliente','Campo nome: teste_Murilo Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111Campo email: email11','Campo nome: teste_Murilo Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111Campo email: email11Campo email: email',3),(13,'2015-10-05 23:54:59','Update usuario','Campo nome: teste2 Campo email: email2 Campo telefone: (22)2222-2222','Campo nome: teste Campo email: email Campo telefone: (22)2222-2224',3),(14,'2015-10-06 00:09:13','Update usuario','Campo nome: teste Campo cidade: Lajeado','Campo nome: teste2 Campo cidade Estrela',3),(15,'2015-10-06 00:14:02','Update usuario','Campo descricao: Produto Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',3),(16,'2015-10-08 00:26:31','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(17,'2015-10-08 00:28:34','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(18,'2015-10-08 00:37:28','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(19,'2015-10-08 00:38:01','Update produtos','Campo descricao: Produto3 Campo marca: Samsung','Campo descricao: Produto4 Campo marca: Samsung',1),(20,'2015-10-12 15:47:43','Update cliente: 2','Campo nome: teste Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111 Campo email: email','Campo nome: teste Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111 Campo email: email Campo email: email',1),(21,'2015-10-12 15:47:49','Update usuario','Campo nome: teste Campo email: email Campo telefone: (22)2222-2222','Campo nome: teste Campo email: email Campo telefone: (22)2222-2222',1),(22,'2015-10-12 15:47:57','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(23,'2015-10-12 15:50:19','Update filial','Campo nome: TESTE2 Campo cidade: Estrela','Campo nome: TESTE2 Campo cidade Estrela',3),(24,'2015-10-12 16:07:08','Update produtoEstoque: 1 6','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(25,'2015-10-12 16:09:33','Update produtoEstoque: 1 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(26,'2015-10-12 16:11:04','Update produtoEstoque: 1 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(27,'2015-10-12 16:14:20','Update produtoEstoque: 2 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(28,'2015-10-12 16:17:22','Update produtoEstoque: 1 8','null Campo valorVenda: 150.0 Campo dtEntrada: 12/10/2015','null Campo valorVenda: 200.0 Campo dtEntrada: 12/10/2015',2),(29,'2015-10-12 16:22:05','Update filial','Campo data: 12/10/2015','Campo data: 11/10/2015',1);
+INSERT INTO `auditoria` VALUES (8,'2015-10-05 23:36:08','Update usuario','Campo nome: teste','Campo nome: teste',3),(9,'2015-10-05 23:36:42','Update usuario','Campo nome: teste','Campo nome: teste',3),(10,'2015-10-05 23:38:50','Update usuario','Campo nome: teste','Campo nome: teste',3),(11,'2015-10-05 23:50:52','Update cliente','Campo nome: Teste','Campo nome: Teste22',3),(12,'2015-10-05 23:53:28','Update cliente','Campo nome: teste_Murilo Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111Campo email: email11','Campo nome: teste_Murilo Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111Campo email: email11Campo email: email',3),(13,'2015-10-05 23:54:59','Update usuario','Campo nome: teste2 Campo email: email2 Campo telefone: (22)2222-2222','Campo nome: teste Campo email: email Campo telefone: (22)2222-2224',3),(14,'2015-10-06 00:09:13','Update usuario','Campo nome: teste Campo cidade: Lajeado','Campo nome: teste2 Campo cidade Estrela',3),(15,'2015-10-06 00:14:02','Update usuario','Campo descricao: Produto Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',3),(16,'2015-10-08 00:26:31','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(17,'2015-10-08 00:28:34','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(18,'2015-10-08 00:37:28','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(19,'2015-10-08 00:38:01','Update produtos','Campo descricao: Produto3 Campo marca: Samsung','Campo descricao: Produto4 Campo marca: Samsung',1),(20,'2015-10-12 15:47:43','Update cliente: 2','Campo nome: teste Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111 Campo email: email','Campo nome: teste Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111 Campo email: email Campo email: email',1),(21,'2015-10-12 15:47:49','Update usuario','Campo nome: teste Campo email: email Campo telefone: (22)2222-2222','Campo nome: teste Campo email: email Campo telefone: (22)2222-2222',1),(22,'2015-10-12 15:47:57','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(23,'2015-10-12 15:50:19','Update filial','Campo nome: TESTE2 Campo cidade: Estrela','Campo nome: TESTE2 Campo cidade Estrela',3),(24,'2015-10-12 16:07:08','Update produtoEstoque: 1 6','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(25,'2015-10-12 16:09:33','Update produtoEstoque: 1 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(26,'2015-10-12 16:11:04','Update produtoEstoque: 1 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(27,'2015-10-12 16:14:20','Update produtoEstoque: 2 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(28,'2015-10-12 16:17:22','Update produtoEstoque: 1 8','null Campo valorVenda: 150.0 Campo dtEntrada: 12/10/2015','null Campo valorVenda: 200.0 Campo dtEntrada: 12/10/2015',2),(29,'2015-10-12 16:22:05','Update filial','Campo data: 12/10/2015','Campo data: 11/10/2015',1),(30,'2015-11-02 15:42:10','Update produtoEstoque: 1 2','null Campo dtEntrada: 0016-03-07','null Campo dtEntrada: 07/03/0016',1);
 /*!40000 ALTER TABLE `auditoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +132,7 @@ CREATE TABLE `orcamento` (
   PRIMARY KEY (`Codigo`),
   KEY `fk_Orcamento_Cliente1_idx` (`Cliente_Codigo`),
   CONSTRAINT `fk_Orcamento_Cliente1` FOREIGN KEY (`Cliente_Codigo`) REFERENCES `cliente` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +141,7 @@ CREATE TABLE `orcamento` (
 
 LOCK TABLES `orcamento` WRITE;
 /*!40000 ALTER TABLE `orcamento` DISABLE KEYS */;
-INSERT INTO `orcamento` VALUES (1,'2015-10-12',2),(2,'2015-10-12',19),(3,'2015-10-12',10),(4,'2015-10-12',11),(5,'2015-10-12',36),(6,'2015-10-12',34),(7,'12/10/2015',10),(8,'12/10/2015',20),(9,'12/10/2015',10),(10,'12/10/2015',16),(11,'11/10/2015',11);
+INSERT INTO `orcamento` VALUES (1,'2015-10-12',2),(2,'2015-10-12',19),(3,'2015-10-12',10),(4,'2015-10-12',11),(5,'2015-10-12',36),(6,'2015-10-12',34),(7,'12/10/2015',10),(8,'12/10/2015',20),(9,'12/10/2015',10),(10,'12/10/2015',16),(11,'11/10/2015',11),(12,'02/11/2015',11),(13,'02/11/2015',10),(14,'02/11/2015',12),(15,'02/11/2015',11);
 /*!40000 ALTER TABLE `orcamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,8 +169,127 @@ CREATE TABLE `orcamento_produtoestoque` (
 
 LOCK TABLES `orcamento_produtoestoque` WRITE;
 /*!40000 ALTER TABLE `orcamento_produtoestoque` DISABLE KEYS */;
+INSERT INTO `orcamento_produtoestoque` VALUES (1,3,15),(2,1,15);
 /*!40000 ALTER TABLE `orcamento_produtoestoque` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `pesqcli`
+--
+
+DROP TABLE IF EXISTS `pesqcli`;
+/*!50001 DROP VIEW IF EXISTS `pesqcli`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `pesqcli` (
+  `Codigo` tinyint NOT NULL,
+  `Nome` tinyint NOT NULL,
+  `Telefone` tinyint NOT NULL,
+  `Ceuluar` tinyint NOT NULL,
+  `Email` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `pesqfilial`
+--
+
+DROP TABLE IF EXISTS `pesqfilial`;
+/*!50001 DROP VIEW IF EXISTS `pesqfilial`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `pesqfilial` (
+  `Codigo` tinyint NOT NULL,
+  `Nome` tinyint NOT NULL,
+  `Cidade` tinyint NOT NULL,
+  `Usuario_Codigo` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `pesqorcamento`
+--
+
+DROP TABLE IF EXISTS `pesqorcamento`;
+/*!50001 DROP VIEW IF EXISTS `pesqorcamento`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `pesqorcamento` (
+  `CODIGO` tinyint NOT NULL,
+  `DATA` tinyint NOT NULL,
+  `CLIENTE_CODIGO` tinyint NOT NULL,
+  `NOME` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `pesqorcpe`
+--
+
+DROP TABLE IF EXISTS `pesqorcpe`;
+/*!50001 DROP VIEW IF EXISTS `pesqorcpe`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `pesqorcpe` (
+  `PRODUTOESTOQUE_PRODUTOS_CODIGO` tinyint NOT NULL,
+  `PRODUTOESTOQUE_CODIGOESTOQUE` tinyint NOT NULL,
+  `DESCRICAO` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `pesqpe`
+--
+
+DROP TABLE IF EXISTS `pesqpe`;
+/*!50001 DROP VIEW IF EXISTS `pesqpe`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `pesqpe` (
+  `PRODUTOS_CODIGO` tinyint NOT NULL,
+  `CODIGOESTOQUE` tinyint NOT NULL,
+  `DESCRICAO` tinyint NOT NULL,
+  `CUSTO` tinyint NOT NULL,
+  `VALORVENDA` tinyint NOT NULL,
+  `QTD` tinyint NOT NULL,
+  `DTENTRADA` tinyint NOT NULL,
+  `MARCA` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `pesqprod`
+--
+
+DROP TABLE IF EXISTS `pesqprod`;
+/*!50001 DROP VIEW IF EXISTS `pesqprod`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `pesqprod` (
+  `Codigo` tinyint NOT NULL,
+  `Descricao` tinyint NOT NULL,
+  `Marca` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `pesqusu`
+--
+
+DROP TABLE IF EXISTS `pesqusu`;
+/*!50001 DROP VIEW IF EXISTS `pesqusu`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `pesqusu` (
+  `Codigo` tinyint NOT NULL,
+  `Nome` tinyint NOT NULL,
+  `Email` tinyint NOT NULL,
+  `NivelAcesso` tinyint NOT NULL,
+  `Ativo` tinyint NOT NULL,
+  `Telefone` tinyint NOT NULL,
+  `Senha` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `produtoestoque`
@@ -198,7 +317,7 @@ CREATE TABLE `produtoestoque` (
 
 LOCK TABLES `produtoestoque` WRITE;
 /*!40000 ALTER TABLE `produtoestoque` DISABLE KEYS */;
-INSERT INTO `produtoestoque` VALUES (1,1,140.2,199.9,10,'0014-02-05'),(1,2,160,250,10,'0016-03-07'),(1,3,90,150,10,'2014-10-10'),(1,4,120,200,10,'2015-02-12'),(1,5,150,300,10,'2015-10-12'),(1,6,100,200,10,'12/10/2015'),(1,7,100,200,10,'12/10/2015'),(1,8,100,200,10,'12/10/2015'),(2,1,100,150,10,'0014-02-05'),(2,2,120,300,15,'0013-12-06'),(2,3,100,150,10,'2015-10-12'),(2,4,150,200,10,'2015-10-12'),(2,5,100,200,15,'12/10/2015'),(2,6,100,200,10,'12/10/2015'),(2,7,100,200,10,'12/10/2015'),(3,1,120,260,10,'2015-03-08'),(3,2,100,200,10,'2015-10-12'),(3,3,150,250,10,'2015-10-12'),(4,1,100,200,10,'2015-10-12'),(4,2,100,200,10,'12/10/2015');
+INSERT INTO `produtoestoque` VALUES (1,1,140.2,199.9,10,'0014-02-05'),(1,2,160,250,10,'07/03/0016'),(1,3,90,150,10,'2014-10-10'),(1,4,120,200,10,'2015-02-12'),(1,5,150,300,10,'2015-10-12'),(1,6,100,200,10,'12/10/2015'),(1,7,100,200,10,'12/10/2015'),(1,8,100,200,10,'12/10/2015'),(2,1,100,150,10,'0014-02-05'),(2,2,120,300,15,'0013-12-06'),(2,3,100,150,10,'2015-10-12'),(2,4,150,200,10,'2015-10-12'),(2,5,100,200,15,'12/10/2015'),(2,6,100,200,10,'12/10/2015'),(2,7,100,200,10,'12/10/2015'),(3,1,120,260,10,'2015-03-08'),(3,2,100,200,10,'2015-10-12'),(3,3,150,250,10,'2015-10-12'),(3,4,100,150,10,'23/10/2015'),(4,1,100,200,10,'2015-10-12'),(4,2,100,200,10,'12/10/2015');
 /*!40000 ALTER TABLE `produtoestoque` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,6 +393,139 @@ UNLOCK TABLES;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `pesqcli`
+--
+
+/*!50001 DROP TABLE IF EXISTS `pesqcli`*/;
+/*!50001 DROP VIEW IF EXISTS `pesqcli`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `pesqcli` AS select `cliente`.`Codigo` AS `Codigo`,`cliente`.`Nome` AS `Nome`,`cliente`.`Telefone` AS `Telefone`,`cliente`.`Ceuluar` AS `Ceuluar`,`cliente`.`Email` AS `Email` from `cliente` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `pesqfilial`
+--
+
+/*!50001 DROP TABLE IF EXISTS `pesqfilial`*/;
+/*!50001 DROP VIEW IF EXISTS `pesqfilial`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `pesqfilial` AS select `filial`.`Codigo` AS `Codigo`,`filial`.`Nome` AS `Nome`,`filial`.`Cidade` AS `Cidade`,`filial`.`Usuario_Codigo` AS `Usuario_Codigo` from `filial` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `pesqorcamento`
+--
+
+/*!50001 DROP TABLE IF EXISTS `pesqorcamento`*/;
+/*!50001 DROP VIEW IF EXISTS `pesqorcamento`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `pesqorcamento` AS select `orc`.`Codigo` AS `CODIGO`,`orc`.`Data` AS `DATA`,`orc`.`Cliente_Codigo` AS `CLIENTE_CODIGO`,`cli`.`Nome` AS `NOME` from (`orcamento` `orc` left join `cliente` `cli` on((`cli`.`Codigo` = `orc`.`Cliente_Codigo`))) order by `orc`.`Codigo` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `pesqorcpe`
+--
+
+/*!50001 DROP TABLE IF EXISTS `pesqorcpe`*/;
+/*!50001 DROP VIEW IF EXISTS `pesqorcpe`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `pesqorcpe` AS select `ope`.`ProdutoEstoque_Produtos_Codigo` AS `PRODUTOESTOQUE_PRODUTOS_CODIGO`,`ope`.`ProdutoEstoque_CodigoEstoque` AS `PRODUTOESTOQUE_CODIGOESTOQUE`,`produtos`.`Descricao` AS `DESCRICAO` from (`orcamento_produtoestoque` `ope` left join `produtos` on((`produtos`.`Codigo` = `ope`.`ProdutoEstoque_Produtos_Codigo`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `pesqpe`
+--
+
+/*!50001 DROP TABLE IF EXISTS `pesqpe`*/;
+/*!50001 DROP VIEW IF EXISTS `pesqpe`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `pesqpe` AS select `pe`.`Produtos_Codigo` AS `PRODUTOS_CODIGO`,`pe`.`CodigoEstoque` AS `CODIGOESTOQUE`,`produtos`.`Descricao` AS `DESCRICAO`,`pe`.`Custo` AS `CUSTO`,`pe`.`ValorVenda` AS `VALORVENDA`,`pe`.`Qtd` AS `QTD`,`pe`.`DtEntrada` AS `DTENTRADA`,`produtos`.`Marca` AS `MARCA` from (`produtoestoque` `pe` left join `produtos` on((`produtos`.`Codigo` = `pe`.`Produtos_Codigo`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `pesqprod`
+--
+
+/*!50001 DROP TABLE IF EXISTS `pesqprod`*/;
+/*!50001 DROP VIEW IF EXISTS `pesqprod`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `pesqprod` AS select `produtos`.`Codigo` AS `Codigo`,`produtos`.`Descricao` AS `Descricao`,`produtos`.`Marca` AS `Marca` from `produtos` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `pesqusu`
+--
+
+/*!50001 DROP TABLE IF EXISTS `pesqusu`*/;
+/*!50001 DROP VIEW IF EXISTS `pesqusu`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `pesqusu` AS select `usuario`.`Codigo` AS `Codigo`,`usuario`.`Nome` AS `Nome`,`usuario`.`Email` AS `Email`,`usuario`.`NivelAcesso` AS `NivelAcesso`,`usuario`.`Ativo` AS `Ativo`,`usuario`.`Telefone` AS `Telefone`,`usuario`.`Senha` AS `Senha` from `usuario` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -284,4 +536,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-12 14:38:20
+-- Dump completed on 2015-11-03 12:39:40

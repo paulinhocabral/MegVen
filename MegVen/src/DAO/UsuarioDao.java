@@ -39,6 +39,7 @@ public class UsuarioDao {
 
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao inserir usuário: " + he);
             return false;
         } finally {
             sessao.close();
@@ -63,6 +64,7 @@ public class UsuarioDao {
 
         } catch (Exception e) {
             System.out.println("erro ao chamar view: " + e);
+            Login.log.info("Erro ao pesquisar usuario(pesqView): " + e);
             return null;
         }
     }
@@ -89,6 +91,7 @@ public class UsuarioDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar usuario(encontrarTudo): " + he);
             return listaUsuario;
         }
         
@@ -135,14 +138,12 @@ public class UsuarioDao {
             usu.setCodigo(us);
             auditoria.setUsuario(usu); 
             auditoriaDao.InsertAuditoria(auditoria);
-            
-            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " atualizou o usuário: " + usuario.getCodigo() + "," + usuario.getNome()
-                           + "," + usuario.getEmail()+ "," + usuario.getNivelAcesso()+ "," +usuario.isAtivo()+ "," +usuario.getTelefone());
-            
+                        
             return true;
             
         } catch (HibernateException he) {
-            he.printStackTrace(); 
+            he.printStackTrace();
+            Login.log.info("Erro ao atualizar usuario: " + he);
             return false;
         } finally {
             sessao.close();
@@ -193,6 +194,7 @@ public class UsuarioDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar usuario(pesqUsuario): " + he);
             return usuario;
         }
         
@@ -217,6 +219,7 @@ public class UsuarioDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar usuario(pesquisaUsuario): " + he);
             return listaUsuario;
         }
     }

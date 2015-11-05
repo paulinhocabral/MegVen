@@ -4,17 +4,17 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/megven?zeroDateTimeBehavior</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/MegVen</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
+    <mapping resource="Entidades/Estoque.hbm.xml"/>
+    <mapping resource="Entidades/OrcamentoProdutoestoque.hbm.xml"/>
+    <mapping resource="Entidades/Auditoria.hbm.xml"/>
     <mapping resource="Entidades/Filial.hbm.xml"/>
     <mapping resource="Entidades/Cliente.hbm.xml"/>
-    <mapping resource="Entidades/Auditoria.hbm.xml"/>
-    <mapping resource="Entidades/Usuario.hbm.xml"/>
-    <mapping resource="Entidades/OrcamentoProdutoestoque.hbm.xml"/>
+    <mapping resource="Entidades/Orcamento.hbm.xml"/>
     <mapping resource="Entidades/Produtoestoque.hbm.xml"/>
     <mapping resource="Entidades/Produtos.hbm.xml"/>
-    <mapping resource="Entidades/Orcamento.hbm.xml"/>
-    <mapping class="Entidades/ConsAuditoria.hbm.xml"/>
+    <mapping resource="Entidades/Usuario.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

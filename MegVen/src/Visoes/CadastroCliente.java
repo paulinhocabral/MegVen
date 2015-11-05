@@ -462,12 +462,14 @@ public class CadastroCliente extends javax.swing.JFrame {
                     list = clienteDao.pesqView();
                 } catch (Exception ex) {
                     Logger.getLogger(PesquisaCliente.getName()).log(Level.SEVERE, null, ex);
+                    Login.log.info("Erro ao pesquisar cliente(CadastroCliente): " + ex);
                 }
             } else {
                 try {
                     list = clienteDao.pesquisaCliente(edNome.getText());
                 } catch (Exception ex) {
                     Logger.getLogger(PesquisaCliente.getName()).log(Level.SEVERE, null, ex);
+                    Login.log.info("Erro ao pesquisar cliente(CadastroCliente): " + ex);
                 }
             }
 

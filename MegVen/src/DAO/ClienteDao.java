@@ -37,14 +37,13 @@ public class ClienteDao {
             Transaction t = sessao.beginTransaction();           
             
             sessao.save(cliente);
-            t.commit();
-            Login.log.info("Usuário: " + usuario + " inseriu o cliente: " + cliente.getCodigo() + "," + cliente.getNome()+ "," + cliente.getTelefone() + "," +
-                           cliente.getCeuluar()+ "," +cliente.getEmail());                                                           
+            t.commit();            
             
             return true;
 
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao inserir cliente: " + he);
             return false;
         } finally {
             sessao.close();
@@ -88,13 +87,12 @@ public class ClienteDao {
             usu.setCodigo(usuario);
             auditoria.setUsuario(usu); 
             auditoriaDao.InsertAuditoria(auditoria);
-            
-            Login.log.info("Usuário: " + Secao.getInstance().getUsuario() + " fez update do cliente: " + cliente.getCodigo()+ "," + cliente.getNome()+ "," + cliente.getTelefone() + "," +
-                           cliente.getCeuluar()+ "," + cliente.getEmail());
+                        
             return true;
             
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao atualizar o cliente: " + he);
             return false;
         } finally {
             sessao.close();
@@ -117,8 +115,8 @@ public class ClienteDao {
             sessao.getTransaction().commit();
             return listaCli;            
 
-        } catch (Exception e) {
-            System.out.println("erro ao chamar view: " + e);
+        } catch (Exception e) {            
+            Login.log.info("Erro ao chamar view: " + e);
             return null;
         }
     }
@@ -144,6 +142,7 @@ public class ClienteDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar(procuraPorCodigo) cliente: " + he);
             return listaCliente;
         }
     }
@@ -195,6 +194,7 @@ public class ClienteDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar(encontrarTudo) cliente: " + he);
             return listaCliente;
         }
         
@@ -242,6 +242,7 @@ public class ClienteDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar(pesquisaCliente) cliente: " + he);
             return listaCliente;
         }
     }       

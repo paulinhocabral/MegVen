@@ -6,9 +6,9 @@
 package DAO;
 
 import Entidades.Auditoria;
-import Entidades.ConsAuditoria;
 import Entidades.Usuario;
 import Util.HibernateUtil;
+import Visoes.Login;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -46,8 +46,8 @@ public class AuditoriaDao {
             });
 
             sessao.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("erro da função: " + e);
+        } catch (Exception e) {            
+            Login.log.info("Erro ao inserir auditoria: " + e);
         }
     }
 
@@ -73,6 +73,7 @@ public class AuditoriaDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar auditoria(encontrarTudo): " + he);
             return listaAuditoria;
         }
     }
@@ -95,6 +96,7 @@ public class AuditoriaDao {
 
         } catch (Exception e) {
             System.out.println("erro ao chamar view: " + e);
+            Login.log.info("Erro ao pesquisar auditoria(pesqView): " + e);
             return null;
         }
     }         
@@ -109,6 +111,7 @@ public class AuditoriaDao {
             objects = query.list();
         } catch (HibernateException he) {
             System.out.println("erro ao chamar view: " + he);
+            Login.log.info("Erro ao pesquisar auditoria(findAll): " + he);
         } finally {
             sessao.close();
         }

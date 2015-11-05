@@ -9,6 +9,7 @@ package Controle;
  *
  * @author paulo
  */
+import Visoes.Login;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.DatagramPacket;
@@ -107,6 +108,7 @@ public class Conexao
           catch (InterruptedException ex)
           {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+            Login.log.info("Erro ao iniciar chat: " + ex);
           }
           this.erro = true;
         }
@@ -138,14 +140,17 @@ public class Conexao
       catch (SocketException ex)
       {
         Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        Login.log.info("Erro ao iniciar chat: " + ex);
       }
       catch (UnknownHostException ex)
       {
         Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        Login.log.info("Erro ao iniciar chat: " + ex);
       }
       catch (IOException ex)
       {
         Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        Login.log.info("Erro ao iniciar chat: " + ex);
       }
     }
   }

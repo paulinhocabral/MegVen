@@ -1,5 +1,5 @@
 package Entidades;
-// Generated 12/10/2015 12:43:43 by Hibernate Tools 4.3.1
+// Generated 04/11/2015 21:22:04 by Hibernate Tools 4.3.1
 
 
 
@@ -12,14 +12,16 @@ public class OrcamentoProdutoestoque  implements java.io.Serializable {
      private OrcamentoProdutoestoqueId id;
      private Orcamento orcamento;
      private Produtoestoque produtoestoque;
+     private int qtd;
 
     public OrcamentoProdutoestoque() {
     }
 
-    public OrcamentoProdutoestoque(OrcamentoProdutoestoqueId id, Orcamento orcamento, Produtoestoque produtoestoque) {
+    public OrcamentoProdutoestoque(OrcamentoProdutoestoqueId id, Orcamento orcamento, Produtoestoque produtoestoque, int qtd) {
        this.id = id;
        this.orcamento = orcamento;
        this.produtoestoque = produtoestoque;
+       this.qtd = qtd;
     }
    
     public OrcamentoProdutoestoqueId getId() {
@@ -42,6 +44,13 @@ public class OrcamentoProdutoestoque  implements java.io.Serializable {
     
     public void setProdutoestoque(Produtoestoque produtoestoque) {
         this.produtoestoque = produtoestoque;
+    }
+    public int getQtd() {
+        return this.qtd;
+    }
+    
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
     }
 
 

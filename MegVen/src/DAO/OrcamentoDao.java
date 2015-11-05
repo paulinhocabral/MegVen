@@ -11,6 +11,7 @@ import Entidades.Orcamento;
 import Entidades.Secao;
 import Entidades.Usuario;
 import Util.HibernateUtil;
+import Visoes.Login;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -39,6 +40,7 @@ public class OrcamentoDao {
 
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao inserir Orcamento: " + he);
             return false;
         } finally {
             sessao.close();
@@ -62,7 +64,7 @@ public class OrcamentoDao {
             return listaOrcamento;            
 
         } catch (Exception e) {
-            System.out.println("erro ao chamar view: " + e);
+            Login.log.info("Erro ao pesquisar Orcamento(pesqView): " + e);
             return null;
         }
     }
@@ -100,7 +102,8 @@ public class OrcamentoDao {
             return true;
             
         } catch (HibernateException he) {
-            he.printStackTrace(); 
+            he.printStackTrace();
+            Login.log.info("Erro ao atualizar Orcamento: " + he);
             return false;
         } finally {
             sessao.close();
@@ -128,6 +131,7 @@ public class OrcamentoDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar Orcamento(procuraPorCodigo): " + he);
             return listaOrcamento;
         }
     }
@@ -154,6 +158,7 @@ public class OrcamentoDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar Orcamento(encontrarTudo): " + he);
             return listaOrcamento;
         }        
     }
@@ -199,6 +204,7 @@ public class OrcamentoDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar Orcamento(pesquisaOrcamento): " + he);
             return listaOrcamento;
         }
     }

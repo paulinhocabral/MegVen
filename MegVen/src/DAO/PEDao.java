@@ -6,11 +6,11 @@
 package DAO;
 
 import Entidades.Auditoria;
-import Entidades.PesqProdOrc;
 import Entidades.Produtoestoque;
 import Entidades.Secao;
 import Entidades.Usuario;
 import Util.HibernateUtil;
+import Visoes.Login;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -40,7 +40,8 @@ public class PEDao {
             return true;
 
         } catch (HibernateException he) {
-            he.printStackTrace(); 
+            he.printStackTrace();
+            Login.log.info("Erro ao inserir produtoestoque: " + he);
             return false;
         } finally {
             sessao.close();
@@ -86,6 +87,7 @@ public class PEDao {
             
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao atualizar produtoestoque: " + he);
             return false;
         } finally {
             sessao.close();
@@ -113,6 +115,7 @@ public class PEDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar produtoestoque(procuraPorCodigo): " + he);
             return listaPe;
         }
     }
@@ -142,6 +145,7 @@ public class PEDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar produtoestoque(encontrarTudo): " + he);
             return listaPe;
         }        
     }
@@ -164,8 +168,44 @@ public class PEDao {
 
         } catch (Exception e) {
             System.out.println("erro ao chamar view: " + e);
+            Login.log.info("Erro ao pesquisar produtoestoque(pesqView): " + e);
             return null;
         }
+    }
+    
+    public int pesqQtdProd(int cod) {
+        int qtd  = 0;
+        int qtd2 = 0;
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            
+            /*SQLQuery q = sessao.createSQLQuery("SELECT (SUM(PE.QTD) - (SELECT SUM(QTD) FROM ESTOQUE WHERE PRODUTO = PRODUTOS.CODIGO)) AS QTD " + 
+                                               "FROM PRODUTOESTOQUE PE " + 
+                                               "LEFT OUTER JOIN PRODUTOS ON PRODUTOS.CODIGO = PE.PRODUTOS_CODIGO " + 
+                                               "LEFT OUTER JOIN ESTOQUE ON ESTOQUE.PRODUTO = PRODUTOS.CODIGO " +
+                                               "WHERE PRODUTOS.CODIGO = " + cod); */
+            
+            SQLQuery q = sessao.createSQLQuery("SELECT SUM(PE.QTD) AS QTD FROM PRODUTOESTOQUE PE " +
+                                               "WHERE PE.PRODUTOS_CODIGO = " + cod);
+            
+            if (q.list().size() > 0) {                
+                qtd = Integer.parseInt(q.list().get(qtd).toString());
+            }
+            
+            SQLQuery q1 = sessao.createSQLQuery("SELECT SUM(QTD) FROM ESTOQUE WHERE PRODUTO = " + cod);
+            if (q1.list().size() > 0) {                
+                qtd2 = Integer.parseInt(q1.list().get(0).toString());
+            }
+            
+            sessao.getTransaction().commit();
+            return qtd - qtd2;
+
+        } catch (Exception e) {
+            System.out.println("erro ao chamar view: " + e);
+            Login.log.info("Erro ao pesquisar quantidade de produtos(pesqQtdProd): " + e);
+        }
+        return qtd - qtd2;
     }
     
     public List<Produtoestoque> pesqDesc(String desc){
@@ -193,6 +233,7 @@ public class PEDao {
 
         } catch (Exception e) {
             System.out.println("erro ao chamar view: " + e);            
+            Login.log.info("Erro ao pesquisar produtoestoque(pesqDesc): " + e);
         }        
         return listaPe;
     }
@@ -217,7 +258,7 @@ public class PEDao {
         return existe;
     }
     
-    public List<PesqProdOrc> pesqPeOrc(){
+    /*public List<PesqProdOrc> pesqPeOrc(){
         boolean existe = false;
         List<PesqProdOrc> listaPE = new ArrayList();
         List resultado = null;
@@ -234,7 +275,7 @@ public class PEDao {
             }
         
         return listaPE;       
-    }
+    }*/
     
     public List<Produtoestoque> pesquisaPe(String marca){
         List<Produtoestoque> listaPe = new ArrayList();
@@ -259,6 +300,7 @@ public class PEDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar produtoestoque(pesquisaPe): " + he);
             return listaPe;
         }
     }
@@ -280,6 +322,7 @@ public class PEDao {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("erro: " + e);
+            Login.log.info("Erro btNovo produtoestoque " + e);
         }        
         return novo;                        
     }        

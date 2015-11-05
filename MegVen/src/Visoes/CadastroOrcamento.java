@@ -8,14 +8,15 @@ package Visoes;
 import Controle.Formatacao;
 import Controle.MiscTools;
 import DAO.ClienteDao;
+import DAO.EstoqueDao;
 import DAO.OrcamentoDao;
 import DAO.OrcamentoPEDao;
 import DAO.PEDao;
 import Entidades.Cliente;
+import Entidades.Estoque;
 import Entidades.Orcamento;
 import Entidades.OrcamentoProdutoestoque;
 import Entidades.OrcamentoProdutoestoqueId;
-import Entidades.PesqProdOrc;
 import Entidades.Produtoestoque;
 import Entidades.Produtos;
 import Entidades.Usuario;
@@ -520,11 +521,11 @@ public class CadastroOrcamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Cod. estoque", "Descrição"
+                "Código", "Cod. estoque", "Descrição", "Qtd"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -675,11 +676,11 @@ public class CadastroOrcamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Seq", "Código", "Cod. estoque", "Produto"
+                "Seq", "Código", "Cod. estoque", "Produto", "Qtd"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false
+                false, true, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -708,55 +709,56 @@ public class CadastroOrcamento extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel5))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(edCodigoCli, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                                        .addComponent(edProduto))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(15, 15, 15)
-                                            .addComponent(edNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btPesqCli, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(edCodEst, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(edDesProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btPesqProd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(edCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(edDt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btNovo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(edCodigoCli, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                                    .addComponent(edProduto))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addComponent(edNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btPesqCli, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(edCodEst, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(edDesProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btPesqProd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btAdicionar)
+                                .addComponent(edCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)))))
+                                .addComponent(btPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(edDt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(213, Short.MAX_VALUE)
+                        .addComponent(btAdicionar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)))
                 .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btNovo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -798,7 +800,7 @@ public class CadastroOrcamento extends javax.swing.JFrame {
                     .addComponent(btSalvar)
                     .addComponent(jButton2)
                     .addComponent(btNovo))
-                .addGap(36, 36, 36))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -822,11 +824,12 @@ public class CadastroOrcamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        Orcamento orcamento = new Orcamento();
-        
-        Cliente cliente = new Cliente();
-        OrcamentoDao orcDao = new OrcamentoDao();
+        Orcamento orcamento     = new Orcamento();        
+        Cliente cliente         = new Cliente();
+        OrcamentoDao orcDao     = new OrcamentoDao();
         OrcamentoPEDao OrcPeDao = new OrcamentoPEDao();
+        EstoqueDao estoqueDao   = new EstoqueDao();
+        PEDao peDao = new PEDao();
         boolean retorno = false;       
         orcamento.setData(edDt.getText());
                        
@@ -835,20 +838,41 @@ public class CadastroOrcamento extends javax.swing.JFrame {
         orcamento.setCliente(cliente);
         
         if (edCodigo.getText().equals("")) {
+            if (gdProd.getRowCount() == 0) {                
+                JOptionPane.showMessageDialog(this, "Para gravar um orçamento é necessário informar ao menos um produto!");
+            } else {
             retorno = orcDao.InsertOrcamento(orcamento);
-            if (retorno && temAlteracao) {
-                carregaOrcamento(orcamento);
-                for (int i = 0; i < gdProd.getRowCount(); i++) {
-                    OrcamentoProdutoestoqueId OrcPeId = new OrcamentoProdutoestoqueId();
-                    OrcamentoProdutoestoque OrcPe     = new OrcamentoProdutoestoque();
-                    Orcamento orc = new Orcamento();
-                    orc.setCodigo(Integer.parseInt(edCodigo.getText()));
-                    OrcPeId.setProdutoEstoqueProdutosCodigo(Integer.parseInt(gdProd.getValueAt(i, 1).toString()));
-                    OrcPeId.setProdutoEstoqueCodigoEstoque(Integer.parseInt(gdProd.getValueAt(i, 2).toString()));
-                    OrcPeId.setOrcamentoCodigo(Integer.parseInt(edCodigo.getText()));
-                    OrcPe.setId(OrcPeId);                    
-                    OrcPe.setOrcamento(orcamento);
-                    retorno = OrcPeDao.InsertOrcPe(OrcPe);
+                if (retorno && temAlteracao) {                    
+                    carregaOrcamento(orcamento);
+                    for (int i = 0; i < gdProd.getRowCount(); i++) {                        
+                        int prod = Integer.parseInt(gdProd.getValueAt(i, 1).toString());
+                        int qtd  = peDao.pesqQtdProd(prod);
+                        
+                        if (qtd >= Integer.parseInt(gdProd.getValueAt(i, 4).toString())) {
+                            OrcamentoProdutoestoqueId OrcPeId = new OrcamentoProdutoestoqueId();
+                            OrcamentoProdutoestoque OrcPe     = new OrcamentoProdutoestoque();
+                            Orcamento orc                     = new Orcamento();
+                            Estoque estoque                   = new Estoque();
+                            
+                            orc.setCodigo(Integer.parseInt(edCodigo.getText()));
+                            OrcPeId.setProdutoEstoqueProdutosCodigo(Integer.parseInt(gdProd.getValueAt(i, 1).toString()));
+                            OrcPeId.setProdutoEstoqueCodigoEstoque(Integer.parseInt(gdProd.getValueAt(i, 2).toString()));
+                            OrcPeId.setOrcamentoCodigo(Integer.parseInt(edCodigo.getText()));
+                            OrcPe.setId(OrcPeId);
+                            OrcPe.setQtd(Integer.parseInt(gdProd.getValueAt(i, 4).toString()));
+                            OrcPe.setOrcamento(orcamento);
+                            retorno = OrcPeDao.InsertOrcPe(OrcPe);
+                            if (retorno) {
+                                estoque.setProduto(prod);
+                                estoque.setQtd(Integer.parseInt(gdProd.getValueAt(i, 4).toString()));
+                                retorno = estoqueDao.saidaEstoque(estoque);                                                        
+                            }
+                            
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Não ha unidades do produto " + prod + " no estoque!");
+                            retorno = false;
+                        }                        
+                    }
                 }
             }
         } else {
@@ -953,12 +977,14 @@ public class CadastroOrcamento extends javax.swing.JFrame {
                 list = clienteDao.encontrarTudo();
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaCliente.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar Cliente(CadastroOrcamento): " + ex);
             }
         } else {
             try {
                 list = clienteDao.pesquisaCliente(edNomePesq.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaCliente.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar Cliente(CadastroOrcamento): " + ex);
             }
         }
 
@@ -1064,12 +1090,14 @@ public class CadastroOrcamento extends javax.swing.JFrame {
                 list = peDao.pesqView();
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaProduto.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar produto(CadastroOrcamento): " + ex);
             }
         } else {
             try {
                 list = peDao.pesqDesc(edMarcaP.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaProduto.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar produto(CadastroOrcamento): " + ex);
             }
         }
         if (list.isEmpty()) {
@@ -1165,12 +1193,14 @@ public class CadastroOrcamento extends javax.swing.JFrame {
                     list = orcDao.pesqView();
                 } catch (Exception ex) {
                     Logger.getLogger(PesquisaCliente.getName()).log(Level.SEVERE, null, ex);
+                    Login.log.info("Erro ao pesquisar Cliente(CadastroOrcamento): " + ex);
                 }
             } else {
                 try {
                     //list = orcDao.pesquisaCliente(edNome.getText());
                 } catch (Exception ex) {
                     Logger.getLogger(PesquisaCliente.getName()).log(Level.SEVERE, null, ex);
+                    Login.log.info("Erro ao pesquisar Cliente(CadastroOrcamento): " + ex);
                 }
             }
 
@@ -1229,16 +1259,18 @@ public class CadastroOrcamento extends javax.swing.JFrame {
             list = orcPeDao.pesqOrcPE(Integer.parseInt(gdOrc.getValueAt(gdOrc.getSelectedRow(), 0).toString()));
         } catch (Exception ex) {
             Logger.getLogger(PesquisaOrcPE.getName()).log(Level.SEVERE, null, ex);
+            Login.log.info("Erro ao pesquisar orçamentoProdutoEstoque(CadastroOrcamento): " + ex);
         }                    
         if (list.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Produtos não localizados.", "Erro",
                 JOptionPane.ERROR_MESSAGE);            
         } else {
-            String tabela[] = new String[]{"", "", ""};
+            String tabela[] = new String[]{"", "", "", ""};
             for (OrcamentoProdutoestoque ope : list) {
                 tabela[0] = String.valueOf(ope.getId().getProdutoEstoqueProdutosCodigo());
                 tabela[1] = String.valueOf(ope.getId().getProdutoEstoqueCodigoEstoque());
                 tabela[2] = String.valueOf(ope.getProdutoestoque().getProdutos().getDescricao());      
+                tabela[3] = String.valueOf(ope.getQtd());      
                 model.addRow(tabela);
             }                    
             PesquisaOrcPE.setSize(600, 450);

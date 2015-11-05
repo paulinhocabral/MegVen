@@ -415,12 +415,14 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 list = usuarioDao.pesqView();
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaUsuario.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar usuário(CadastroUsuario): " + ex);
             }
         } else {
             try {
                 list = usuarioDao.pesquisaUsuario(edNome.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaUsuario.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar usuário(CadastroUsuario): " + ex);
             }
         }
 

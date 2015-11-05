@@ -614,12 +614,14 @@ public class CadastroFilial extends javax.swing.JFrame {
                 list = filialDao.pesqView();
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaFilial.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar filial(CadastroFilial): " + ex);
             }
         } else {
             try {
                 list = filialDao.pesquisaFilial(edNome.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaFilial.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar filial(CadastroFilial): " + ex);
             }
         }
 
@@ -713,12 +715,14 @@ public class CadastroFilial extends javax.swing.JFrame {
                 list = usuarioDao.encontrarTudo();
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaUsuario.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar Usuário(CadastroFilial): " + ex);
             }
         } else {
             try {
                 list = usuarioDao.pesquisaUsuario(edNome2.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaUsuario.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar Usuário(CadastroFilial): " + ex);
             }
         }
 

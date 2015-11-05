@@ -10,6 +10,7 @@ import Entidades.OrcamentoProdutoestoque;
 import Entidades.Secao;
 import Entidades.Usuario;
 import Util.HibernateUtil;
+import Visoes.Login;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -37,7 +38,8 @@ public class OrcamentoPEDao {
             return true;
 
         } catch (HibernateException he) {
-            he.printStackTrace(); 
+            he.printStackTrace();
+            Login.log.info("Erro ao inserir OrcamentoProdutoEstoque: " + he);
             return false;
         } finally {
             sessao.close();
@@ -50,7 +52,7 @@ public class OrcamentoPEDao {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
             
-            SQLQuery q = sessao.createSQLQuery("SELECT OPE.PRODUTOESTOQUE_PRODUTOS_CODIGO, OPE.PRODUTOESTOQUE_CODIGOESTOQUE,PRODUTOS.DESCRICAO,OPE.ORCAMENTO_CODIGO " + 
+            SQLQuery q = sessao.createSQLQuery("SELECT OPE.PRODUTOESTOQUE_PRODUTOS_CODIGO, OPE.PRODUTOESTOQUE_CODIGOESTOQUE,PRODUTOS.DESCRICAO,OPE.ORCAMENTO_CODIGO,OPE.QTD " + 
                                                "FROM ORCAMENTO_PRODUTOESTOQUE OPE " +
                                                "LEFT OUTER JOIN PRODUTOS ON PRODUTOS.CODIGO = OPE.PRODUTOESTOQUE_PRODUTOS_CODIGO " +
                                                "WHERE OPE.ORCAMENTO_CODIGO = " + cod);
@@ -67,7 +69,7 @@ public class OrcamentoPEDao {
             return listaOPE;            
 
         } catch (Exception e) {
-            System.out.println("erro ao chamar consulta: " + e);
+            Login.log.info("Erro ao pesquisar OrcamentoProdutoEstoque(pesqOrcPE): " + e);
             return null;
         }
     }
@@ -110,6 +112,7 @@ public class OrcamentoPEDao {
             
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao update OrcamentoProdutoEstoque: " + he);
             return false;
         } finally {
             sessao.close();
@@ -143,6 +146,7 @@ public class OrcamentoPEDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar OrcamentoProdutoEstoque(procuraPorCodigo): " + he);
             return listaOrcProd;
         }
     }

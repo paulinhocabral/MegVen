@@ -38,6 +38,7 @@ public class ProdutoDao {
 
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao inserir produto: " + he);
             return false;
         } finally {
             sessao.close();
@@ -62,6 +63,7 @@ public class ProdutoDao {
 
         } catch (Exception e) {
             System.out.println("erro ao chamar view: " + e);
+            Login.log.info("Erro ao pesquisar produto(pesqView): " + e);
             return null;
         }
     }
@@ -96,12 +98,12 @@ public class ProdutoDao {
             usu.setCodigo(usuario);
             auditoria.setUsuario(usu); 
             auditoriaDao.InsertAuditoria(auditoria);
-            
-            Login.log.info("Usuário: " + usuario + " fez o update do cliente: " + produto.getCodigo() + "," + produto.getDescricao()+ "," + produto.getMarca());
+                        
             return true;
             
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao atualizar produto: " + he);
             return false;
         } finally {
             sessao.close();
@@ -129,6 +131,7 @@ public class ProdutoDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar produto(procuraPorCodigo): " + he);
             return listaProduto;
         }
     }
@@ -155,6 +158,7 @@ public class ProdutoDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar produto(encontrarTudo): " + he);
             return listaProdutos;
         }        
     }
@@ -201,6 +205,7 @@ public class ProdutoDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar produto(pesquisaProdutos): " + he);
             return listaProdutos;
         }
     }

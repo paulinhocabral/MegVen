@@ -756,12 +756,14 @@ public class CadastroProdEst extends javax.swing.JFrame {
                 list = produtoDao.encontrarTudo();
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaProdutos.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar produtos(CadastroProdEst): " + ex);
             }
         } else {
             try {
                 list = produtoDao.pesquisaProdutos(edDescP.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesquisaProdutos.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar produtos(CadastroProdEst): " + ex);
             }
         }
 
@@ -877,12 +879,14 @@ public class CadastroProdEst extends javax.swing.JFrame {
                 list = peDao.pesqView();
             } catch (Exception ex) {
                 Logger.getLogger(PesqPE.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar produtoEstoque(CadastroProdEst): " + ex);
             }
         } else {
             try {
                 list = peDao.pesqDesc(edProd.getText());
             } catch (Exception ex) {
                 Logger.getLogger(PesqPE.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar produtoEstoque(CadastroProdEst): " + ex);
             }
         }
 

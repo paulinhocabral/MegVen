@@ -15,6 +15,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
+import Visoes.Login;
 import org.hibernate.SQLQuery;
 
 /**
@@ -37,6 +38,7 @@ public class FilialDao {
 
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao inserir filial: " + he);
             return false;
         } finally {
             sessao.close();
@@ -60,7 +62,7 @@ public class FilialDao {
             return listaFilial;            
 
         } catch (Exception e) {
-            System.out.println("erro ao chamar view: " + e);
+            Login.log.info("Erro ao pesquisar filial(pesqView): " + e);
             return null;
         }
     }
@@ -103,6 +105,7 @@ public class FilialDao {
             
         } catch (HibernateException he) {
             he.printStackTrace(); 
+            Login.log.info("Erro ao atualizar filial: " + he);
             return false;
         } finally {
             sessao.close();
@@ -130,6 +133,7 @@ public class FilialDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar filial(procuraPorCodigo): " + he);
             return listaFilial;
         }
     }
@@ -159,6 +163,7 @@ public class FilialDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar filial(encontrarTudo): " + he);
             return listaFilial;
         }
         
@@ -206,6 +211,7 @@ public class FilialDao {
 
         } catch (HibernateException he) {
             he.printStackTrace();
+            Login.log.info("Erro ao pesquisar filial(pesquisaFilial): " + he);
             return listaFilial;
         }
     }

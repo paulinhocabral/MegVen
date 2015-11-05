@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Controle.Conexao;
-import Entidades.ConsAuditoria;
 import Entidades.Usuario;
 import java.util.Iterator;
 import org.hibernate.Query;
@@ -314,6 +313,7 @@ public class Menu extends javax.swing.JFrame {
             list = auditoriaDao.pesqView();                        
             } catch (Exception ex) {
                 Logger.getLogger(Auditoria.getName()).log(Level.SEVERE, null, ex);
+                Login.log.info("Erro ao pesquisar auditoria(Menu): " + ex);
             
             }
         String tabela[] = new String[]{"", "", "", "", "",""};                             
