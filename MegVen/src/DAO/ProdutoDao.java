@@ -11,12 +11,16 @@ import Entidades.Secao;
 import Entidades.Usuario;
 import Util.HibernateUtil;
 import Visoes.Login;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 
 /**
  *
@@ -43,6 +47,29 @@ public class ProdutoDao {
         } finally {
             sessao.close();
         }
+    }
+    
+    public boolean InsertProFunc(Produtos produto) {
+        boolean retorno = false;
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            sessao.doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    CallableStatement call = connection.prepareCall("{ call InsProdutos(?,?) }");
+                    call.setString(1, produto.getDescricao());
+                    call.setString(2, produto.getMarca());                    
+                    call.execute();
+                }                
+            });
+            retorno = true;
+            sessao.getTransaction().commit();
+        } catch (Exception e) {            
+            Login.log.info("Erro ao inserir produtos(InsertProFunc): " + e);
+        }
+        return retorno;
     }
     
     public List<Produtos> pesqView() {

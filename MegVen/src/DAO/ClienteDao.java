@@ -16,7 +16,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Util.HibernateUtil;
 import Visoes.Login;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import org.hibernate.SQLQuery;
+import org.hibernate.jdbc.Work;
 
 /**
  *
@@ -49,6 +53,32 @@ public class ClienteDao {
             sessao.close();
         }
     }
+    
+    public boolean InsertCliFunc(Cliente cliente) {
+        boolean retorno = false;
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            sessao.doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    CallableStatement call = connection.prepareCall("{ call InsCliente(?,?,?,?) }");
+                    call.setString(1, cliente.getNome());
+                    call.setString(2, cliente.getTelefone());
+                    call.setString(3, cliente.getCeuluar());
+                    call.setString(4, cliente.getEmail());
+                    call.execute();
+                }                
+            });
+            retorno = true;
+            sessao.getTransaction().commit();
+        } catch (Exception e) {            
+            Login.log.info("Erro ao inserir cliente(InsertCliFunc): " + e);
+        }
+        return retorno;
+    }
+    
     
     public Boolean updateCliente(Cliente cliente){
         Session sessao = null;
@@ -221,7 +251,7 @@ public class ClienteDao {
             existe = false;
         }
         return existe;
-    }
+    }   
             
     public List<Cliente> pesquisaCliente(String nome){
         List<Cliente> listaCliente = new ArrayList();

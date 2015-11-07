@@ -59,6 +59,24 @@ public class CadastroOrcamento extends javax.swing.JFrame {
         }
     }
     
+    private void limpaTbTelaOrc() {
+        DefaultTableModel model = (DefaultTableModel) gdProd.getModel();
+        for (int i = model.getRowCount() - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
+    
+    private void limpaCampos(){
+        edCodigo.setText("");
+        edDt.setText("");
+        edCodigoCli.setText("");
+        edNomeCli.setText("");
+        edProduto.setText("");
+        edCodEst.setText("");
+        edDesProduto.setText("");
+        limpaTbTelaOrc();
+    }
+    
     private void carregaOrcamento (Orcamento orcamento) {
         edCodigo.setText(orcamento.getCodigo().toString());
         edDt.setText(orcamento.getData());
@@ -670,6 +688,11 @@ public class CadastroOrcamento extends javax.swing.JFrame {
         });
 
         btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
 
         gdProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -708,9 +731,9 @@ public class CadastroOrcamento extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
@@ -742,22 +765,21 @@ public class CadastroOrcamento extends javax.swing.JFrame {
                             .addComponent(edDt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(213, Short.MAX_VALUE)
                         .addComponent(btAdicionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -861,13 +883,7 @@ public class CadastroOrcamento extends javax.swing.JFrame {
                             OrcPe.setId(OrcPeId);
                             OrcPe.setQtd(Integer.parseInt(gdProd.getValueAt(i, 4).toString()));
                             OrcPe.setOrcamento(orcamento);
-                            retorno = OrcPeDao.InsertOrcPe(OrcPe);
-                            if (retorno) {
-                                estoque.setProduto(prod);
-                                estoque.setQtd(Integer.parseInt(gdProd.getValueAt(i, 4).toString()));
-                                retorno = estoqueDao.saidaEstoque(estoque);                                                        
-                            }
-                            
+                            retorno = OrcPeDao.InsertOrcPe(OrcPe);                                                        
                         } else {
                             JOptionPane.showMessageDialog(this, "Não ha unidades do produto " + prod + " no estoque!");
                             retorno = false;
@@ -1133,7 +1149,7 @@ public class CadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btCarregar1ActionPerformed
 
     private void btCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar1ActionPerformed
-        // TODO add your handling code here:
+        PesquisaProduto.setVisible(false);
     }//GEN-LAST:event_btCancelar1ActionPerformed
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
@@ -1156,10 +1172,11 @@ public class CadastroOrcamento extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //int remover = MiscTools.converterParaInteiro(jtfNumTabela.getText()) - 1;
-        DefaultTableModel model = (DefaultTableModel) gdProd.getModel();
-        model.removeRow(gdProd.getSelectedRow());
-        
-        temAlteracao = true;
+        if (gdProd.getSelectedRow() >= 0) {
+            DefaultTableModel model = (DefaultTableModel) gdProd.getModel();
+            model.removeRow(gdProd.getSelectedRow());        
+            temAlteracao = true;
+        }        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btCancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar2ActionPerformed
@@ -1167,11 +1184,45 @@ public class CadastroOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelar2ActionPerformed
 
     private void btCarregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCarregar2ActionPerformed
-        // TODO add your handling code here:
+        limpaCampos();
+        DefaultTableModel model = (DefaultTableModel) gdProd.getModel();
+        OrcamentoPEDao orcPeDao = new OrcamentoPEDao();
+        if (gdOrc.getSelectedRow() > -1) {
+            edCodigo.setText(gdOrc.getValueAt(gdOrc.getSelectedRow(), 0).toString());
+            edDt.setText(gdOrc.getValueAt(gdOrc.getSelectedRow(), 1).toString());
+            edCodigoCli.setText(gdOrc.getValueAt(gdOrc.getSelectedRow(), 2).toString());
+            edNomeCli.setText(gdOrc.getValueAt(gdOrc.getSelectedRow(), 3).toString());            
+            
+            List<OrcamentoProdutoestoque> list = new ArrayList();
+            try {
+                list = orcPeDao.pesqOrcPE(Integer.parseInt(gdOrc.getValueAt(gdOrc.getSelectedRow(), 0).toString()));
+            } catch (Exception ex) {                
+                Login.log.info("Erro ao pesquisar orçamentoProdutoEstoque(CadastroOrcamento): " + ex);
+            }
+            if (!list.isEmpty()) {
+                String tabela[] = new String[]{"", "", "", "", ""};
+                for (OrcamentoProdutoestoque ope : list) {
+                    int num = model.getRowCount() + 1;
+                    tabela[0] = String.valueOf(num);
+                    tabela[1] = String.valueOf(ope.getId().getProdutoEstoqueProdutosCodigo());
+                    tabela[2] = String.valueOf(ope.getId().getProdutoEstoqueCodigoEstoque());
+                    tabela[3] = String.valueOf(ope.getProdutoestoque().getProdutos().getDescricao());      
+                    tabela[4] = String.valueOf(ope.getQtd());      
+                    model.addRow(tabela);
+                }
+            }
+            
+            PesquisaOrcamento.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione algum orçamento da lista.", "Erro",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btCarregar2ActionPerformed
 
     private void gdOrcMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gdOrcMouseClicked
-        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            btCarregar2ActionPerformed(null);
+        }
     }//GEN-LAST:event_gdOrcMouseClicked
 
     private void gdOrcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gdOrcKeyReleased
@@ -1254,7 +1305,7 @@ public class CadastroOrcamento extends javax.swing.JFrame {
         limpaTableOrcPE();
         DefaultTableModel model = (DefaultTableModel) gdOrcPe.getModel();
         OrcamentoPEDao orcPeDao = new OrcamentoPEDao();
-        List<OrcamentoProdutoestoque> list = new ArrayList();            
+        List<OrcamentoProdutoestoque> list = new ArrayList();
         try {
             list = orcPeDao.pesqOrcPE(Integer.parseInt(gdOrc.getValueAt(gdOrc.getSelectedRow(), 0).toString()));
         } catch (Exception ex) {
@@ -1279,6 +1330,11 @@ public class CadastroOrcamento extends javax.swing.JFrame {
             PesquisaOrcPE.setVisible(true);             
         }        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        limpaCampos();
+        edDt.grabFocus();
+    }//GEN-LAST:event_btNovoActionPerformed
 
    /**
      * @param args the command line arguments

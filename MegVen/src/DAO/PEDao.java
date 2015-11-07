@@ -174,38 +174,26 @@ public class PEDao {
     }
     
     public int pesqQtdProd(int cod) {
-        int qtd  = 0;
-        int qtd2 = 0;
+        int qtd  = 0;        
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
             
-            /*SQLQuery q = sessao.createSQLQuery("SELECT (SUM(PE.QTD) - (SELECT SUM(QTD) FROM ESTOQUE WHERE PRODUTO = PRODUTOS.CODIGO)) AS QTD " + 
-                                               "FROM PRODUTOESTOQUE PE " + 
-                                               "LEFT OUTER JOIN PRODUTOS ON PRODUTOS.CODIGO = PE.PRODUTOS_CODIGO " + 
-                                               "LEFT OUTER JOIN ESTOQUE ON ESTOQUE.PRODUTO = PRODUTOS.CODIGO " +
-                                               "WHERE PRODUTOS.CODIGO = " + cod); */
-            
-            SQLQuery q = sessao.createSQLQuery("SELECT SUM(PE.QTD) AS QTD FROM PRODUTOESTOQUE PE " +
-                                               "WHERE PE.PRODUTOS_CODIGO = " + cod);
+            SQLQuery q = sessao.createSQLQuery("SELECT IFNULL(SUM(PE.QTD),0) -  " +
+                                               "(SELECT IFNULL(SUM(OPE.QTD),0) FROM ORCAMENTO_PRODUTOESTOQUE OPE " +
+                                               "WHERE OPE.PRODUTOESTOQUE_PRODUTOS_CODIGO = PE.PRODUTOS_CODIGO) " +
+                                               "FROM PRODUTOESTOQUE PE " +
+                                               "WHERE PE.PRODUTOS_CODIGO = " + cod);   
             
             if (q.list().size() > 0) {                
                 qtd = Integer.parseInt(q.list().get(qtd).toString());
-            }
-            
-            SQLQuery q1 = sessao.createSQLQuery("SELECT SUM(QTD) FROM ESTOQUE WHERE PRODUTO = " + cod);
-            if (q1.list().size() > 0) {                
-                qtd2 = Integer.parseInt(q1.list().get(0).toString());
-            }
-            
-            sessao.getTransaction().commit();
-            return qtd - qtd2;
+            }                                    
+            sessao.getTransaction().commit();        
 
-        } catch (Exception e) {
-            System.out.println("erro ao chamar view: " + e);
+        } catch (Exception e) {            
             Login.log.info("Erro ao pesquisar quantidade de produtos(pesqQtdProd): " + e);
         }
-        return qtd - qtd2;
+        return qtd;
     }
     
     public List<Produtoestoque> pesqDesc(String desc){

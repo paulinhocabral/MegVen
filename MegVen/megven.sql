@@ -32,7 +32,7 @@ CREATE TABLE `auditoria` (
   PRIMARY KEY (`codigo`),
   KEY `fk_Auditoria_Usuario1_idx` (`Usuario_Codigo`),
   CONSTRAINT `fk_Auditoria_Usuario1` FOREIGN KEY (`Usuario_Codigo`) REFERENCES `usuario` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `auditoria` (
 
 LOCK TABLES `auditoria` WRITE;
 /*!40000 ALTER TABLE `auditoria` DISABLE KEYS */;
-INSERT INTO `auditoria` VALUES (8,'2015-10-05 23:36:08','Update usuario','Campo nome: teste','Campo nome: teste',3),(9,'2015-10-05 23:36:42','Update usuario','Campo nome: teste','Campo nome: teste',3),(10,'2015-10-05 23:38:50','Update usuario','Campo nome: teste','Campo nome: teste',3),(11,'2015-10-05 23:50:52','Update cliente','Campo nome: Teste','Campo nome: Teste22',3),(12,'2015-10-05 23:53:28','Update cliente','Campo nome: teste_Murilo Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111Campo email: email11','Campo nome: teste_Murilo Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111Campo email: email11Campo email: email',3),(13,'2015-10-05 23:54:59','Update usuario','Campo nome: teste2 Campo email: email2 Campo telefone: (22)2222-2222','Campo nome: teste Campo email: email Campo telefone: (22)2222-2224',3),(14,'2015-10-06 00:09:13','Update usuario','Campo nome: teste Campo cidade: Lajeado','Campo nome: teste2 Campo cidade Estrela',3),(15,'2015-10-06 00:14:02','Update usuario','Campo descricao: Produto Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',3),(16,'2015-10-08 00:26:31','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(17,'2015-10-08 00:28:34','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(18,'2015-10-08 00:37:28','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(19,'2015-10-08 00:38:01','Update produtos','Campo descricao: Produto3 Campo marca: Samsung','Campo descricao: Produto4 Campo marca: Samsung',1),(20,'2015-10-12 15:47:43','Update cliente: 2','Campo nome: teste Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111 Campo email: email','Campo nome: teste Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111 Campo email: email Campo email: email',1),(21,'2015-10-12 15:47:49','Update usuario','Campo nome: teste Campo email: email Campo telefone: (22)2222-2222','Campo nome: teste Campo email: email Campo telefone: (22)2222-2222',1),(22,'2015-10-12 15:47:57','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(23,'2015-10-12 15:50:19','Update filial','Campo nome: TESTE2 Campo cidade: Estrela','Campo nome: TESTE2 Campo cidade Estrela',3),(24,'2015-10-12 16:07:08','Update produtoEstoque: 1 6','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(25,'2015-10-12 16:09:33','Update produtoEstoque: 1 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(26,'2015-10-12 16:11:04','Update produtoEstoque: 1 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(27,'2015-10-12 16:14:20','Update produtoEstoque: 2 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(28,'2015-10-12 16:17:22','Update produtoEstoque: 1 8','null Campo valorVenda: 150.0 Campo dtEntrada: 12/10/2015','null Campo valorVenda: 200.0 Campo dtEntrada: 12/10/2015',2),(29,'2015-10-12 16:22:05','Update filial','Campo data: 12/10/2015','Campo data: 11/10/2015',1),(30,'2015-11-02 15:42:10','Update produtoEstoque: 1 2','null Campo dtEntrada: 0016-03-07','null Campo dtEntrada: 07/03/0016',1);
+INSERT INTO `auditoria` VALUES (8,'2015-10-05 23:36:08','Update usuario','Campo nome: teste','Campo nome: teste',3),(9,'2015-10-05 23:36:42','Update usuario','Campo nome: teste','Campo nome: teste',3),(10,'2015-10-05 23:38:50','Update usuario','Campo nome: teste','Campo nome: teste',3),(11,'2015-10-05 23:50:52','Update cliente','Campo nome: Teste','Campo nome: Teste22',3),(12,'2015-10-05 23:53:28','Update cliente','Campo nome: teste_Murilo Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111Campo email: email11','Campo nome: teste_Murilo Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111Campo email: email11Campo email: email',3),(13,'2015-10-05 23:54:59','Update usuario','Campo nome: teste2 Campo email: email2 Campo telefone: (22)2222-2222','Campo nome: teste Campo email: email Campo telefone: (22)2222-2224',3),(14,'2015-10-06 00:09:13','Update usuario','Campo nome: teste Campo cidade: Lajeado','Campo nome: teste2 Campo cidade Estrela',3),(15,'2015-10-06 00:14:02','Update usuario','Campo descricao: Produto Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',3),(16,'2015-10-08 00:26:31','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(17,'2015-10-08 00:28:34','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(18,'2015-10-08 00:37:28','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(19,'2015-10-08 00:38:01','Update produtos','Campo descricao: Produto3 Campo marca: Samsung','Campo descricao: Produto4 Campo marca: Samsung',1),(20,'2015-10-12 15:47:43','Update cliente: 2','Campo nome: teste Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111 Campo email: email','Campo nome: teste Campo telefone: (11)1111-1111 Campo celular: (11)1111-1111 Campo email: email Campo email: email',1),(21,'2015-10-12 15:47:49','Update usuario','Campo nome: teste Campo email: email Campo telefone: (22)2222-2222','Campo nome: teste Campo email: email Campo telefone: (22)2222-2222',1),(22,'2015-10-12 15:47:57','Update produtos','Campo descricao: Produto1 Campo marca: Samsung','Campo descricao: Produto1 Campo marca: Samsung',1),(23,'2015-10-12 15:50:19','Update filial','Campo nome: TESTE2 Campo cidade: Estrela','Campo nome: TESTE2 Campo cidade Estrela',3),(24,'2015-10-12 16:07:08','Update produtoEstoque: 1 6','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(25,'2015-10-12 16:09:33','Update produtoEstoque: 1 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(26,'2015-10-12 16:11:04','Update produtoEstoque: 1 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(27,'2015-10-12 16:14:20','Update produtoEstoque: 2 7','Campo dtEntrada: 12/10/2015','Campo dtEntrada: 12/10/2015',1),(28,'2015-10-12 16:17:22','Update produtoEstoque: 1 8','null Campo valorVenda: 150.0 Campo dtEntrada: 12/10/2015','null Campo valorVenda: 200.0 Campo dtEntrada: 12/10/2015',2),(29,'2015-10-12 16:22:05','Update filial','Campo data: 12/10/2015','Campo data: 11/10/2015',1),(30,'2015-11-02 15:42:10','Update produtoEstoque: 1 2','null Campo dtEntrada: 0016-03-07','null Campo dtEntrada: 07/03/0016',1),(31,'2015-11-04 22:33:31','Update orcamento: 27','Campo data: 04/11/2015','Campo data: 04/11/2015',1),(32,'2015-11-05 00:33:01','Update orcamento: 38','Campo data: 04/11/2015','Campo data: 04/11/2015',1),(33,'2015-11-05 01:13:37','Update orcamento: 45','Campo data: 04/11/2015 Campo cliente: 1','Campo data: 04/11/2015 Campo cliente 10',1),(34,'2015-11-05 01:13:46','Update orcamento: 45','Campo data: 04/11/2015 Campo cliente: 10','Campo data: 04/11/2015 Campo cliente 17',1),(35,'2015-11-07 01:09:54','Update orcamento: 47','Campo data: 06/11/2015','Campo data: 06/11/2015',1),(36,'2015-11-07 01:45:49','Update orcamento: 49','Campo data: 06/11/2015','Campo data: 06/11/2015',1),(37,'2015-11-07 01:47:34','Update orcamento: 49','Campo data: 06/11/2015','Campo data: 06/11/2015',1),(38,'2015-11-07 01:51:45','Update orcamento: 50','Campo data: ','Campo data: ',1);
 /*!40000 ALTER TABLE `auditoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,7 @@ CREATE TABLE `cliente` (
   `Ceuluar` varchar(20) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'Teste21','(11)1111-1111','(11)1111-1111','email22'),(2,'teste','(11)1111-1111','(11)1111-1111','email'),(10,'Teste22','(11)1111-1111','(11)1111-1111','email2'),(11,'Murilo','(11)1111-1112','(11)1111-1111','email'),(12,'teste33','(22)2222-2222','(22)2222-2222','email12'),(14,'Murilo','(11)1111-1111','(11)1111-1111','murilo_schonarth@hotmail.com'),(15,'teste15','(11)1111-1111','(11)1111-1111','eeeeee'),(16,'Teste162222','(11)1111-1111','(11)1111-1111','email'),(17,'teste','(11)1111-1111','(11)1111-1111','email'),(18,'teste','(11)1111-1111','(11)1111-1111','email'),(19,'teste','(22)2222-2222','(22)2222-2222','email'),(20,'teste','(11)1111-1111','(11)1111-1111','email'),(21,'teste','(11)1111-1111','(11)1111-1111','email'),(22,'teste','(11)1111-1111','(11)1111-1111','email'),(23,'teste','(  )    -    ','(11)1111-1111','email'),(24,'teste','(11)1111-1111','(11)1111-1111','email'),(25,'teste','(11)1111-1111','(11)1111-1111','email'),(26,'teste','(11)1111-1111','(11)1111-1111','email'),(27,'teste','(11)1111-1111','(11)1111-1111','email'),(28,'teste','(11)1111-1111','(11)1111-1111','email'),(29,'TESTE','(11)1111-1111','(11)1111-1111','EMAIL'),(30,'cliente','(22)2222-2222','(22)2222-2222','emailcliente'),(31,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(32,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(33,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(34,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(35,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(36,'cli000','(11)1111-1111','(11)1111-1111','email'),(37,'clientenovo','(33)3333-3333','(33)3333-3333','emailCli'),(38,'eee','(33)3333-3333','(33)3333-3333','emailCli');
+INSERT INTO `cliente` VALUES (1,'Teste21','(11)1111-1111','(11)1111-1111','email22'),(2,'teste','(11)1111-1111','(11)1111-1111','email'),(10,'Teste22','(11)1111-1111','(11)1111-1111','email2'),(11,'Murilo','(11)1111-1112','(11)1111-1111','email'),(12,'teste33','(22)2222-2222','(22)2222-2222','email12'),(14,'Murilo','(11)1111-1111','(11)1111-1111','murilo_schonarth@hotmail.com'),(15,'teste15','(11)1111-1111','(11)1111-1111','eeeeee'),(16,'Teste162222','(11)1111-1111','(11)1111-1111','email'),(17,'teste','(11)1111-1111','(11)1111-1111','email'),(18,'teste','(11)1111-1111','(11)1111-1111','email'),(19,'teste','(22)2222-2222','(22)2222-2222','email'),(20,'teste','(11)1111-1111','(11)1111-1111','email'),(21,'teste','(11)1111-1111','(11)1111-1111','email'),(22,'teste','(11)1111-1111','(11)1111-1111','email'),(23,'teste','(  )    -    ','(11)1111-1111','email'),(24,'teste','(11)1111-1111','(11)1111-1111','email'),(25,'teste','(11)1111-1111','(11)1111-1111','email'),(26,'teste','(11)1111-1111','(11)1111-1111','email'),(27,'teste','(11)1111-1111','(11)1111-1111','email'),(28,'teste','(11)1111-1111','(11)1111-1111','email'),(29,'TESTE','(11)1111-1111','(11)1111-1111','EMAIL'),(30,'cliente','(22)2222-2222','(22)2222-2222','emailcliente'),(31,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(32,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(33,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(34,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(35,'cliente','(11)1111-1111','(22)2222-2222','emailcliente'),(36,'cli000','(11)1111-1111','(11)1111-1111','email'),(37,'clientenovo','(33)3333-3333','(33)3333-3333','emailCli'),(38,'eee','(33)3333-3333','(33)3333-3333','emailCli'),(39,'testeFuncao','(11)1111-1111','(11)1111-1111','email'),(40,'novoCli','(22)2222-2222','(22)2222-2222','2eee'),(41,'teste','(11)1111-1111','(11)1111-1111','eeeee');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,6 +89,30 @@ SET character_set_client = utf8;
   `Usuario_Codigo` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `estoque`
+--
+
+DROP TABLE IF EXISTS `estoque`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `estoque` (
+  `Produto` int(11) NOT NULL,
+  `Qtd` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Produto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estoque`
+--
+
+LOCK TABLES `estoque` WRITE;
+/*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
+INSERT INTO `estoque` VALUES (1,4),(2,4);
+/*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `filial`
@@ -132,7 +156,7 @@ CREATE TABLE `orcamento` (
   PRIMARY KEY (`Codigo`),
   KEY `fk_Orcamento_Cliente1_idx` (`Cliente_Codigo`),
   CONSTRAINT `fk_Orcamento_Cliente1` FOREIGN KEY (`Cliente_Codigo`) REFERENCES `cliente` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +165,7 @@ CREATE TABLE `orcamento` (
 
 LOCK TABLES `orcamento` WRITE;
 /*!40000 ALTER TABLE `orcamento` DISABLE KEYS */;
-INSERT INTO `orcamento` VALUES (1,'2015-10-12',2),(2,'2015-10-12',19),(3,'2015-10-12',10),(4,'2015-10-12',11),(5,'2015-10-12',36),(6,'2015-10-12',34),(7,'12/10/2015',10),(8,'12/10/2015',20),(9,'12/10/2015',10),(10,'12/10/2015',16),(11,'11/10/2015',11),(12,'02/11/2015',11),(13,'02/11/2015',10),(14,'02/11/2015',12),(15,'02/11/2015',11);
+INSERT INTO `orcamento` VALUES (51,'06/11/2015',1);
 /*!40000 ALTER TABLE `orcamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,6 +180,8 @@ CREATE TABLE `orcamento_produtoestoque` (
   `ProdutoEstoque_Produtos_Codigo` int(11) NOT NULL,
   `ProdutoEstoque_CodigoEstoque` int(11) NOT NULL,
   `Orcamento_Codigo` int(11) NOT NULL,
+  `Qtd` int(11) NOT NULL,
+  PRIMARY KEY (`ProdutoEstoque_Produtos_Codigo`,`ProdutoEstoque_CodigoEstoque`,`Orcamento_Codigo`),
   KEY `fk_Orcamento_ProdutoEstoque_ProdutoEstoque1_idx` (`ProdutoEstoque_Produtos_Codigo`,`ProdutoEstoque_CodigoEstoque`),
   KEY `fk_Orcamento_ProdutoEstoque_Orcamento1_idx` (`Orcamento_Codigo`),
   CONSTRAINT `fk_Orcamento_ProdutoEstoque_Orcamento1` FOREIGN KEY (`Orcamento_Codigo`) REFERENCES `orcamento` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -169,7 +195,7 @@ CREATE TABLE `orcamento_produtoestoque` (
 
 LOCK TABLES `orcamento_produtoestoque` WRITE;
 /*!40000 ALTER TABLE `orcamento_produtoestoque` DISABLE KEYS */;
-INSERT INTO `orcamento_produtoestoque` VALUES (1,3,15),(2,1,15);
+INSERT INTO `orcamento_produtoestoque` VALUES (1,1,51,80);
 /*!40000 ALTER TABLE `orcamento_produtoestoque` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +359,7 @@ CREATE TABLE `produtos` (
   `Descricao` varchar(200) NOT NULL,
   `Marca` varchar(100) NOT NULL,
   PRIMARY KEY (`Codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +368,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` VALUES (1,'Produto1','Samsung'),(2,'Produtoy','LG'),(3,'Produtox','LG'),(4,'Produto4','Samsung');
+INSERT INTO `produtos` VALUES (1,'Produto1','Samsung'),(2,'Produtoy','LG'),(3,'Produtox','LG'),(4,'Produto4','Samsung'),(5,'testeFunc','Função'),(6,'teste2','Marca'),(7,'teste','teste');
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -536,4 +562,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-03 12:39:40
+-- Dump completed on 2015-11-07 15:40:50

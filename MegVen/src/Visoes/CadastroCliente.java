@@ -396,7 +396,12 @@ public class CadastroCliente extends javax.swing.JFrame {
             cliente.setCeuluar(edCelular.getText());
             cliente.setEmail(edEmail.getText());
         
-            retorno = clienteDao.InsertCliente(cliente);                    
+            retorno = clienteDao.InsertCliFunc(cliente);
+            if (retorno) {
+                List<Cliente> list = new ArrayList();
+                list = clienteDao.pesqView();                
+                carregaCliente(list.get(list.size()-1));
+            }
         } else {            
             boolean existe = clienteDao.existeNoBanco(Integer.parseInt(edCodigo.getText()));
             if (existe){
@@ -408,12 +413,13 @@ public class CadastroCliente extends javax.swing.JFrame {
                 cliente.setEmail(edEmail.getText());
                 
                 retorno = clienteDao.updateCliente(cliente);                
-
+                if (existe) {
+                    carregaCliente(cliente);
+                }
             }                
         }
         if (retorno == true) {
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso!");            
-            carregaCliente(cliente);
+            JOptionPane.showMessageDialog(null, "Gravado com sucesso!");                        
         } else {
             JOptionPane.showMessageDialog(null, "Erro!");
         }            

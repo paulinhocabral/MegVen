@@ -292,7 +292,12 @@ public class CadastroProduto extends javax.swing.JFrame {
             produto.setDescricao(edDesc.getText());
             produto.setMarca(edMarca.getText());
 
-            retornoProd = produtoDao.InsertProdutos(produto);
+            retornoProd = produtoDao.InsertProFunc(produto);
+            if (retornoProd) {
+                List<Produtos> list = new ArrayList();
+                list = produtoDao.pesqView();
+                carregaProduto(list.get(list.size()-1));
+            }
         } else {
             boolean existe = produtoDao.existeNoBanco(Integer.parseInt(edCodigo.getText()));
             if (existe){
@@ -300,11 +305,13 @@ public class CadastroProduto extends javax.swing.JFrame {
                 produto.setDescricao(edDesc.getText());
                 produto.setMarca(edMarca.getText());
                 retornoProd = produtoDao.updateProdutos(produto);
+                if (retornoProd) {
+                    carregaProduto(produto);
+                }
             }
         }
         if (retornoProd == true) {
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso!");
-            carregaProduto(produto);            
+            JOptionPane.showMessageDialog(null, "Gravado com sucesso!");                        
         } else {
             JOptionPane.showMessageDialog(null, "Erro!");
         }
